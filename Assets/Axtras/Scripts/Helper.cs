@@ -1,0 +1,70 @@
+using UnityEngine;
+using DG.Tweening;
+using Cinemachine;
+
+public static class Helper 
+{
+    public static void CameraShake(float amplitude, float duration) {
+        // Get the Cinemachine Basic Multi Channel Perlin component from the virtual camera
+        CinemachineVirtualCamera virtualCamera = GameObject.Find("Game Virtual Camera").GetComponent<CinemachineVirtualCamera>();
+        CinemachineBasicMultiChannelPerlin noise = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+
+        if (noise == null) {
+            Debug.LogError("No CinemachineBasicMultiChannelPerlin component found on the virtual camera.");
+            return;
+        }
+
+        // Set the initial amplitude and frequency
+        noise.m_AmplitudeGain = amplitude;
+
+        // Create a tween to gradually reduce the amplitude and frequency over the duration
+        DOTween.To(() => noise.m_AmplitudeGain, x => noise.m_AmplitudeGain = x, 0f, duration).SetEase(Ease.OutQuad);
+    }
+
+    public static T GetComponentInParentByName<T>(Transform currentTransform, string parentName) where T : Component {
+        if (currentTransform == null) {
+            // Debug.LogWarning("Current transform is null.");
+            return null;
+        }
+        // Debug.Log($"Checking transform: {currentTransform.name}");
+
+        if (currentTransform.name == parentName) {
+            // Debug.Log($"Found parent with name: {parentName}");
+            return currentTransform.GetComponent<T>();
+        }
+
+        return GetComponentInParentByName<T>(currentTransform.parent, parentName);
+    }
+    public static T GetComponentInParentByTag<T>(Transform currentTransform, string tagName) where T : Component {
+        if (currentTransform == null) {
+            // Debug.LogWarning("Current transform is null.");
+            return null;
+        }
+        // Debug.Log($"Checking transform: {currentTransform.name}");
+
+        if (currentTransform.CompareTag(tagName)) {
+            // Debug.Log($"Found parent with tag: {tagName}");
+            return currentTransform.GetComponent<T>();
+        }
+
+        return GetComponentInParentByTag<T>(currentTransform.parent, tagName);
+    }
+
+    public static void MoveUpAndDownUI(Transform uiTransform, float moveDistance, float moveDuration) {
+        Vector3 originalPosition = uiTransform.position;
+        Vector3 targetPosition = new(originalPosition.x, originalPosition.y + moveDistance, originalPosition.z);
+        uiTransform.DOMoveY(targetPosition.y, moveDuration).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
+    }
+    public static void ScaleInAndOutUI(Transform uiTransform, float scaleTo, float scaleInTime) {
+        uiTransform.DOScale(scaleTo, scaleInTime);
+    }
+    public static void UIShake(RectTransform uiElement, float strength, float duration, int vibrato = 100, float randomness = 90, bool fadeOut = true) {
+        if (uiElement == null) {
+            Debug.LogError("No RectTransform component found on the UI element.");
+            return;
+        }
+
+        // Perform the shake animation on the UI element
+        uiElement.DOShakeAnchorPos(duration, strength, vibrato, randomness, false, fadeOut);
+    }
+}
