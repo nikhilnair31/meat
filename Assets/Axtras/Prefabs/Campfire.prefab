@@ -13,11 +13,11 @@ GameObject:
   - component: {fileID: 5405479379282022358}
   - component: {fileID: 8905592538648031544}
   - component: {fileID: 502218494028827058}
-  - component: {fileID: 2100444448971445172}
+  - component: {fileID: 1359717331894921182}
   - component: {fileID: 316764947913253243}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Campfire
-  m_TagString: Pickup
+  m_TagString: Fireplace
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -134,7 +134,7 @@ CapsuleCollider:
   m_Height: 3.5
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 1.7}
---- !u!114 &2100444448971445172
+--- !u!114 &1359717331894921182
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,11 +143,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4037853612149448477}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af5b0cf8d25bae14b9eb72bd1457ce88, type: 3}
+  m_Script: {fileID: 11500000, guid: 31afcd7cfb611f14ab295161c70ab281, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupType: 0
-  interactTransform: {fileID: 0}
+  interactTransform: {fileID: 886367749130222252}
   transitionDuration: 0.2
   transitionAmount: 0.3
   canvasOffsetY: 0.4
@@ -164,6 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a89c21fe0734744db452356ad71c308, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flameParticle: {fileID: 1722286860441280146}
   hurtAmountOnEnter: 6
   hurtAmountOnStay: 2
   hurtStayRate: 0.4
@@ -219,8 +219,8 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
   looping: 1
-  prewarm: 1
-  playOnAwake: 1
+  prewarm: 0
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:

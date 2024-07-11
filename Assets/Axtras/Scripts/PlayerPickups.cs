@@ -3,12 +3,6 @@ using UnityEngine;
 
 public class PlayerPickups : MonoBehaviour 
 {
-    public Dictionary<string, PlayerPickupItems.PickupType> pickupTypeMap = new()
-    {
-        { "Swingable", PlayerPickupItems.PickupType.Swingable },
-        { "Throwable", PlayerPickupItems.PickupType.Throwable },
-        { "Consumable", PlayerPickupItems.PickupType.Consumable }
-    };
     public PlayerPickupItems currentPlayerPickupItem = null;
     public GameObject currentPlayerPickupItemGameObject;
     public GameObject currentPlayerPickupItemPrefab;
@@ -17,8 +11,8 @@ public class PlayerPickups : MonoBehaviour
     [Header("Pickup Properties")]
     [SerializeField] private Transform playerEyes;
     public Transform pickupHolder;
-    [SerializeField] private LayerMask pickupLayer;
-    [SerializeField] private float pickupRange = 2f;
+    [SerializeField] private LayerMask interactableLayer;
+    [SerializeField] private float interactableRange = 2f;
     public List<PlayerPickupItems> playerPickupItemsList;
 
     [Header("UI Elements")]
@@ -30,42 +24,51 @@ public class PlayerPickups : MonoBehaviour
     }
 
     private void Update() {
-        TryPickingUpItem();
         LookingAtItems();
+        TryPickingUpItem();
     }
 
     private void LookingAtItems() {
-        if (Physics.Raycast(playerEyes.position, playerEyes.forward, out RaycastHit hit, pickupRange, pickupLayer)) {
-            if (hit.collider.CompareTag("Pickup")) {
-                hit.collider.gameObject.GetComponent<Pickups>().ShowUI = true;
-            }
+        if (Physics.Raycast(playerEyes.position, playerEyes.forward, out RaycastHit hit, interactableRange, interactableLayer)) {
+            hit.collider.gameObject.GetComponent<Interactable>().ShowUI = true;
         }
     }
 
     private void TryPickingUpItem() {
         if (Input.GetKeyDown(KeyCode.E)) {
-            LookForItem();
+            InteractWithItem();
         }
     }
-    private void LookForItem() {
-        // Debug.Log($"LookForItem");
-
-        if (Physics.Raycast(playerEyes.position, playerEyes.forward, out RaycastHit hit, pickupRange, pickupLayer)) {
+    private void InteractWithItem() {
+        if (Physics.Raycast(playerEyes.position, playerEyes.forward, out RaycastHit hit, interactableRange, interactableLayer)) {
             // Debug.Log($"item near enough: {hit.collider.tag}");
             
-            if (hit.collider.CompareTag("Pickup")) {
-                CheckPickup(hit.collider.gameObject);
+            if (hit.collider.CompareTag("Fireplace")) {
+                InteractWithFireplace(hit.collider.gameObject);
             }
+            else if (hit.collider.CompareTag("Throwable")) {
+                InteractWithThrowable(hit.collider.gameObject);
+            }
+            else if (hit.collider.CompareTag("Swingable")) {
+                InteractWithSwingable(hit.collider.gameObject);
+            }
+            else if (hit.collider.CompareTag("Consumable")) {
+                InteractWithConsumable(hit.collider.gameObject);
+            }    
+            // TODO: Reset picked limb's health
+            // TODO: Display picked limb's health
         }
         else {
             Debug.Log("item too far!");
             Helper.UIShake(cursorImageRectTransform, shakeMagnitude, shakeDuration);
         }
     }
-    // TODO: Reset picked limb's health
-    // TODO: Display picked limb's health
-    private void CheckPickup(GameObject hitGameObject) {
-        // Debug.Log($"CheckPickup");
+    private void InteractWithFireplace(GameObject hitGameObject) {
+        Fireplace fireplace = hitGameObject.GetComponent<Fireplace>();
+        fireplace.StartStopFireplace();
+    }
+    private void InteractWithThrowable(GameObject hitGameObject) {
+        Debug.Log($"InteractWithThrowable");
 
         string pickupName = hitGameObject.name;
         // Debug.Log($"pickupName: {pickupName}");
@@ -83,6 +86,13 @@ public class PlayerPickups : MonoBehaviour
             Helper.UIShake(cursorImageRectTransform, shakeMagnitude, shakeDuration);
         }
     }
+    private void InteractWithSwingable(GameObject hitGameObject) {
+        Debug.Log($"InteractWithSwingable");
+    }
+    private void InteractWithConsumable(GameObject hitGameObject) {
+        Debug.Log($"InteractWithConsumable");
+    }
+
     private void EquipPickup(PlayerPickupItems pickup) {
         // Debug.Log($"EquipPickup | currentPlayerPickupItem: {currentPlayerPickupItem} | pickup: {pickup}");
 

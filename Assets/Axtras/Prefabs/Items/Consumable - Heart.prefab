@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 2904141802780354703}
   - component: {fileID: 9116288853240577898}
   - component: {fileID: 1421290292614214817}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Consumable - Heart
-  m_TagString: Pickup
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -148,12 +148,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af5b0cf8d25bae14b9eb72bd1457ce88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupType: 3
   interactTransform: {fileID: 804943249555467340}
   transitionDuration: 0.2
   transitionAmount: 0.3
   canvasOffsetY: 0.4
   displayDuration: 2
+  pickupType: 3
 --- !u!1001 &106566676286871294
 PrefabInstance:
   m_ObjectHideFlags: 0

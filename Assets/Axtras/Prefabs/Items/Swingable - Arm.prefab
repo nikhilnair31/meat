@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 3459522658503210841}
   - component: {fileID: 452644012346793815}
   - component: {fileID: 2499472070431129026}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Swingable - Arm
-  m_TagString: Pickup
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -148,12 +148,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af5b0cf8d25bae14b9eb72bd1457ce88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupType: 1
   interactTransform: {fileID: 4688136861436573011}
   transitionDuration: 0.2
   transitionAmount: 0.3
   canvasOffsetY: 0.4
   displayDuration: 2
+  pickupType: 1
 --- !u!1001 &5430982640271642593
 PrefabInstance:
   m_ObjectHideFlags: 0

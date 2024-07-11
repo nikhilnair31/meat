@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 2421924738656835535}
   - component: {fileID: 8844532974813107228}
   - component: {fileID: 9057470387520776578}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Throwable - Head
-  m_TagString: Pickup
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -149,12 +149,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af5b0cf8d25bae14b9eb72bd1457ce88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupType: 2
   interactTransform: {fileID: 1807632203615843658}
   transitionDuration: 0.2
   transitionAmount: 0.3
   canvasOffsetY: 0.4
   displayDuration: 2
+  pickupType: 2
 --- !u!114 &9057470387520776578
 MonoBehaviour:
   m_ObjectHideFlags: 0
