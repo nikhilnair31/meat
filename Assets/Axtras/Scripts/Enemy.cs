@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -7,7 +6,6 @@ public class Enemy : MonoBehaviour
     
     [Header("Enemy Mesh")]
     public SkinnedMeshRenderer enemySkinnedMeshRenderer;
-    public List<LimbHealth> limbHealthList;
 
     [Header("Enemy Health")]
     [SerializeField] private int maxHealth = 100;

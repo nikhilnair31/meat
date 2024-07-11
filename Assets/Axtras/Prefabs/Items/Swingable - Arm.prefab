@@ -125,10 +125,10 @@ Rigidbody:
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -151,8 +151,9 @@ MonoBehaviour:
   pickupType: 1
   interactTransform: {fileID: 4688136861436573011}
   transitionDuration: 0.2
-  transitionDistance: 0.2
+  transitionAmount: 0.3
   canvasOffsetY: 0.4
+  displayDuration: 2
 --- !u!1001 &5430982640271642593
 PrefabInstance:
   m_ObjectHideFlags: 0

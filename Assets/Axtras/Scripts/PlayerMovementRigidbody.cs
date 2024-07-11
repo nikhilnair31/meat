@@ -52,6 +52,7 @@ public class PlayerMovementRigidbody : MonoBehaviour
         }
     }
 
+    // TODO: Add more animations for movement (all direction movement)
     void FixedUpdate()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
