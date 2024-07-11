@@ -92,8 +92,16 @@ public class PlayerPickups : MonoBehaviour
     }
     
     public void DisableAllPickups() {
-        currentPlayerPickupItem?.obj.SetActive(false);
-        currentPlayerPickupItem = null;
+        Debug.Log($"DisableAllPickups");
+        
+        if (currentPlayerPickupItem != null) {
+            // currentPlayerPickupItem.PrintDetails();
+
+            if (currentPlayerPickupItem.obj != null) {
+                currentPlayerPickupItem.obj.SetActive(false);
+            }
+            currentPlayerPickupItem = null;
+        }
     }
     public void EnableOnePickup(PlayerPickupItems pickup) {
         currentPlayerPickupItem = pickup;

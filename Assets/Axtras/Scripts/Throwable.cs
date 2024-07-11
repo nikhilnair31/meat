@@ -3,6 +3,7 @@ using UnityEngine;
 public class Throwable : MonoBehaviour 
 {
     private PlayerPickups playerPickups;
+    private bool isThrown = false;
 
     [Header("Throwable Properties")]
     [SerializeField] private float throwForce = 20f;
@@ -35,9 +36,11 @@ public class Throwable : MonoBehaviour
     }
     // Throwable Related
     private void HandleThrowable() {
-        if (playerPickups.currentPlayerPickupItem.type == PlayerPickupItems.PickupType.Throwable) {
-            if (Input.GetMouseButtonDown(0)) {
-                ThrowPickup();
+        if (playerPickups.currentPlayerPickupItem != null) {
+            if (playerPickups.currentPlayerPickupItem.type == PlayerPickupItems.PickupType.Throwable) {
+                if (Input.GetMouseButtonDown(0)) {
+                    ThrowPickup();
+                }
             }
         }
     }

@@ -30,19 +30,21 @@ public class Consumable : MonoBehaviour
 
     // Consumable Related
     private void HandleConsumable() {
-        if (playerPickups.currentPlayerPickupItem.type == PlayerPickupItems.PickupType.Consumable) {
-            // Main
-            if (Input.GetMouseButton(0)) {
-                if (!isConsuming) {
-                    isConsuming = true;
-                    consumptionProgress = 0f;
+        if (playerPickups.currentPlayerPickupItem != null) {
+            if (playerPickups.currentPlayerPickupItem.type == PlayerPickupItems.PickupType.Consumable) {
+                // Main
+                if (Input.GetMouseButton(0)) {
+                    if (!isConsuming) {
+                        isConsuming = true;
+                        consumptionProgress = 0f;
+                    }
+                    ConsumePickup();
                 }
-                ConsumePickup();
-            }
-            else {
-                isConsuming = false;
-                consumptionProgress = 0f;
-                consumableMeterImage.fillAmount = 0f;
+                else {
+                    isConsuming = false;
+                    consumptionProgress = 0f;
+                    consumableMeterImage.fillAmount = 0f;
+                }
             }
         }
     }

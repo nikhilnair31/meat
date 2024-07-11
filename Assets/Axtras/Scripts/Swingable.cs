@@ -50,25 +50,27 @@ public class Swingable : MonoBehaviour
     {
         attackTimer -= Time.deltaTime;
 
-        if (playerPickups.currentPlayerPickupItem.type == PlayerPickupItems.PickupType.Swingable) {
-            if (attackTimer > 0) {
-                return;
-            }
+        if (playerPickups.currentPlayerPickupItem != null) {
+            if (playerPickups.currentPlayerPickupItem.type == PlayerPickupItems.PickupType.Swingable) {
+                if (attackTimer > 0) {
+                    return;
+                }
 
-            if (Input.GetMouseButtonDown(0)) {
-                StartCoroutine(PerformAttack(lightAttackDuration));
-                attackTimer = attackCooldown;
-            }
-            if (Input.GetMouseButtonDown(0) && Input.GetMouseButton(0)) {
-                StartCoroutine(PerformAttack(heavyAttackDuration));
-                attackTimer = attackCooldown + heavyAttackDuration - lightAttackDuration;
-            }
+                if (Input.GetMouseButtonDown(0)) {
+                    StartCoroutine(PerformAttack(lightAttackDuration));
+                    attackTimer = attackCooldown;
+                }
+                if (Input.GetMouseButtonDown(0) && Input.GetMouseButton(0)) {
+                    StartCoroutine(PerformAttack(heavyAttackDuration));
+                    attackTimer = attackCooldown + heavyAttackDuration - lightAttackDuration;
+                }
 
-            if (Input.GetMouseButton(1)) {
-                PerformBlock(true);
-            }
-            else if (Input.GetMouseButtonUp(1)) {
-                PerformBlock(false);
+                if (Input.GetMouseButton(1)) {
+                    PerformBlock(true);
+                }
+                else if (Input.GetMouseButtonUp(1)) {
+                    PerformBlock(false);
+                }
             }
         }
     }
