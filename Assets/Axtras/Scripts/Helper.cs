@@ -20,6 +20,25 @@ public static class Helper
         // Create a tween to gradually reduce the amplitude and frequency over the duration
         DOTween.To(() => noise.m_AmplitudeGain, x => noise.m_AmplitudeGain = x, 0f, duration).SetEase(Ease.OutQuad);
     }
+    public static Vector3 CameraCenterTargetPoint() {
+        // FIXME: Make thrown item go to center of camera
+        Camera mainCamera = Camera.main;
+        Vector3 screenCenter = new(Screen.width / 2, Screen.height / 2, mainCamera.nearClipPlane + 1f);
+        Vector3 screenCenterWorldPoint = mainCamera.ScreenToWorldPoint(screenCenter);
+        Vector3 throwDirection = (screenCenterWorldPoint - mainCamera.transform.position).normalized;
+
+        // Define the maximum throw distance
+        float maxThrowDistance = 100f;
+
+        // Perform a raycast from the camera's position in the throw direction
+        Ray ray = new(mainCamera.transform.position, throwDirection);
+        if (Physics.Raycast(ray, out RaycastHit hit, maxThrowDistance)) {
+            return hit.point;
+        }
+        else {
+            return mainCamera.transform.position + throwDirection * maxThrowDistance;
+        }
+    }
 
     public static T GetComponentInParentByName<T>(Transform currentTransform, string parentName) where T : Component {
         if (currentTransform == null) {

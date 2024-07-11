@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2499472070431129026}
   m_Layer: 9
   m_Name: Swingable - Arm
-  m_TagString: Interactable
+  m_TagString: Swingable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -33,7 +33,6 @@ public class Fireplace : MonoBehaviour
             Helper.CameraShake(hurtShakeMagnitude * hurtShakeMultiplier, hurtShakeDuration * hurtShakeMultiplier);
         }
     }    
-
     private void OnTriggerStay(Collider other) {
         if (other.CompareTag("Player") && Time.time >= nextHurtTime) {
             playerHealth.DiffHealth(hurtAmountOnStay);

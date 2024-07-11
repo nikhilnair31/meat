@@ -30,7 +30,7 @@ public class Consumable : MonoBehaviour
 
     // Consumable Related
     private void HandleConsumable() {
-        if (playerPickups.currentPlayerPickupItemPickupType == PlayerPickupItems.PickupType.Consumable) {
+        if (playerPickups.currentPlayerPickupItem.type == PlayerPickupItems.PickupType.Consumable) {
             // Main
             if (Input.GetMouseButton(0)) {
                 if (!isConsuming) {

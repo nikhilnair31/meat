@@ -25,13 +25,9 @@ public class Throwable : MonoBehaviour
         playerPickups = FindObjectOfType<PlayerPickups>();
 
         weaponMaterial = GetComponent<Renderer>().material;
-
-        Init();
-    }
-    // Init Related
-    private void Init() {
-        currentHealth = maxHealth;
         originalColor = weaponMaterial.color;
+
+        currentHealth = maxHealth;
     }
 
     private void Update() {
@@ -39,34 +35,34 @@ public class Throwable : MonoBehaviour
     }
     // Throwable Related
     private void HandleThrowable() {
-        if (playerPickups.currentPlayerPickupItemPickupType == PlayerPickupItems.PickupType.Throwable) {
-            // Main
+        if (playerPickups.currentPlayerPickupItem.type == PlayerPickupItems.PickupType.Throwable) {
             if (Input.GetMouseButtonDown(0)) {
                 ThrowPickup();
             }
         }
     }
     private void ThrowPickup() {
-        if(playerPickups.currentPlayerPickupItemPrefab == null) {
+        if(playerPickups.currentPlayerPickupItem.prefab == null) {
             Debug.LogWarning($"Current pickup prefab is null, cancelling throw");
             return;
         }
 
         // Spawn the object
-        GameObject spawnedObject = Instantiate(playerPickups.currentPlayerPickupItemPrefab);
+        GameObject spawnedObject = Instantiate(playerPickups.currentPlayerPickupItem.prefab);
 
         // Set position and rotation
         spawnedObject.transform.SetLocalPositionAndRotation(
-            playerPickups.currentPlayerPickupItemGameObject.transform.position, 
-            playerPickups.currentPlayerPickupItemGameObject.transform.rotation
+            playerPickups.currentPlayerPickupItem.obj.transform.position, 
+            playerPickups.currentPlayerPickupItem.obj.transform.rotation
         );
 
         // Set name to same as prefab (Remove Clone suffix)
-        spawnedObject.transform.name = playerPickups.currentPlayerPickupItemGameObject.name;
+        spawnedObject.transform.name = playerPickups.currentPlayerPickupItem.obj.name;
 
         // If has Rigidbody, apply velocity to throw
         if (spawnedObject.TryGetComponent(out Rigidbody rb)) {
-            Vector3 throwVelocity = (ThrowTargetPoint() - transform.position).normalized * throwForce;
+            Vector3 throwPoint = Helper.CameraCenterTargetPoint();
+            Vector3 throwVelocity = (throwPoint - transform.position).normalized * throwForce;
             rb.velocity = throwVelocity;
         }
 
@@ -112,24 +108,4 @@ public class Throwable : MonoBehaviour
             weaponMaterial.color = Color.Lerp(Color.black, originalColor, healthRatio);
         }
     }
-    
-    private Vector3 ThrowTargetPoint() {
-        // FIXME: Make thrown item go to center of camera
-        Camera mainCamera = Camera.main;
-        Vector3 screenCenter = new(Screen.width / 2, Screen.height / 2, mainCamera.nearClipPlane + 1f);
-        Vector3 screenCenterWorldPoint = mainCamera.ScreenToWorldPoint(screenCenter);
-        Vector3 throwDirection = (screenCenterWorldPoint - mainCamera.transform.position).normalized;
-
-        // Define the maximum throw distance
-        float maxThrowDistance = 100f;
-
-        // Perform a raycast from the camera's position in the throw direction
-        Ray ray = new(mainCamera.transform.position, throwDirection);
-        if (Physics.Raycast(ray, out RaycastHit hit, maxThrowDistance)) {
-            return hit.point;
-        }
-        else {
-            return mainCamera.transform.position + throwDirection * maxThrowDistance;
-        }
-    }   
 }

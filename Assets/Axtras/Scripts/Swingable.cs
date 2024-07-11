@@ -50,7 +50,7 @@ public class Swingable : MonoBehaviour
     {
         attackTimer -= Time.deltaTime;
 
-        if (playerPickups.currentPlayerPickupItemPickupType == PlayerPickupItems.PickupType.Swingable) {
+        if (playerPickups.currentPlayerPickupItem.type == PlayerPickupItems.PickupType.Swingable) {
             if (attackTimer > 0) {
                 return;
             }
