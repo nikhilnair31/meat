@@ -40,7 +40,7 @@ public class Fireplace : Interactable
     private void OnTriggerEnter(Collider other) {
         if(isOff) {
             if (other.CompareTag("Player")) {
-                playerHealth.DiffHealth(hurtAmountOnEnter, 0f);
+                playerHealth.DiffHealth(hurtAmountOnEnter, 0.01f);
                 Helper.CameraShake(hurtShakeMagnitude * hurtShakeMultiplier, hurtShakeDuration * hurtShakeMultiplier);
             }
         }
@@ -48,7 +48,7 @@ public class Fireplace : Interactable
     private void OnTriggerStay(Collider other) {
         if(isOff) {
             if (other.CompareTag("Player") && Time.time >= nextHurtTime) {
-                playerHealth.DiffHealth(hurtAmountOnStay, 0f);
+                playerHealth.DiffHealth(hurtAmountOnStay, 0.01f);
                 Helper.CameraShake(hurtShakeMagnitude, hurtShakeDuration);
                 
                 nextHurtTime = Time.time + hurtStayRate;

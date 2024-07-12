@@ -111,6 +111,11 @@ public class Throwable : Interactable
             if (other.collider.CompareTag("Limb")){
                 Debug.Log("Limb hit!");
                 
+                Ragdoll ragdoll = Helper.GetComponentInParentByTag<Ragdoll>(other.transform, "Enemy");
+                if (ragdoll != null) {
+                    ragdoll.EnableRagdoll();
+                }
+                
                 TransformCollector transformCollector = Helper.GetComponentInParentByTag<TransformCollector>(other.transform, "Enemy");
                 if (transformCollector != null) {
                     foreach (TransformData data in transformCollector.transformDataList) {
