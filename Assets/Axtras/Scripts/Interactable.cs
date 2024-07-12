@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Interactable : MonoBehaviour 
+public abstract class Interactable : MonoBehaviour 
 {
     private bool showUI;
 
@@ -11,6 +11,10 @@ public class Interactable : MonoBehaviour
     [SerializeField] private float transitionAmount = 0.3f;
     [SerializeField] private float canvasOffsetY = 3f;
     [SerializeField] private float displayDuration = 2f;
+
+    public virtual void Interact() {}
+    public virtual void Pickup() {}
+    public virtual void Drop() {}
 
     public bool ShowUI {
         get { 
@@ -28,7 +32,6 @@ public class Interactable : MonoBehaviour
             }
         }
     }
-
     private void ShowPickupItemUI() {
         // Debug.Log($"ShowPickupItemUI");
 
@@ -38,7 +41,6 @@ public class Interactable : MonoBehaviour
             StartCoroutine(HidePickupItemUIAfterDelay());
         }
     }
-
     private void HidePickupItemUI() {
         // Debug.Log($"HidePickupItemUI");
 
@@ -46,7 +48,6 @@ public class Interactable : MonoBehaviour
             Helper.ScaleInAndOutUI(interactTransform, 0f, transitionDuration);
         }
     }
-
     // FIXME: Causes scale pulsing on constant loking at item canvas
     private IEnumerator HidePickupItemUIAfterDelay() {
         // Debug.Log($"HidePickupItemUIAfterDelay");

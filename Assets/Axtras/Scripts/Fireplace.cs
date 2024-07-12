@@ -1,18 +1,18 @@
 using UnityEngine;
 
-public class Fireplace : MonoBehaviour 
+public class Fireplace : Interactable 
 {
     private PlayerHealth playerHealth;
-    private float nextHurtTime;
-    private bool isOn = false;
 
     [Header("Main")]
+    [SerializeField] private bool isOff = false;
     [SerializeField] private ParticleSystem flameParticle;
 
     [Header("Damage Properties")]
     [SerializeField] private int hurtAmountOnEnter = 20;
     [SerializeField] private int hurtAmountOnStay = 20;
     [SerializeField] private float hurtStayRate = 1f;
+    private float nextHurtTime;
 
     [Header("Camera Shake Effects")]
     [SerializeField] private float hurtShakeMagnitude = 4.0f;
@@ -20,25 +20,39 @@ public class Fireplace : MonoBehaviour
     [SerializeField] private float hurtShakeMultiplier = 1.2f;
 
     private void Start() {
-        playerHealth = FindObjectOfType<PlayerHealth>();
+        playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
+
+        StartStopFireplace();
+    }
+
+    public override void Interact() {
+        StartStopFireplace();
+    }
+    public override void Pickup() {
+    }
+    public override void Drop() {
     }
 
     public void StartStopFireplace() {
-        if (isOn = !isOn) flameParticle.Play(); else flameParticle.Stop();
+        if (isOff = !isOff) flameParticle.Play(); else flameParticle.Stop();
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (other.CompareTag("Player")) {
-            playerHealth.DiffHealth(hurtAmountOnEnter);
-            Helper.CameraShake(hurtShakeMagnitude * hurtShakeMultiplier, hurtShakeDuration * hurtShakeMultiplier);
+        if(isOff) {
+            if (other.CompareTag("Player")) {
+                playerHealth.DiffHealth(hurtAmountOnEnter);
+                Helper.CameraShake(hurtShakeMagnitude * hurtShakeMultiplier, hurtShakeDuration * hurtShakeMultiplier);
+            }
         }
     }    
     private void OnTriggerStay(Collider other) {
-        if (other.CompareTag("Player") && Time.time >= nextHurtTime) {
-            playerHealth.DiffHealth(hurtAmountOnStay);
-            Helper.CameraShake(hurtShakeMagnitude, hurtShakeDuration);
-            
-            nextHurtTime = Time.time + hurtStayRate;
+        if(isOff) {
+            if (other.CompareTag("Player") && Time.time >= nextHurtTime) {
+                playerHealth.DiffHealth(hurtAmountOnStay);
+                Helper.CameraShake(hurtShakeMagnitude, hurtShakeDuration);
+                
+                nextHurtTime = Time.time + hurtStayRate;
+            }
         }
     }
 }

@@ -1,70 +1,102 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Consumable : MonoBehaviour 
+public class Consumable : Interactable
 {
+    private PlayerInteract playerInteract;
     private PlayerHealth playerHealth;
-    private PlayerPickups playerPickups;
-    private bool isConsuming = false;
-    private Image consumableMeterImage;
+    private Image fillableCursorImage;
 
-    [Header("Consumable Pickup Properties")]
-    public float consumptionDuration = 2f;
-    private float consumptionProgress = 0.0f;
+    [Header("Main")]
+    [SerializeField] private bool isHeld = false;
+    private Transform playerHand;
+    private Collider itemCollider;
+    private Rigidbody itemRigidbody;
 
-    [Header("Consumable Properties")]
-    [SerializeField] private int healthAddAmount = 20;
+    [Header("Heal Properties")]
+    [SerializeField] public int healAmount = 20;
+    [SerializeField] public float consumeTime = 3f;
+    [SerializeField] private float holdTime = 0f;
 
-    private void Start() {
-        playerHealth = FindObjectOfType<PlayerHealth>();
-        playerPickups = FindObjectOfType<PlayerPickups>();
+    void Start() {
+        playerInteract = GameObject.Find("Player").GetComponent<PlayerInteract>();
+        playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
 
-        if(consumableMeterImage == null) {
-            consumableMeterImage = GameObject.Find("Consumable Meter Cursor Image").GetComponent<Image>();
+        itemCollider = GetComponent<Collider>();
+        itemRigidbody = GetComponent<Rigidbody>();
+    }
+
+    public override void Interact() {
+        Pickup();
+    }
+    public override void Pickup() {
+        if (!isHeld) {
+            isHeld = true;
+            
+            playerHand = playerInteract.playerInteractHolder;
+            fillableCursorImage = playerInteract.fillableCursorImage;
+
+            transform.SetParent(playerHand);
+            transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+
+            itemRigidbody.isKinematic = true;
+            itemRigidbody.useGravity = false;
+
+            itemCollider.enabled = false;
+            itemCollider.isTrigger = false;
+        }
+        else {
+            Debug.Log($"Item {gameObject.name} is already held");
+        }
+    }
+    public override void Drop() {
+        if (isHeld) {
+            isHeld = false;
+
+            transform.SetParent(null);
+            
+            itemRigidbody.isKinematic = false;
+            itemRigidbody.useGravity = true;
+
+            itemCollider.enabled = true;
+            itemCollider.isTrigger = false;
+        }
+        else {
+            Debug.Log($"Item {gameObject.name} NOT held");
         }
     }
 
     private void Update() {
-        HandleConsumable();
+        if (isHeld && Input.GetMouseButton(0)) {
+            HandleConsumption();
+        }
+        if (Input.GetMouseButtonUp(0)) {
+            ResetConsumptionOnMouseRelease();
+        }
     }
 
-    // Consumable Related
-    private void HandleConsumable() {
-        if (playerPickups.currentPlayerPickupItem != null) {
-            if (playerPickups.currentPlayerPickupItem.type == PlayerPickupItems.PickupType.Consumable) {
-                // Main
-                if (Input.GetMouseButton(0)) {
-                    if (!isConsuming) {
-                        isConsuming = true;
-                        consumptionProgress = 0f;
-                    }
-                    ConsumePickup();
-                }
-                else {
-                    isConsuming = false;
-                    consumptionProgress = 0f;
-                    consumableMeterImage.fillAmount = 0f;
-                }
+    void HandleConsumption() {
+        if (Input.GetMouseButton(0)) {
+            holdTime += Time.deltaTime;
+            fillableCursorImage.fillAmount = holdTime / consumeTime;
+
+            if (holdTime >= consumeTime) {
+                Consume();
             }
         }
     }
-    private void ConsumePickup() {
-        consumptionProgress += Time.deltaTime / consumptionDuration;
-        consumableMeterImage.fillAmount = consumptionProgress;
 
-        if (consumptionProgress >= 1f) {
-            Debug.Log($"Consumption progress 100%");
+    void ResetConsumptionOnMouseRelease() {
+        holdTime = 0f;
+        fillableCursorImage.fillAmount = 0f;
+    }
 
-            // Consume the item
-            playerHealth.AddHealth(healthAddAmount);
+    void Consume() {
+        Debug.Log("Player healed!");
+        
+        playerHealth.AddHealth(healAmount);
+        ResetConsumptionOnMouseRelease();
 
-            // Reset the consumption meters and UI
-            isConsuming = false;
-            consumptionProgress = 0f;
-            consumableMeterImage.fillAmount = consumptionProgress;
-
-            // Reset the current pickup
-            playerPickups.DisableAllPickups();
-        }
+        Destroy(gameObject);
     }
 }

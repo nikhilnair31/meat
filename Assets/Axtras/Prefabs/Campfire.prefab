@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 5405479379282022358}
   - component: {fileID: 8905592538648031544}
   - component: {fileID: 502218494028827058}
-  - component: {fileID: 1359717331894921182}
   - component: {fileID: 316764947913253243}
   m_Layer: 9
   m_Name: Campfire
@@ -134,23 +133,6 @@ CapsuleCollider:
   m_Height: 3.5
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 1.7}
---- !u!114 &1359717331894921182
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4037853612149448477}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31afcd7cfb611f14ab295161c70ab281, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactTransform: {fileID: 886367749130222252}
-  transitionDuration: 0.2
-  transitionAmount: 0.3
-  canvasOffsetY: 0.4
-  displayDuration: 2
 --- !u!114 &316764947913253243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,6 +145,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a89c21fe0734744db452356ad71c308, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactTransform: {fileID: 886367749130222252}
+  transitionDuration: 0.2
+  transitionAmount: 0.2
+  canvasOffsetY: 1
+  displayDuration: 2
+  isOff: 1
   flameParticle: {fileID: 1722286860441280146}
   hurtAmountOnEnter: 6
   hurtAmountOnStay: 2
@@ -3989,17 +3977,17 @@ ParticleSystem:
       properties: 0
       emitProbability: 1
   LightsModule:
-    enabled: 0
-    ratio: 0
-    light: {fileID: 0}
-    randomDistribution: 1
+    enabled: 1
+    ratio: 0.5
+    light: {fileID: 4374310953776071129, guid: 9ae901a3e21d5fb4daa2f5294601023b, type: 3}
+    randomDistribution: 0
     color: 1
-    range: 1
-    intensity: 1
+    range: 0
+    intensity: 0
     rangeCurve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 10
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -4102,7 +4090,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    maxLights: 20
+    maxLights: 25
   TrailModule:
     enabled: 0
     mode: 0

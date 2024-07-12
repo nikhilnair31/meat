@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4237344395357889520}
   - component: {fileID: 2904141802780354703}
   - component: {fileID: 9116288853240577898}
-  - component: {fileID: 1421290292614214817}
+  - component: {fileID: 4186180635713279045}
   m_Layer: 9
   m_Name: Consumable - Heart
   m_TagString: Consumable
@@ -136,7 +136,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
---- !u!114 &1421290292614214817
+--- !u!114 &4186180635713279045
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,15 +145,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 7829000381030253684}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af5b0cf8d25bae14b9eb72bd1457ce88, type: 3}
+  m_Script: {fileID: 11500000, guid: fa28f4b8f3c164f4eacde827fa6fa893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   interactTransform: {fileID: 804943249555467340}
   transitionDuration: 0.2
-  transitionAmount: 0.3
-  canvasOffsetY: 0.4
+  transitionAmount: 0.2
+  canvasOffsetY: 0.5
   displayDuration: 2
-  pickupType: 3
+  isHeld: 0
+  playerHand: {fileID: 0}
+  healAmount: 20
+  holdTime: 0
+  consumeTime: 1
+  fillableCursorImage: {fileID: 0}
 --- !u!1001 &106566676286871294
 PrefabInstance:
   m_ObjectHideFlags: 0

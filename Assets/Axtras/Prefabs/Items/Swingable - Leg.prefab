@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7713387660727270755}
   - component: {fileID: 3792404236603515720}
   - component: {fileID: 6296613156865164132}
-  - component: {fileID: 4898284200468587160}
+  - component: {fileID: 6099365593392993606}
   m_Layer: 9
   m_Name: Swingable - Leg
   m_TagString: Swingable
@@ -136,7 +136,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
---- !u!114 &4898284200468587160
+--- !u!114 &6099365593392993606
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,15 +145,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1033440920666895420}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af5b0cf8d25bae14b9eb72bd1457ce88, type: 3}
+  m_Script: {fileID: 11500000, guid: 07d255ec782ae3b4c845ba298795d1a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   interactTransform: {fileID: 5957041574063571527}
   transitionDuration: 0.2
-  transitionAmount: 0.3
-  canvasOffsetY: 0.4
-  displayDuration: 2
-  pickupType: 1
+  transitionAmount: 0.2
+  canvasOffsetY: 0.5
+  displayDuration: 3
+  isHeld: 0
+  isAttacking: 0
+  isBlocking: 0
+  playerHand: {fileID: 0}
+  damageAmount: 20
+  lightAttackDuration: 1
+  hurtShakeMagnitude: 6
+  hurtShakeDuration: 0.3
 --- !u!1001 &6411590894313027829
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,26 +1,25 @@
 using System.Collections;
 using UnityEngine;
 
-public class Swingable : MonoBehaviour 
+public class Swingable : Interactable
 {
-    private PlayerPickups playerPickups;
-    private Animator playerAnimator;
+    private PlayerInteract playerInteract;
 
-    [Header("Swingable Properties")]
-    [SerializeField] private float lightAttackDuration = 0.2f;
-    [SerializeField] private float heavyAttackDuration = 1.0f;
-    [SerializeField] private float attackCooldown = 0.5f;
+    [Header("Main")]
+    [SerializeField] private bool isHeld = false;
+    private Transform playerHand;
+    private Rigidbody itemRigidbody;
+    private Collider itemCollider;
     public bool isAttacking = false;
     public bool isBlocking = false;
-    private float attackTimer = 0f;
 
     [Header("Damage Properties")]
     [SerializeField] private int damageAmount = 20;
+    [SerializeField] private float lightAttackDuration = 1f;
 
-    [Header("Weapon Health")]
-    [SerializeField] private int maxHealth = 100;
-    [SerializeField] private int currentHealth;
-    [SerializeField] private int limbStrengthDamage = 5;
+    [Header("Durability Properties")]
+    [SerializeField] private int maxDurability = 20;
+    [SerializeField] private int currentDurability;
     private Material weaponMaterial;
     private Color originalColor;
 
@@ -29,109 +28,136 @@ public class Swingable : MonoBehaviour
     [SerializeField] private float hurtShakeDuration = 0.3f;
 
     private void Start() {
-        playerPickups = FindObjectOfType<PlayerPickups>();
+        playerInteract = GameObject.Find("Player").GetComponent<PlayerInteract>();
 
+        itemRigidbody = GetComponent<Rigidbody>();
+        itemCollider = GetComponent<Collider>();
         weaponMaterial = GetComponent<Renderer>().material;
-        playerAnimator = GetComponent<Animator>();
 
-        Init();
-    }
-    // Init Related
-    private void Init() {
-        currentHealth = maxHealth;
         originalColor = weaponMaterial.color;
+        currentDurability = maxDurability;
+    }
+
+    public override void Interact() {
+        Pickup();
+    }
+    public override void Pickup() {
+        if (!isHeld) {
+            isHeld = true;
+            
+            playerHand = playerInteract.playerInteractHolder;
+
+            transform.SetParent(playerHand);
+            transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+
+            itemRigidbody.isKinematic = true;
+            itemRigidbody.useGravity = false;
+
+            itemCollider.enabled = true;
+            itemCollider.isTrigger = false;
+        }
+        else {
+            Debug.Log($"Item {gameObject.name} is already held");
+        }
+    }
+    public override void Drop() {
+        if (isHeld) {
+            isHeld = false;
+
+            transform.SetParent(null);
+            
+            itemRigidbody.isKinematic = false;
+            itemRigidbody.useGravity = true;
+
+            itemCollider.enabled = true;
+            itemCollider.isTrigger = false;
+        }
+        else {
+            Debug.Log($"Item {gameObject.name} NOT held");
+        }
     }
 
     private void Update() {
-        HandleSwingable();
-    }
+        if (isHeld) {
+            if (Input.GetMouseButtonDown(0)) {
+                StartCoroutine(Swing(lightAttackDuration));
+            }
 
-    private void HandleSwingable()
-    {
-        attackTimer -= Time.deltaTime;
-
-        if (playerPickups.currentPlayerPickupItem != null) {
-            if (playerPickups.currentPlayerPickupItem.type == PlayerPickupItems.PickupType.Swingable) {
-                if (attackTimer > 0) {
-                    return;
-                }
-
-                if (Input.GetMouseButtonDown(0)) {
-                    StartCoroutine(PerformAttack(lightAttackDuration));
-                    attackTimer = attackCooldown;
-                }
-                if (Input.GetMouseButtonDown(0) && Input.GetMouseButton(0)) {
-                    StartCoroutine(PerformAttack(heavyAttackDuration));
-                    attackTimer = attackCooldown + heavyAttackDuration - lightAttackDuration;
-                }
-
-                if (Input.GetMouseButton(1)) {
-                    PerformBlock(true);
-                }
-                else if (Input.GetMouseButtonUp(1)) {
-                    PerformBlock(false);
-                }
+            if (Input.GetMouseButton(1)) {
+                StartCoroutine(Block(true));
+            }
+            else if (Input.GetMouseButtonUp(1)) {
+                StartCoroutine(Block(false));
             }
         }
     }
 
-    // Swingable Related
-    IEnumerator PerformAttack(float duration)
-    {
+    private IEnumerator Swing(float duration) {
         isAttacking = true;
 
-        // Add attack animation or effects here
-        playerAnimator.SetTrigger("Attack");
+        playerInteract.playerAnimator.SetTrigger("Attack");
 
         yield return new WaitForSeconds(duration);
 
         isAttacking = false;
     }
-    private void PerformBlock(bool hasBlocked)
-    {
+
+    private IEnumerator Block(bool hasBlocked) {
         isBlocking = hasBlocked;
-        playerAnimator.SetBool("Block", isBlocking);
+        
+        playerInteract.playerAnimator.SetBool("Block", isBlocking);
+        
+        yield return null;
     }
 
-
-    private void OnTriggerEnter(Collider other) {
-        SwingableImpacting(other);
-    }
-    private void SwingableImpacting(Collider other) {
-        // Debug.Log($"Weapon collided with {other.name} of tag {other.tag}");
-
-        if(isAttacking) {
-            if (other.CompareTag("Limb")) {
-                TransformCollector transformCollector = Helper.GetComponentInParentByTag<TransformCollector>(other.transform, "Enemy");
-                if (transformCollector != null) {
-                    foreach (TransformData data in transformCollector.transformDataList) {
-                        if(data.transformName.Contains(other.name)) {
-                            data.transformCurrentHealth -= damageAmount;
+    private void OnCollisionEnter(Collision other) {
+        if (isHeld) {
+            if(isAttacking) {
+                if (other.collider.CompareTag("Limb")) {
+                    // Deal damage to the enemy
+                    Debug.Log("Limb hit!");
+                    
+                    TransformCollector transformCollector = Helper.GetComponentInParentByTag<TransformCollector>(other.transform, "Enemy");
+                    if (transformCollector != null) {
+                        foreach (TransformData data in transformCollector.transformDataList) {
+                            if(data.transformName.Contains(other.collider.name)) {
+                                data.transformCurrentHealth -= damageAmount;
+                            }
                         }
+                    }
+                    else {
+                        Debug.LogError("TransformCollector not found on " + other.collider.name);
                     }
                 }
                 else {
-                    Debug.LogError("TransformCollector not found on " + other.name);
+                    // Deal damage to the player
+                    Debug.Log("Player hit something else!");
                 }
+
+                // Decrease durability on collision
+                ReduceDurability();
+
+                Helper.CameraShake(hurtShakeMagnitude, hurtShakeDuration);
             }
-
-            Helper.CameraShake(hurtShakeMagnitude, hurtShakeDuration);
-            ReduceWeaponHealth(limbStrengthDamage);
         }
-    } 
+    }
 
-    private void ReduceWeaponHealth(int amount) {
-        currentHealth -= amount;
-        Debug.Log($"ReduceWeaponHealth currentHealth: {currentHealth}");
+    private void ReduceDurability() {
+        // Decrease durability on collision
+        currentDurability--;
+        UpdateWeaponColor();
 
-        if (currentHealth <= 0) {
-            // Handle weapon destruction
-            playerPickups.DisableAllPickups();
+        if (currentDurability <= 0) {
+            Break();
         }
-        else {
-            // Handle weapon damage effect
-            float healthRatio = (float) currentHealth / maxHealth;
-            weaponMaterial.color = Color.Lerp(Color.black, originalColor, healthRatio);
-        }
-    } 
+    }
+    void UpdateWeaponColor() {
+        float healthRatio = (float)currentDurability / maxDurability;
+        weaponMaterial.color = Color.Lerp(Color.black, originalColor, healthRatio);
+    }
+    void Break() {
+        // Handle item breaking logic
+        Debug.Log($"Swingable item {gameObject.name} broke!");
+        Destroy(gameObject);
+    }
 }

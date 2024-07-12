@@ -13,8 +13,7 @@ GameObject:
   - component: {fileID: 2000251873903836906}
   - component: {fileID: 9065722883723322220}
   - component: {fileID: 4444417397163600098}
-  - component: {fileID: 3416753584468183823}
-  - component: {fileID: 5416928939040135694}
+  - component: {fileID: 3720117459610234944}
   m_Layer: 9
   m_Name: Throwable - Hand
   m_TagString: Throwable
@@ -137,25 +136,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
---- !u!114 &3416753584468183823
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6578803607925183423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af5b0cf8d25bae14b9eb72bd1457ce88, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactTransform: {fileID: 8212630733240168606}
-  transitionDuration: 0.2
-  transitionAmount: 0.3
-  canvasOffsetY: 0.4
-  displayDuration: 2
-  pickupType: 2
---- !u!114 &5416928939040135694
+--- !u!114 &3720117459610234944
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -167,13 +148,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f5aed9605a704d4b9a7562322a5bd0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  throwForce: 10
+  interactTransform: {fileID: 8212630733240168606}
+  transitionDuration: 0.2
+  transitionAmount: 0.2
+  canvasOffsetY: 0.5
+  displayDuration: 3
+  isHeld: 0
+  playerHand: {fileID: 0}
   damageAmount: 20
-  maxHealth: 50
-  currentHealth: 0
-  limbStrengthDamage: 15
-  hurtShakeMagnitude: 0.6
-  hurtShakeDuration: 0.2
+  hurtShakeMagnitude: 6
+  hurtShakeDuration: 0.3
+  durability: 3
 --- !u!1001 &8910374536451410476
 PrefabInstance:
   m_ObjectHideFlags: 0
