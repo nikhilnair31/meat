@@ -5,7 +5,12 @@ public class Ragdoll : MonoBehaviour
     public bool isRagdoll = false;
 
     private void Start() {
-        DisableRagdoll();
+        if (isRagdoll) {
+            EnableRagdoll();
+        }
+        else {
+            DisableRagdoll();
+        }
     }
 
     private void DisableRagdoll() {

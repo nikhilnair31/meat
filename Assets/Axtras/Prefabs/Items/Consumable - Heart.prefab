@@ -155,12 +155,12 @@ MonoBehaviour:
   displayDuration: 2
   isHeld: 0
   healAmount: 20
-  healTime: 3
-  consumeTime: 1
+  healTime: 4
+  consumeTime: 3
   holdTime: 0
   reduceByDecayDurability: 1
-  durabilityDecayRate: 3
-  maxDurability: 20
+  durabilityDecayRate: 4
+  maxDurability: 40
   currentDurability: 0
 --- !u!1001 &106566676286871294
 PrefabInstance:

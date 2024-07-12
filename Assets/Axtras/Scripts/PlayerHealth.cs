@@ -1,7 +1,6 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
-using UnityEngine.Rendering;
 
 public class PlayerHealth : MonoBehaviour 
 {
@@ -12,6 +11,9 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private int maxHealth = 100;
     [SerializeField] private int currHealth;
 
+    [Header("Effects")]
+    public ParticleSystem fireEffect;
+
     private void Start() {
         menuManager = FindObjectOfType<MenuManager>();
 
@@ -21,27 +23,29 @@ public class PlayerHealth : MonoBehaviour
     }
 
     public void AddHealth(int amount, float duration) {
+        Debug.Log($"AddHealth");
+        Debug.Log($"Called with {amount} and {duration}");
         StartCoroutine(AddHealthOverTime(amount, duration));
     }
     private IEnumerator AddHealthOverTime(int amount, float duration) {
-        float amountPerSecond = amount / duration;
-        float totalAdded = 0;
+        float elapsedTime = 0f;
+        int initialHealth = currHealth;
+        int targetHealth = Mathf.Clamp(currHealth + amount, 0, maxHealth);
 
-        while (totalAdded < amount) {
-            float increment = amountPerSecond * Time.deltaTime;
-            currHealth += (int)increment;
-            totalAdded += increment;
+        while (elapsedTime < duration) {
+            elapsedTime += Time.deltaTime;
+            currHealth = Mathf.RoundToInt(Mathf.Lerp(initialHealth, targetHealth, elapsedTime / duration));
+
+            UpdateHealthUI();
 
             if (currHealth > maxHealth) {
                 currHealth = maxHealth;
                 break;
             }
-
-            UpdateHealthUI();
+            
             yield return null;
         }
 
-        // Ensure health is correctly clamped to maxHealth after loop
         currHealth = Mathf.Min(currHealth, maxHealth);
         UpdateHealthUI();
     }
@@ -50,13 +54,15 @@ public class PlayerHealth : MonoBehaviour
         StartCoroutine(DiffHealthOverTime(amount, duration));
     }
     private IEnumerator DiffHealthOverTime(int amount, float duration) {
-        float amountPerSecond = amount / duration;
-        float totalDiffed = amount;
+        float elapsedTime = 0f;
+        int initialHealth = currHealth;
+        int targetHealth = Mathf.Clamp(currHealth - amount, 0, maxHealth);
 
-        while (totalDiffed >= 0) {
-            float increment = amountPerSecond * Time.deltaTime;
-            currHealth -= (int)increment;
-            totalDiffed -= increment;
+        while (elapsedTime < duration) {
+            elapsedTime += Time.deltaTime;
+            currHealth = Mathf.RoundToInt(Mathf.Lerp(initialHealth, targetHealth, elapsedTime / duration));
+
+            UpdateHealthUI();
 
             if (currHealth <= 0) {
                 currHealth = 0;
@@ -64,11 +70,9 @@ public class PlayerHealth : MonoBehaviour
                 break;
             }
 
-            UpdateHealthUI();
             yield return null;
         }
 
-        // Ensure health is correctly clamped to maxHealth after loop
         currHealth = Mathf.Min(currHealth, maxHealth);
         UpdateHealthUI();
     }

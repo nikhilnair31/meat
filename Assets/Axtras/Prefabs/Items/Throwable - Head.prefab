@@ -157,9 +157,9 @@ MonoBehaviour:
   throwForce: 20
   damageAmount: 20
   reduceByDecayDurability: 1
-  durabilityDecayRate: 3
+  durabilityDecayRate: 4
   reduceByImpactDurability: 2
-  maxDurability: 20
+  maxDurability: 30
   currentDurability: 0
   hurtShakeMagnitude: 6
   hurtShakeDuration: 0.3

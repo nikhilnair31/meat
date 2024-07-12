@@ -159,9 +159,9 @@ MonoBehaviour:
   damageAmount: 20
   lightAttackDuration: 1
   reduceByDecayDurability: 1
-  durabilityDecayRate: 3
-  reduceByImpactDurability: 2
-  maxDurability: 20
+  durabilityDecayRate: 4
+  reduceByImpactDurability: 4
+  maxDurability: 50
   currentDurability: 0
   hurtShakeMagnitude: 6
   hurtShakeDuration: 0.3

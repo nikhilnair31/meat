@@ -1,8 +1,10 @@
+using System.Collections;
 using UnityEngine;
 
 public class Fireplace : Interactable 
 {
     private PlayerHealth playerHealth;
+    private ParticleSystem playerFireEffect;
 
     [Header("Main")]
     [SerializeField] private bool isOff = false;
@@ -12,6 +14,7 @@ public class Fireplace : Interactable
     [SerializeField] private int hurtAmountOnEnter = 20;
     [SerializeField] private int hurtAmountOnStay = 20;
     [SerializeField] private float hurtStayRate = 1f;
+    [SerializeField] private float hurtForDuration = 0.1f;
     private float nextHurtTime;
 
     [Header("Camera Shake Effects")]
@@ -42,17 +45,29 @@ public class Fireplace : Interactable
             if (other.CompareTag("Player")) {
                 playerHealth.DiffHealth(hurtAmountOnEnter, 0.01f);
                 Helper.CameraShake(hurtShakeMagnitude * hurtShakeMultiplier, hurtShakeDuration * hurtShakeMultiplier);
+                SetOnFire();
             }
         }
     }    
     private void OnTriggerStay(Collider other) {
         if(isOff) {
             if (other.CompareTag("Player") && Time.time >= nextHurtTime) {
-                playerHealth.DiffHealth(hurtAmountOnStay, 0.01f);
+                playerHealth.DiffHealth(hurtAmountOnStay, hurtForDuration);
                 Helper.CameraShake(hurtShakeMagnitude, hurtShakeDuration);
+                SetOnFire();
                 
                 nextHurtTime = Time.time + hurtStayRate;
             }
         }
+    }
+
+    private void SetOnFire() {
+        playerFireEffect = playerHealth.fireEffect;
+        StartCoroutine(StopFireEffectAfterDuration(playerFireEffect, hurtForDuration));
+    }
+    private IEnumerator StopFireEffectAfterDuration(ParticleSystem fireEffect, float duration) {
+        fireEffect.Play();
+        yield return new WaitForSeconds(duration);
+        fireEffect.Stop();
     }
 }

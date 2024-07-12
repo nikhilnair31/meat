@@ -4984,6 +4984,7 @@ MonoBehaviour:
   hurtAmountOnEnter: 10
   hurtAmountOnStay: 5
   hurtStayRate: 1
+  hurtForDuration: 5
   hurtShakeMagnitude: 4
   hurtShakeDuration: 0.4
   hurtShakeMultiplier: 1.2

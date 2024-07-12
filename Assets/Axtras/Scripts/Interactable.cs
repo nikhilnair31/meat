@@ -16,6 +16,12 @@ public abstract class Interactable : MonoBehaviour
     public virtual void Pickup() {}
     public virtual void Drop() {}
 
+    private void Start() {
+        if(interactTransform == null) {
+            interactTransform = transform.Find("Interact Canvas");
+        }
+    }
+
     public bool ShowUI {
         get { 
             return showUI; 
