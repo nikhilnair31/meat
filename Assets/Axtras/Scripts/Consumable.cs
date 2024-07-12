@@ -37,7 +37,6 @@ public class Consumable : Interactable
             fillableCursorImage = playerInteract.fillableCursorImage;
 
             transform.SetParent(playerHand);
-            // FIXME: Set the correct intial position and rotation of consumables
             transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
 
             itemRigidbody.isKinematic = true;

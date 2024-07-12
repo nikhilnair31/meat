@@ -4842,6 +4842,7 @@ GameObject:
   - component: {fileID: 7090521567114039010}
   - component: {fileID: 9219481549358652827}
   - component: {fileID: 2036889244828894605}
+  - component: {fileID: 1701016130253808050}
   - component: {fileID: 155184373650022407}
   m_Layer: 9
   m_Name: Torch
@@ -4938,6 +4939,29 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 32.63125, y: 249.89862, z: 34.41934}
   m_Center: {x: -0.0000009536743, y: 0, z: 0}
+--- !u!136 &1701016130253808050
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6493235446257905079}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 63.6
+  m_Height: 160.8
+  m_Direction: 1
+  m_Center: {x: -0.0000009536743, y: 86.8, z: 0}
 --- !u!114 &155184373650022407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4957,8 +4981,8 @@ MonoBehaviour:
   displayDuration: 2
   isOff: 0
   flameParticle: {fileID: 6302018356258932584}
-  hurtAmountOnEnter: 20
-  hurtAmountOnStay: 20
+  hurtAmountOnEnter: 10
+  hurtAmountOnStay: 5
   hurtStayRate: 1
   hurtShakeMagnitude: 4
   hurtShakeDuration: 0.4

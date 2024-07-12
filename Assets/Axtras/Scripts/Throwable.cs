@@ -47,7 +47,6 @@ public class Throwable : Interactable
             playerHand = playerInteract.playerInteractHolder;
 
             transform.SetParent(playerHand);
-            // FIXME: Set the correct intial position and rotation of throwables
             transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
 
             itemRigidbody.isKinematic = true;
