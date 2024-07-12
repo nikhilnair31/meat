@@ -47,6 +47,7 @@ public class Throwable : Interactable
             playerHand = playerInteract.playerInteractHolder;
 
             transform.SetParent(playerHand);
+            // FIXME: Set the correct intial position and rotation of throwables
             transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
 
             itemRigidbody.isKinematic = true;
@@ -54,6 +55,8 @@ public class Throwable : Interactable
 
             itemCollider.enabled = false;
             itemCollider.isTrigger = false;
+            
+            ShowUI = false;
         }
         else {
             Debug.Log($"Item {gameObject.name} is already held");

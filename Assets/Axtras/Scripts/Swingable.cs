@@ -48,6 +48,7 @@ public class Swingable : Interactable
             playerHand = playerInteract.playerInteractHolder;
 
             transform.SetParent(playerHand);
+            // FIXME: Set the correct intial position and rotation of swingables
             transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
 
             itemRigidbody.isKinematic = true;
@@ -55,6 +56,8 @@ public class Swingable : Interactable
 
             itemCollider.enabled = true;
             itemCollider.isTrigger = false;
+            
+            ShowUI = false;
         }
         else {
             Debug.Log($"Item {gameObject.name} is already held");

@@ -37,6 +37,7 @@ public class Consumable : Interactable
             fillableCursorImage = playerInteract.fillableCursorImage;
 
             transform.SetParent(playerHand);
+            // FIXME: Set the correct intial position and rotation of consumables
             transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
 
             itemRigidbody.isKinematic = true;
@@ -44,6 +45,8 @@ public class Consumable : Interactable
 
             itemCollider.enabled = false;
             itemCollider.isTrigger = false;
+            
+            ShowUI = false;
         }
         else {
             Debug.Log($"Item {gameObject.name} is already held");
@@ -67,11 +70,13 @@ public class Consumable : Interactable
     }
 
     private void Update() {
-        if (isHeld && Input.GetMouseButton(0)) {
-            HandleConsumption();
-        }
-        if (Input.GetMouseButtonUp(0)) {
-            ResetConsumptionOnMouseRelease();
+        if (isHeld) {
+            if(Input.GetMouseButton(0)) {
+                HandleConsumption();
+            }
+            else if(Input.GetMouseButtonUp(0)) {
+                ResetConsumptionOnMouseRelease();
+            }
         }
     }
 
