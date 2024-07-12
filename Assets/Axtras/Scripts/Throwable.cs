@@ -7,6 +7,7 @@ public class Throwable : Interactable
 
     [Header("Main")]
     [SerializeField] private bool isHeld = false;
+    [SerializeField] private bool isThrown = false;
     [SerializeField] private float throwForce = 20f;
     private Transform playerHand;
     private Rigidbody itemRigidbody;
@@ -92,6 +93,7 @@ public class Throwable : Interactable
 
     private void Throw() {
         isHeld = false;
+        isThrown = true;
 
         transform.SetParent(null);
 
@@ -104,10 +106,12 @@ public class Throwable : Interactable
         Vector3 throwPoint = Helper.CameraCenterTargetPoint();
         Vector3 throwVelocity = (throwPoint - transform.position).normalized * throwForce;
         itemRigidbody.velocity = throwVelocity;
+            
+        ShowUI = false;
     }
 
     private void OnCollisionEnter(Collision other) {
-        if (!isHeld) {
+        if (!isHeld && isThrown) {
             if (other.collider.CompareTag("Limb")){
                 Debug.Log("Limb hit!");
                 

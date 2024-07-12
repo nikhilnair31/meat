@@ -156,8 +156,8 @@ MonoBehaviour:
   isHeld: 0
   isAttacking: 0
   isBlocking: 0
-  damageAmount: 20
-  lightAttackDuration: 1
+  damageAmount: 45
+  lightAttackDuration: 0.5
   reduceByDecayDurability: 1
   durabilityDecayRate: 4
   reduceByImpactDurability: 4

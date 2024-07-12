@@ -155,7 +155,7 @@ MonoBehaviour:
   displayDuration: 3
   isHeld: 0
   throwForce: 20
-  damageAmount: 20
+  damageAmount: 30
   reduceByDecayDurability: 1
   durabilityDecayRate: 4
   reduceByImpactDurability: 2

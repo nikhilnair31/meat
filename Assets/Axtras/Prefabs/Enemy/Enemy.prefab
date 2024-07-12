@@ -821,8 +821,10 @@ GameObject:
   - component: {fileID: 2402807988705456254}
   - component: {fileID: 4622614501373362696}
   - component: {fileID: 6178385337261900787}
+  - component: {fileID: 2109399596909718045}
   - component: {fileID: 2752015423918928958}
   - component: {fileID: 6506391663369027039}
+  - component: {fileID: 3692834169852317444}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Enemy
@@ -838,7 +840,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3651438328426153292}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -3.1737463, y: 0, z: 13.230674}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
@@ -912,6 +914,28 @@ MonoBehaviour:
   - {fileID: 8067557579080034923}
   - {fileID: 9129640597429429084}
   - {fileID: 4824135540726505613}
+--- !u!195 &2109399596909718045
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3651438328426153292}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 3.3
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!114 &2752015423918928958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -924,6 +948,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8366f3a01a9066c4f80c0fb42d440a56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lastSeenTime: 0
+  animator: {fileID: 0}
+  navMeshAgent: {fileID: 0}
+  playerTransform: {fileID: 0}
+  isPatroling: 0
+  isChasing: 0
+  isWaiting: 0
+  isDead: 0
   isRagdoll: 0
 --- !u!114 &6506391663369027039
 MonoBehaviour:
@@ -1063,6 +1095,38 @@ MonoBehaviour:
     type: 3}
   defaultDamageImpactObject: {fileID: 5821601681023750136, guid: 9be9bcfc0c7cc3e4ba2f9b10b3d95d4a,
     type: 3}
+--- !u!114 &3692834169852317444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3651438328426153292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08f69cefce42b5c4b835a5d0fb25005e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastSeenTime: 0
+  animator: {fileID: 4622614501373362696}
+  navMeshAgent: {fileID: 2109399596909718045}
+  playerTransform: {fileID: 0}
+  isPatroling: 0
+  isChasing: 0
+  isWaiting: 0
+  isDead: 0
+  isRagdoll: 0
+  patrolPointsParent: {fileID: 0}
+  selectPatrolPointsAtRandom: 1
+  patrolSpeed: 5
+  waitTimeAtPatrolPoints: 3
+  chaseSpeed: 4
+  loseSightTime: 5
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  visionAngle: 75
+  visionRange: 25
 --- !u!1 &4148370434698692983
 GameObject:
   m_ObjectHideFlags: 0

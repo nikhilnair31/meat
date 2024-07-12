@@ -1,9 +1,7 @@
 using UnityEngine;
 
-public class Ragdoll : MonoBehaviour 
+public class Ragdoll : Enemy 
 {
-    public bool isRagdoll = false;
-
     private void Start() {
         if (isRagdoll) {
             EnableRagdoll();
