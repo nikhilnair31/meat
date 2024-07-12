@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,8 +16,17 @@ public class Consumable : Interactable
 
     [Header("Heal Properties")]
     [SerializeField] public int healAmount = 20;
+    [SerializeField] public float healTime = 3f;
     [SerializeField] public float consumeTime = 3f;
     [SerializeField] private float holdTime = 0f;
+
+    [Header("Durability Properties")]
+    [SerializeField] private int reduceByDecayDurability = 2;
+    [SerializeField] private float durabilityDecayRate = 1f;
+    [SerializeField] private int maxDurability = 20;
+    [SerializeField] private int currentDurability;
+    private Material weaponMaterial;
+    private Color originalColor;
 
     void Start() {
         playerInteract = GameObject.Find("Player").GetComponent<PlayerInteract>();
@@ -24,6 +34,12 @@ public class Consumable : Interactable
 
         itemCollider = GetComponent<Collider>();
         itemRigidbody = GetComponent<Rigidbody>();
+        weaponMaterial = GetComponent<Renderer>().material;
+
+        originalColor = weaponMaterial.color;
+        currentDurability = maxDurability;
+
+        StartCoroutine(DecayDurabilityOverTime(reduceByDecayDurability));
     }
 
     public override void Interact() {
@@ -98,9 +114,34 @@ public class Consumable : Interactable
     void Consume() {
         Debug.Log("Player healed!");
         
-        playerHealth.AddHealth(healAmount);
+        playerHealth.AddHealth(healAmount, healTime);
         ResetConsumptionOnMouseRelease();
 
+        Destroy(gameObject);
+    }
+
+    private IEnumerator DecayDurabilityOverTime(int reduceByDecayDurability) {
+        while (true) {
+            // Decrease durability continuously
+            yield return new WaitForSeconds(durabilityDecayRate);
+            ReduceDurability(reduceByDecayDurability);
+        }
+    }
+    private void ReduceDurability(int reduceDurabulityAmount) {
+        currentDurability -= reduceDurabulityAmount;
+        UpdateWeaponColor();
+
+        if (currentDurability <= 0) {
+            Break();
+        }
+    }
+    private void UpdateWeaponColor() {
+        float healthRatio = (float)currentDurability / maxDurability;
+        weaponMaterial.color = Color.Lerp(Color.black, originalColor, healthRatio);
+    }
+    private void Break() {
+        // Handle item breaking logic
+        Debug.Log($"Throwable item {gameObject.name} broke!");
         Destroy(gameObject);
     }
 }

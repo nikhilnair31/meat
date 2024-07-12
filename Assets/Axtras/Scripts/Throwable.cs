@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Throwable : Interactable
@@ -15,6 +16,9 @@ public class Throwable : Interactable
     [SerializeField] private int damageAmount = 20;
 
     [Header("Durability Properties")]
+    [SerializeField] private int reduceByDecayDurability = 2;
+    [SerializeField] private float durabilityDecayRate = 1f;
+    [SerializeField] private int reduceByImpactDurability = 5;
     [SerializeField] private int maxDurability = 20;
     [SerializeField] private int currentDurability;
     private Material weaponMaterial;
@@ -35,6 +39,8 @@ public class Throwable : Interactable
 
         originalColor = weaponMaterial.color;
         currentDurability = maxDurability;
+
+        StartCoroutine(DecayDurabilityOverTime(reduceByDecayDurability));
     }
 
     public override void Interact() {
@@ -119,22 +125,32 @@ public class Throwable : Interactable
             }
 
             // Decrease durability on collision
-            ReduceDurability();
+            ReduceDurabilityByCollision(reduceByImpactDurability);
 
             Helper.CameraShake(hurtShakeMagnitude, hurtShakeDuration);
         }
     }
 
-    private void ReduceDurability() {
+    private IEnumerator DecayDurabilityOverTime(int reduceByDecayDurability) {
+        while (true) {
+            // Decrease durability continuously
+            yield return new WaitForSeconds(durabilityDecayRate);
+            ReduceDurability(reduceByDecayDurability);
+        }
+    }
+    private void ReduceDurabilityByCollision(int reduceByImpactDurability) {
         // Decrease durability on collision
-        currentDurability--;
+        ReduceDurability(reduceByImpactDurability);
+    }
+    private void ReduceDurability(int reduceDurabulityAmount) {
+        currentDurability -= reduceDurabulityAmount;
         UpdateWeaponColor();
 
         if (currentDurability <= 0) {
             Break();
         }
     }
-    void UpdateWeaponColor() {
+    private void UpdateWeaponColor() {
         float healthRatio = (float)currentDurability / maxDurability;
         weaponMaterial.color = Color.Lerp(Color.black, originalColor, healthRatio);
     }

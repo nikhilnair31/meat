@@ -154,11 +154,14 @@ MonoBehaviour:
   canvasOffsetY: 0.5
   displayDuration: 2
   isHeld: 0
-  playerHand: {fileID: 0}
   healAmount: 20
-  holdTime: 0
+  healTime: 3
   consumeTime: 1
-  fillableCursorImage: {fileID: 0}
+  holdTime: 0
+  reduceByDecayDurability: 1
+  durabilityDecayRate: 3
+  maxDurability: 20
+  currentDurability: 0
 --- !u!1001 &106566676286871294
 PrefabInstance:
   m_ObjectHideFlags: 0

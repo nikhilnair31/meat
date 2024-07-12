@@ -156,9 +156,13 @@ MonoBehaviour:
   isHeld: 0
   isAttacking: 0
   isBlocking: 0
-  playerHand: {fileID: 0}
   damageAmount: 20
   lightAttackDuration: 1
+  reduceByDecayDurability: 1
+  durabilityDecayRate: 3
+  reduceByImpactDurability: 2
+  maxDurability: 20
+  currentDurability: 0
   hurtShakeMagnitude: 6
   hurtShakeDuration: 0.3
 --- !u!1001 &6411590894313027829

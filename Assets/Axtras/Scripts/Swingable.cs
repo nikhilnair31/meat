@@ -18,6 +18,9 @@ public class Swingable : Interactable
     [SerializeField] private float lightAttackDuration = 1f;
 
     [Header("Durability Properties")]
+    [SerializeField] private int reduceByDecayDurability = 2;
+    [SerializeField] private float durabilityDecayRate = 1f;
+    [SerializeField] private int reduceByImpactDurability = 5;
     [SerializeField] private int maxDurability = 20;
     [SerializeField] private int currentDurability;
     private Material weaponMaterial;
@@ -36,6 +39,8 @@ public class Swingable : Interactable
 
         originalColor = weaponMaterial.color;
         currentDurability = maxDurability;
+
+        StartCoroutine(DecayDurabilityOverTime(reduceByDecayDurability));
     }
 
     public override void Interact() {
@@ -94,7 +99,6 @@ public class Swingable : Interactable
             }
         }
     }
-
     private IEnumerator Swing(float duration) {
         isAttacking = true;
 
@@ -104,7 +108,6 @@ public class Swingable : Interactable
 
         isAttacking = false;
     }
-
     private IEnumerator Block(bool hasBlocked) {
         isBlocking = hasBlocked;
         
@@ -138,27 +141,37 @@ public class Swingable : Interactable
                 }
 
                 // Decrease durability on collision
-                ReduceDurability();
+                ReduceDurabilityByCollision(reduceByImpactDurability);
 
                 Helper.CameraShake(hurtShakeMagnitude, hurtShakeDuration);
             }
         }
     }
 
-    private void ReduceDurability() {
+    private IEnumerator DecayDurabilityOverTime(int reduceByDecayDurability) {
+        while (true) {
+            // Decrease durability continuously
+            yield return new WaitForSeconds(durabilityDecayRate);
+            ReduceDurability(reduceByDecayDurability);
+        }
+    }
+    private void ReduceDurabilityByCollision(int reduceByImpactDurability) {
         // Decrease durability on collision
-        currentDurability--;
+        ReduceDurability(reduceByImpactDurability);
+    }
+    private void ReduceDurability(int reduceDurabulityAmount) {
+        currentDurability -= reduceDurabulityAmount;
         UpdateWeaponColor();
 
         if (currentDurability <= 0) {
             Break();
         }
     }
-    void UpdateWeaponColor() {
+    private void UpdateWeaponColor() {
         float healthRatio = (float)currentDurability / maxDurability;
         weaponMaterial.color = Color.Lerp(Color.black, originalColor, healthRatio);
     }
-    void Break() {
+    private void Break() {
         // Handle item breaking logic
         Debug.Log($"Swingable item {gameObject.name} broke!");
         Destroy(gameObject);
