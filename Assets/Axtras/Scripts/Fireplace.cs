@@ -65,6 +65,7 @@ public class Fireplace : Interactable
         playerFireEffect = playerHealth.fireEffect;
         StartCoroutine(StopFireEffectAfterDuration(playerFireEffect, hurtForDuration));
     }
+    // FIXME: Fire effect doesn't stay on during continuous damage
     private IEnumerator StopFireEffectAfterDuration(ParticleSystem fireEffect, float duration) {
         fireEffect.Play();
         yield return new WaitForSeconds(duration);

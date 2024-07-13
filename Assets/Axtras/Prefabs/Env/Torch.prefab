@@ -4981,10 +4981,10 @@ MonoBehaviour:
   displayDuration: 2
   isOff: 0
   flameParticle: {fileID: 6302018356258932584}
-  hurtAmountOnEnter: 10
-  hurtAmountOnStay: 5
-  hurtStayRate: 1
-  hurtForDuration: 5
+  hurtAmountOnEnter: 12
+  hurtAmountOnStay: 7
+  hurtStayRate: 0.8
+  hurtForDuration: 6
   hurtShakeMagnitude: 4
   hurtShakeDuration: 0.4
   hurtShakeMultiplier: 1.2

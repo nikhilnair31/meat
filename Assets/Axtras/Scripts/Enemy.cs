@@ -1,99 +1,141 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour 
+public class Enemy : MonoBehaviour
 {
-    [Header("Other")]
-    public float lastSeenTime;
+    public Transform player;
+    public float detectionAngle = 45f;
+    public float detectionDistance = 10f;
+    public float chaseDistance = 15f;
+    public float lostSightDuration = 5f;
+    public float waitTimeAtLastSeen = 3f;
 
-    [Header("Managers")]
-    private MenuManager menuManagerScript;
+    private Animator animator;
+    private NavMeshAgent navMeshAgent;
+    private Vector3 originalPosition;
+    private Vector3 lastSeenPosition;
+    private bool isChasing;
+    private bool hasLostSight;
+    private float lostSightTimer;
+    private float waitTimer;
 
-    [Header("Self")]
-    private EnemyMovement enemyMovementScript;
+    // FIXME: Fix enemy logic
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
 
-    [Header("Components")]
-    public Animator animator;
-    public NavMeshAgent navMeshAgent;
+        originalPosition = transform.position;
 
-    [Header("Player")]
-    public Transform playerTransform;
-    
-    [Header("Status")]
-    public bool isPatroling = false;
-    public bool isChasing = false;
-    public bool isWaiting = true;
-    public bool isDead = false;
-    public bool isRagdoll = false;
+        isChasing = false;
+        hasLostSight = false;
 
-    private void Awake() {
-        if (navMeshAgent == null) {
-            navMeshAgent = GetComponent<NavMeshAgent>();
+        lostSightTimer = 0f;
+        waitTimer = 0f;
+
+        animator.SetBool("isStanding", true);
+    }
+
+    void Update()
+    {
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+        Vector3 directionToPlayer = (player.position - transform.position).normalized;
+        float angleToPlayer = Vector3.Angle(transform.forward, directionToPlayer);
+
+        if (!isChasing && angleToPlayer < detectionAngle && distanceToPlayer < detectionDistance)
+        {
+            if (Physics.Raycast(transform.position, directionToPlayer, out RaycastHit hit, detectionDistance))
+            {
+                if (hit.transform == player)
+                {
+                    StartChasing();
+                }
+            }
         }
-        if (animator == null) {
-            animator = GetComponent<Animator>();
+
+        if (isChasing)
+        {
+            if (distanceToPlayer < chaseDistance)
+            {
+                if (Physics.Raycast(transform.position, directionToPlayer, out RaycastHit hit, chaseDistance))
+                {
+                    if (hit.transform == player)
+                    {
+                        hasLostSight = false;
+                        lostSightTimer = 0f;
+                        lastSeenPosition = player.position;
+                        navMeshAgent.SetDestination(player.position);
+                    }
+                    else
+                    {
+                        if (!hasLostSight)
+                        {
+                            lostSightTimer += Time.deltaTime;
+                            if (lostSightTimer > lostSightDuration)
+                            {
+                                hasLostSight = true;
+                                GoToLastSeenPosition();
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                StopChasing();
+            }
         }
 
-        if (playerTransform == null) {
-            playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        if (hasLostSight && navMeshAgent.remainingDistance < 0.1f)
+        {
+            waitTimer += Time.deltaTime;
+            animator.SetBool("isSearching", true);
+            if (waitTimer > waitTimeAtLastSeen)
+            {
+                ReturnToOriginalPosition();
+            }
         }
+    }
+
+    void StartChasing()
+    {
+        isChasing = true;
+
+        navMeshAgent.SetDestination(player.position);
+
+        animator.SetBool("isStanding", false);
+        animator.SetBool("isChasing", true);
+    }
+    void StopChasing()
+    {
+        isChasing = false;
+
+        animator.SetBool("isChasing", false);
+
+        GoToLastSeenPosition();
+    }
+
+    void GoToLastSeenPosition()
+    {
+        waitTimer = 0f;
         
-        if (enemyMovementScript == null) {
-            enemyMovementScript = GetComponent<EnemyMovement>();
-        }
+        navMeshAgent.SetDestination(lastSeenPosition);
 
-        if(menuManagerScript == null) {
-            menuManagerScript = FindObjectOfType<MenuManager>();
-        }
+        animator.SetBool("isChasing", true);
     }
 
-    public bool IsPatroling {
-        get { 
-            return isPatroling; 
-        }
-        set {
-            if (isPatroling != value) {
-                isPatroling = value;
-                animator.SetBool("isPatroling", isPatroling);
-            }
-        }
-    }
-    public bool IsChasing {
-        get { 
-            return isChasing; 
-        }
-        set {
-            if (isChasing != value) {
-                isChasing = value;
-                animator.SetBool("isChasing", isChasing);
-            }
-        }
-    }
-    public bool IsWaiting {
-        get { 
-            return isWaiting; 
-        }
-        set {
-            if (isWaiting != value) {
-                isWaiting = value;
-                animator.SetBool("isWaiting", isWaiting);
-            }
-        }
-    }
-    public bool IsDead {
-        get { 
-            return isDead; 
-        }
-        set {
-            if (isDead != value) {
-                isDead = value;
-                if (isDead) {
-                    // 
-                }
-                else {
-                    // 
-                }
-            }
+    void ReturnToOriginalPosition()
+    {
+        waitTimer = 0f;
+        hasLostSight = false;
+
+        navMeshAgent.SetDestination(originalPosition);
+
+        animator.SetBool("isChasing", false);
+        animator.SetBool("isSearching", false);
+
+        if (Vector3.Distance(transform.position, originalPosition) < 0.1f) {
+            animator.SetBool("isStanding", true);
         }
     }
 }

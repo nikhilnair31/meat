@@ -23,8 +23,6 @@ public class PlayerHealth : MonoBehaviour
     }
 
     public void AddHealth(int amount, float duration) {
-        Debug.Log($"AddHealth");
-        Debug.Log($"Called with {amount} and {duration}");
         StartCoroutine(AddHealthOverTime(amount, duration));
     }
     private IEnumerator AddHealthOverTime(int amount, float duration) {
