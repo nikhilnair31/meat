@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,9 +16,6 @@ public class PlayerInteract : MonoBehaviour
     public Image baseCursorImage;
     public Image fillableCursorImage;
 
-    void Start() {
-    }
-
     void Update() {
         HandleItemViewing();
         HandleItemInteraction();
@@ -28,7 +24,9 @@ public class PlayerInteract : MonoBehaviour
     private void HandleItemViewing() {
         if (Physics.Raycast(playerEyes.position, playerEyes.forward, out RaycastHit hit, interactableRange, interactableLayer)) {
             if (hit.collider.TryGetComponent<Interactable>(out Interactable interactable)) {
-                interactable.ShowUI = true;
+                if(currentHeldItem != interactable) {
+                    interactable.ShowUI = true;
+                }
             }
         }
     }

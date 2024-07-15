@@ -60,14 +60,14 @@ public class Swingable : Interactable
 
             swingableAnimator.enabled = true;
 
-            itemRigidbody.isKinematic = true;
+            itemRigidbody.isKinematic = false;
             itemRigidbody.useGravity = false;
 
             itemCollider.enabled = true;
             itemCollider.isTrigger = false;
             
             ShowUI = false;
-        }
+        }                   
         else {
             Debug.Log($"Item {gameObject.name} is already held");
         }
@@ -124,9 +124,6 @@ public class Swingable : Interactable
         if (isHeld) {
             if(isAttacking) {
                 if (other.collider.CompareTag("Limb")) {
-                    // Deal damage to the enemy
-                    Debug.Log("Limb hit!");
-                    
                     TransformCollector transformCollector = Helper.GetComponentInParentByTag<TransformCollector>(other.transform, "Enemy");
                     if (transformCollector != null) {
                         foreach (TransformData data in transformCollector.transformDataList) {
