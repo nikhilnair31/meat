@@ -4994,8 +4994,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6163ae57afeb45841b6443091197aec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialDamage: 10
-  continuousDamage: 5
+  initialDamage: 5
+  continuousDamage: 2
   damageDuration: 5
   fireParticleSystem: {fileID: 6302018356258932584}
   hurtShakeMagnitude: 4

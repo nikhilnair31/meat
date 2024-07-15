@@ -54,7 +54,6 @@ public class Fire : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
     }
-
     IEnumerator ApplyDamageOverTime(float duration) {
         float timer = 0f;
         while (timer < duration) {
@@ -62,26 +61,23 @@ public class Fire : MonoBehaviour
             timer += 1f;
             yield return new WaitForSeconds(1f);
         }
-        EnableDisableFireEffect();
+        EnableDisableFireEffect(false);
     }
 
-    private void EnableDisableFireEffect() {
-        if (playerHealth.fireEffect != null && !playerHealth.fireEffect.isPlaying) {
-            playerHealth.fireEffect.Play();
-        }
-        else if (playerHealth.fireEffect != null && playerHealth.fireEffect.isPlaying) {
-            playerHealth.fireEffect.Stop();
-        }
-    }
-
-    void ApplyDamage(int damage) {
-        // Replace this with your player's health system
-        // Example: player.GetComponent<PlayerHealth>().TakeDamage(damage);
-        Debug.Log($"Player took {damage} damage from fire.");
-
-        EnableDisableFireEffect();
-
+    private void ApplyDamage(int damage) {
         playerHealth.DiffHealth(damage, 0.01f);
         Helper.CameraShake(hurtShakeMagnitude * hurtShakeMultiplier, hurtShakeDuration * hurtShakeMultiplier);
+        EnableDisableFireEffect(true);
+    }
+
+    private void EnableDisableFireEffect(bool enableStatus) {
+        if (playerHealth.fireEffect != null) {
+            if (enableStatus) {
+                playerHealth.fireEffect.Play();
+            }
+            else {
+                playerHealth.fireEffect.Stop();
+            }
+        }
     }
 }
