@@ -11,7 +11,6 @@ public class Throwable : Interactable
     [SerializeField] private bool isThrown = false;
     [SerializeField] private float throwForce = 20f;
     private Transform playerHand;
-    private Transform playerPlaceHolder;
     private Rigidbody itemRigidbody;
     private Collider itemCollider;
 
@@ -55,11 +54,12 @@ public class Throwable : Interactable
             isHeld = true;
             
             playerHand = playerInteract.playerInteractHolder;
-            playerPlaceHolder = playerInteract.playerInteractPlaceholder;
             playerInteract.playerAnimator = swingableAnimator;
 
             transform.SetParent(playerHand);
-            transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+            transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+
+            swingableAnimator.enabled = true;
 
             itemRigidbody.isKinematic = true;
             itemRigidbody.useGravity = false;

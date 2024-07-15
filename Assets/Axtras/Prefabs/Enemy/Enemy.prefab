@@ -306,7 +306,7 @@ GameObject:
   - component: {fileID: 8810963983916033953}
   m_Layer: 0
   m_Name: mixamorig:LeftForeArm
-  m_TagString: Untagged
+  m_TagString: Limb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -533,7 +533,7 @@ GameObject:
   - component: {fileID: 7457466790876377933}
   m_Layer: 0
   m_Name: mixamorig:RightLeg
-  m_TagString: Untagged
+  m_TagString: Limb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -825,7 +825,7 @@ GameObject:
   - component: {fileID: 3819847826054419173}
   m_Layer: 0
   m_Name: mixamorig:RightForeArm
-  m_TagString: Untagged
+  m_TagString: Limb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -987,7 +987,7 @@ GameObject:
   - component: {fileID: 3713305572368070067}
   m_Layer: 0
   m_Name: mixamorig:LeftLeg
-  m_TagString: Untagged
+  m_TagString: Limb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1261,7 +1261,7 @@ MonoBehaviour:
     rigidbody: {fileID: 701930326888437052}
     spawnedLimbObject: {fileID: 0}
     damageImpactObject: {fileID: 0}
-    transformMaxHealth: 100
+    transformMaxHealth: 25
     transformCurrentHealth: 0
     destroyable: 1
     destroyed: 0
@@ -1271,7 +1271,7 @@ MonoBehaviour:
     spawnedLimbObject: {fileID: 1033440920666895420, guid: 1691292f6040bf5458172ac018399192,
       type: 3}
     damageImpactObject: {fileID: 0}
-    transformMaxHealth: 100
+    transformMaxHealth: 45
     transformCurrentHealth: 0
     destroyable: 1
     destroyed: 0
@@ -1281,7 +1281,7 @@ MonoBehaviour:
     spawnedLimbObject: {fileID: 1453305421458283894, guid: 6c9a4d95fb9ee074fac260e6c4c6725a,
       type: 3}
     damageImpactObject: {fileID: 0}
-    transformMaxHealth: 100
+    transformMaxHealth: 35
     transformCurrentHealth: 0
     destroyable: 1
     destroyed: 0
@@ -1291,7 +1291,7 @@ MonoBehaviour:
     spawnedLimbObject: {fileID: 1033440920666895420, guid: 1691292f6040bf5458172ac018399192,
       type: 3}
     damageImpactObject: {fileID: 0}
-    transformMaxHealth: 100
+    transformMaxHealth: 45
     transformCurrentHealth: 0
     destroyable: 1
     destroyed: 0
@@ -1301,7 +1301,7 @@ MonoBehaviour:
     spawnedLimbObject: {fileID: 1453305421458283894, guid: 6c9a4d95fb9ee074fac260e6c4c6725a,
       type: 3}
     damageImpactObject: {fileID: 0}
-    transformMaxHealth: 100
+    transformMaxHealth: 35
     transformCurrentHealth: 0
     destroyable: 1
     destroyed: 0
@@ -1311,7 +1311,7 @@ MonoBehaviour:
     spawnedLimbObject: {fileID: 4507142109278807159, guid: f3115358c587b2c44a79423215819f83,
       type: 3}
     damageImpactObject: {fileID: 0}
-    transformMaxHealth: 100
+    transformMaxHealth: 45
     transformCurrentHealth: 0
     destroyable: 1
     destroyed: 0
@@ -1321,7 +1321,7 @@ MonoBehaviour:
     spawnedLimbObject: {fileID: 6578803607925183423, guid: ebf7167d42c447e4881bbeff9ce40b09,
       type: 3}
     damageImpactObject: {fileID: 0}
-    transformMaxHealth: 100
+    transformMaxHealth: 35
     transformCurrentHealth: 0
     destroyable: 1
     destroyed: 0
@@ -1331,7 +1331,7 @@ MonoBehaviour:
     spawnedLimbObject: {fileID: 4507142109278807159, guid: f3115358c587b2c44a79423215819f83,
       type: 3}
     damageImpactObject: {fileID: 0}
-    transformMaxHealth: 100
+    transformMaxHealth: 45
     transformCurrentHealth: 0
     destroyable: 1
     destroyed: 0
@@ -1341,7 +1341,7 @@ MonoBehaviour:
     spawnedLimbObject: {fileID: 6578803607925183423, guid: ebf7167d42c447e4881bbeff9ce40b09,
       type: 3}
     damageImpactObject: {fileID: 0}
-    transformMaxHealth: 100
+    transformMaxHealth: 35
     transformCurrentHealth: 0
     destroyable: 1
     destroyed: 0
@@ -1350,7 +1350,7 @@ MonoBehaviour:
     rigidbody: {fileID: 6573692110522351244}
     spawnedLimbObject: {fileID: 0}
     damageImpactObject: {fileID: 0}
-    transformMaxHealth: 100
+    transformMaxHealth: 10
     transformCurrentHealth: 0
     destroyable: 1
     destroyed: 0
@@ -1390,7 +1390,7 @@ GameObject:
   - component: {fileID: 1694280403284158420}
   m_Layer: 0
   m_Name: mixamorig:LeftArm
-  m_TagString: Untagged
+  m_TagString: Limb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1552,7 +1552,7 @@ GameObject:
   - component: {fileID: 5812303617124430666}
   m_Layer: 0
   m_Name: mixamorig:RightUpLeg
-  m_TagString: Untagged
+  m_TagString: Limb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1748,7 +1748,7 @@ GameObject:
   - component: {fileID: 4485785369186262298}
   m_Layer: 0
   m_Name: mixamorig:LeftUpLeg
-  m_TagString: Untagged
+  m_TagString: Limb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2026,7 +2026,7 @@ GameObject:
   - component: {fileID: 3502469209747003748}
   m_Layer: 0
   m_Name: mixamorig:Head
-  m_TagString: Untagged
+  m_TagString: Limb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2262,7 +2262,7 @@ GameObject:
   - component: {fileID: 3482708311578929914}
   m_Layer: 0
   m_Name: mixamorig:Spine1
-  m_TagString: Untagged
+  m_TagString: Limb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2297,7 +2297,7 @@ GameObject:
   - component: {fileID: 435838129667098744}
   m_Layer: 0
   m_Name: mixamorig:RightArm
-  m_TagString: Untagged
+  m_TagString: Limb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

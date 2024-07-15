@@ -150,14 +150,8 @@ MonoBehaviour:
   transitionAmount: 0.2
   canvasOffsetY: 1
   displayDuration: 2
-  isOff: 1
+  isOn: 0
   flameParticle: {fileID: 1722286860441280146}
-  hurtAmountOnEnter: 6
-  hurtAmountOnStay: 2
-  hurtStayRate: 0.4
-  hurtShakeMagnitude: 4
-  hurtShakeDuration: 0.2
-  hurtShakeMultiplier: 1.2
 --- !u!1 &8494426163692666598
 GameObject:
   m_ObjectHideFlags: 0

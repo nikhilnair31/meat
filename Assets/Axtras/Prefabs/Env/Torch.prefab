@@ -4844,6 +4844,7 @@ GameObject:
   - component: {fileID: 2036889244828894605}
   - component: {fileID: 1701016130253808050}
   - component: {fileID: 155184373650022407}
+  - component: {fileID: 3617995316457560707}
   m_Layer: 9
   m_Name: Torch
   m_TagString: Untagged
@@ -4979,12 +4980,24 @@ MonoBehaviour:
   transitionAmount: 0.2
   canvasOffsetY: 0.5
   displayDuration: 2
-  isOff: 0
+  isOn: 1
   flameParticle: {fileID: 6302018356258932584}
-  hurtAmountOnEnter: 12
-  hurtAmountOnStay: 7
-  hurtStayRate: 0.8
-  hurtForDuration: 6
+--- !u!114 &3617995316457560707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6493235446257905079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6163ae57afeb45841b6443091197aec2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialDamage: 10
+  continuousDamage: 5
+  damageDuration: 5
+  fireParticleSystem: {fileID: 6302018356258932584}
   hurtShakeMagnitude: 4
   hurtShakeDuration: 0.4
   hurtShakeMultiplier: 1.2

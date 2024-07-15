@@ -147,7 +147,7 @@ Animator:
   m_GameObject: {fileID: 7829000381030253684}
   m_Enabled: 0
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2a11b9530a07af8428b05fe9e391868b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -178,7 +178,7 @@ MonoBehaviour:
   isHeld: 0
   healAmount: 20
   healTime: 4
-  consumeTime: 3
+  consumeTime: 2
   holdTime: 0
   reduceByDecayDurability: 1
   durabilityDecayRate: 4

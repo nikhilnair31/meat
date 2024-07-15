@@ -9,7 +9,6 @@ public class Swingable : Interactable
     [Header("Main")]
     [SerializeField] private bool isHeld = false;
     private Transform playerHand;
-    private Transform playerPlaceHolder;
     private Rigidbody itemRigidbody;
     private Collider itemCollider;
     public bool isAttacking = false;
@@ -54,11 +53,12 @@ public class Swingable : Interactable
             isHeld = true;
             
             playerHand = playerInteract.playerInteractHolder;
-            playerPlaceHolder = playerInteract.playerInteractPlaceholder;
             playerInteract.playerAnimator = swingableAnimator;
 
             transform.SetParent(playerHand);
-            transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+            transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+
+            swingableAnimator.enabled = true;
 
             itemRigidbody.isKinematic = true;
             itemRigidbody.useGravity = false;

@@ -3,25 +3,26 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    public Transform player;
-    public float detectionAngle = 45f;
-    public float detectionDistance = 10f;
-    public float chaseDistance = 15f;
-    public float lostSightDuration = 5f;
-    public float waitTimeAtLastSeen = 3f;
-
+    private Transform player;
     private Animator animator;
     private NavMeshAgent navMeshAgent;
     private Vector3 originalPosition;
     private Vector3 lastSeenPosition;
-    private bool isChasing;
-    private bool hasLostSight;
     private float lostSightTimer;
     private float waitTimer;
+    private bool isChasing;
+    private bool hasLostSight;
+
+    [SerializeField] private float detectionAngle = 45f;
+    [SerializeField] private float detectionDistance = 10f;
+    [SerializeField] private float chaseDistance = 15f;
+    [SerializeField] private float lostSightDuration = 5f;
+    [SerializeField] private float waitTimeAtLastSeen = 3f;
 
     // FIXME: Fix enemy logic
-    void Start()
-    {
+    void Start() {
+        player = GameObject.Find("Player").transform;
+
         animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
 

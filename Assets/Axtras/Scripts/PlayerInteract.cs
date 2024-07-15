@@ -10,7 +10,6 @@ public class PlayerInteract : MonoBehaviour
     public Animator playerAnimator;
     [SerializeField] private Transform playerEyes;
     public Transform playerInteractHolder;
-    public Transform playerInteractPlaceholder;
     [SerializeField] private LayerMask interactableLayer;
     [SerializeField] private float interactableRange = 5f;
 

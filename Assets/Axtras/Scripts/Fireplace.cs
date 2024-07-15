@@ -1,30 +1,12 @@
-using System.Collections;
 using UnityEngine;
 
 public class Fireplace : Interactable 
 {
-    private PlayerHealth playerHealth;
-    private ParticleSystem playerFireEffect;
-
     [Header("Main")]
-    [SerializeField] private bool isOff = false;
+    public bool isOn = false;
     [SerializeField] private ParticleSystem flameParticle;
 
-    [Header("Damage Properties")]
-    [SerializeField] private int hurtAmountOnEnter = 20;
-    [SerializeField] private int hurtAmountOnStay = 20;
-    [SerializeField] private float hurtStayRate = 1f;
-    [SerializeField] private float hurtForDuration = 0.1f;
-    private float nextHurtTime;
-
-    [Header("Camera Shake Effects")]
-    [SerializeField] private float hurtShakeMagnitude = 4.0f;
-    [SerializeField] private float hurtShakeDuration = 0.4f;
-    [SerializeField] private float hurtShakeMultiplier = 1.2f;
-
     private void Start() {
-        playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
-
         StartStopFireplace();
     }
 
@@ -37,38 +19,6 @@ public class Fireplace : Interactable
     }
 
     public void StartStopFireplace() {
-        if (isOff = !isOff) flameParticle.Play(); else flameParticle.Stop();
-    }
-
-    private void OnTriggerEnter(Collider other) {
-        if(isOff) {
-            if (other.CompareTag("Player")) {
-                playerHealth.DiffHealth(hurtAmountOnEnter, 0.01f);
-                Helper.CameraShake(hurtShakeMagnitude * hurtShakeMultiplier, hurtShakeDuration * hurtShakeMultiplier);
-                SetOnFire();
-            }
-        }
-    }    
-    private void OnTriggerStay(Collider other) {
-        if(isOff) {
-            if (other.CompareTag("Player") && Time.time >= nextHurtTime) {
-                playerHealth.DiffHealth(hurtAmountOnStay, hurtForDuration);
-                Helper.CameraShake(hurtShakeMagnitude, hurtShakeDuration);
-                SetOnFire();
-                
-                nextHurtTime = Time.time + hurtStayRate;
-            }
-        }
-    }
-
-    private void SetOnFire() {
-        playerFireEffect = playerHealth.fireEffect;
-        StartCoroutine(StopFireEffectAfterDuration(playerFireEffect, hurtForDuration));
-    }
-    // FIXME: Fire effect doesn't stay on during continuous damage
-    private IEnumerator StopFireEffectAfterDuration(ParticleSystem fireEffect, float duration) {
-        fireEffect.Play();
-        yield return new WaitForSeconds(duration);
-        fireEffect.Stop();
+        if(isOn) flameParticle.Play(); else flameParticle.Stop();
     }
 }
