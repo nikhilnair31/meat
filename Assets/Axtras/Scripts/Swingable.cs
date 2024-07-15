@@ -1,16 +1,10 @@
 using System.Collections;
 using UnityEngine;
 
-public class Swingable : Interactable
+public class Swingable : PickableLimb
 {
-    private PlayerInteract playerInteract;
-    private Animator swingableAnimator;
-
     [Header("Main")]
     [SerializeField] private bool isHeld = false;
-    private Transform playerHand;
-    private Rigidbody itemRigidbody;
-    private Collider itemCollider;
     public bool isAttacking = false;
     public bool isBlocking = false;
 
@@ -18,32 +12,9 @@ public class Swingable : Interactable
     [SerializeField] private int damageAmount = 20;
     [SerializeField] private float lightAttackDuration = 1f;
 
-    [Header("Durability Properties")]
-    [SerializeField] private int reduceByDecayDurability = 2;
-    [SerializeField] private float durabilityDecayRate = 1f;
-    [SerializeField] private int reduceByImpactDurability = 5;
-    [SerializeField] private int maxDurability = 20;
-    [SerializeField] private int currentDurability;
-    private Material weaponMaterial;
-    private Color originalColor;
-
     [Header("Effects")]
     [SerializeField] private float hurtShakeMagnitude = 6.0f;
     [SerializeField] private float hurtShakeDuration = 0.3f;
-
-    private void Start() {
-        playerInteract = GameObject.Find("Player").GetComponent<PlayerInteract>();
-
-        itemRigidbody = GetComponent<Rigidbody>();
-        itemCollider = GetComponent<Collider>();
-        swingableAnimator = GetComponent<Animator>();
-        weaponMaterial = GetComponent<Renderer>().material;
-
-        originalColor = weaponMaterial.color;
-        currentDurability = maxDurability;
-
-        StartCoroutine(DecayDurabilityOverTime(reduceByDecayDurability));
-    }
 
     public override void Interact() {
         Pickup();
@@ -53,12 +24,12 @@ public class Swingable : Interactable
             isHeld = true;
             
             playerHand = playerInteract.playerInteractHolder;
-            playerInteract.playerAnimator = swingableAnimator;
+            playerInteract.playerAnimator = animator;
 
             transform.SetParent(playerHand);
             transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
 
-            swingableAnimator.enabled = true;
+            animator.enabled = true;
 
             itemRigidbody.isKinematic = false;
             itemRigidbody.useGravity = false;
@@ -142,39 +113,10 @@ public class Swingable : Interactable
                 }
 
                 // Decrease durability on collision
-                ReduceDurabilityByCollision(reduceByImpactDurability);
+                ReduceDurabilityByCollision();
 
                 Helper.CameraShake(hurtShakeMagnitude, hurtShakeDuration);
             }
         }
-    }
-
-    private IEnumerator DecayDurabilityOverTime(int reduceByDecayDurability) {
-        while (true) {
-            // Decrease durability continuously
-            yield return new WaitForSeconds(durabilityDecayRate);
-            ReduceDurability(reduceByDecayDurability);
-        }
-    }
-    private void ReduceDurabilityByCollision(int reduceByImpactDurability) {
-        // Decrease durability on collision
-        ReduceDurability(reduceByImpactDurability);
-    }
-    private void ReduceDurability(int reduceDurabulityAmount) {
-        currentDurability -= reduceDurabulityAmount;
-        UpdateWeaponColor();
-
-        if (currentDurability <= 0) {
-            Break();
-        }
-    }
-    private void UpdateWeaponColor() {
-        float healthRatio = (float)currentDurability / maxDurability;
-        weaponMaterial.color = Color.Lerp(Color.black, originalColor, healthRatio);
-    }
-    private void Break() {
-        // Handle item breaking logic
-        Debug.Log($"Swingable item {gameObject.name} broke!");
-        Destroy(gameObject);
     }
 }
