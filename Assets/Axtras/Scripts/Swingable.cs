@@ -4,10 +4,12 @@ using UnityEngine;
 public class Swingable : Interactable
 {
     private PlayerInteract playerInteract;
+    private Animator swingableAnimator;
 
     [Header("Main")]
     [SerializeField] private bool isHeld = false;
     private Transform playerHand;
+    private Transform playerPlaceHolder;
     private Rigidbody itemRigidbody;
     private Collider itemCollider;
     public bool isAttacking = false;
@@ -35,6 +37,7 @@ public class Swingable : Interactable
 
         itemRigidbody = GetComponent<Rigidbody>();
         itemCollider = GetComponent<Collider>();
+        swingableAnimator = GetComponent<Animator>();
         weaponMaterial = GetComponent<Renderer>().material;
 
         originalColor = weaponMaterial.color;
@@ -51,10 +54,11 @@ public class Swingable : Interactable
             isHeld = true;
             
             playerHand = playerInteract.playerInteractHolder;
+            playerPlaceHolder = playerInteract.playerInteractPlaceholder;
+            playerInteract.playerAnimator = swingableAnimator;
 
             transform.SetParent(playerHand);
-            // FIXME: Set the correct intial position and rotation of swingables
-            transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+            transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
 
             itemRigidbody.isKinematic = true;
             itemRigidbody.useGravity = false;

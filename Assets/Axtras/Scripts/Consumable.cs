@@ -7,10 +7,12 @@ public class Consumable : Interactable
     private PlayerInteract playerInteract;
     private PlayerHealth playerHealth;
     private Image fillableCursorImage;
+    private Animator swingableAnimator;
 
     [Header("Main")]
     [SerializeField] private bool isHeld = false;
     private Transform playerHand;
+    private Transform playerPlaceHolder;
     private Collider itemCollider;
     private Rigidbody itemRigidbody;
 
@@ -34,6 +36,7 @@ public class Consumable : Interactable
 
         itemCollider = GetComponent<Collider>();
         itemRigidbody = GetComponent<Rigidbody>();
+        swingableAnimator = GetComponent<Animator>();
         weaponMaterial = GetComponent<Renderer>().material;
 
         originalColor = weaponMaterial.color;
@@ -51,9 +54,11 @@ public class Consumable : Interactable
             
             playerHand = playerInteract.playerInteractHolder;
             fillableCursorImage = playerInteract.fillableCursorImage;
+            playerPlaceHolder = playerInteract.playerInteractPlaceholder;
+            playerInteract.playerAnimator = swingableAnimator;
 
             transform.SetParent(playerHand);
-            transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+            transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
 
             itemRigidbody.isKinematic = true;
             itemRigidbody.useGravity = false;

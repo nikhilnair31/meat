@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6383111309132490373}
   - component: {fileID: 2613554067784600098}
   - component: {fileID: 2421924738656835535}
+  - component: {fileID: 6498710014874146442}
   - component: {fileID: 8625383106079674491}
   m_Layer: 9
   m_Name: Throwable - Head
@@ -31,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.059672184, y: -0.00023410597, z: 0.0000033268716, w: 0.99821806}
   m_LocalPosition: {x: -0.58220494, y: 1.0123794, z: 3.940014}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1807632203615843658}
@@ -44,7 +45,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2153641451951631465}
-  m_Mesh: {fileID: 6329158148709259305, guid: 4f2090c17d7781d499cdb688793d6dbf, type: 3}
+  m_Mesh: {fileID: -1830038286746442764, guid: 2aac2f620e438bd48ae4aba5dc80a457, type: 3}
 --- !u!23 &6383111309132490373
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -65,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5e88a93148f69984e968ecc92408960f, type: 2}
+  - {fileID: 2100000, guid: 734f3f7ffc563a642b6d83bea771fb04, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -108,7 +109,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 6329158148709259305, guid: 4f2090c17d7781d499cdb688793d6dbf, type: 3}
+  m_Mesh: {fileID: -1830038286746442764, guid: 2aac2f620e438bd48ae4aba5dc80a457, type: 3}
 --- !u!54 &2421924738656835535
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -136,6 +137,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!95 &6498710014874146442
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2153641451951631465}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &8625383106079674491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,10 +172,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactTransform: {fileID: 1807632203615843658}
   transitionDuration: 0.2
-  transitionAmount: 0.2
+  transitionAmount: 1
   canvasOffsetY: 0.5
   displayDuration: 3
   isHeld: 0
+  isThrown: 0
   throwForce: 20
   damageAmount: 30
   reduceByDecayDurability: 1
@@ -240,7 +263,7 @@ PrefabInstance:
     - target: {fileID: 743413128454421170, guid: 57110631f5f6ba140a6fc53b32aa8097,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.29784885
       objectReference: {fileID: 0}
     - target: {fileID: 743413128454421170, guid: 57110631f5f6ba140a6fc53b32aa8097,
         type: 3}
@@ -265,12 +288,12 @@ PrefabInstance:
     - target: {fileID: 743413128454421170, guid: 57110631f5f6ba140a6fc53b32aa8097,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 0.00007041836
       objectReference: {fileID: 0}
     - target: {fileID: 743413128454421170, guid: 57110631f5f6ba140a6fc53b32aa8097,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 2.4821932
       objectReference: {fileID: 0}
     - target: {fileID: 743413128454421170, guid: 57110631f5f6ba140a6fc53b32aa8097,
         type: 3}

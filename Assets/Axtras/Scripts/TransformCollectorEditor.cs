@@ -31,7 +31,8 @@ public class TransformCollectorEditor : Editor
                     {
                         transformName = collider.transform.name,
                         collider = collider,
-                        rigidbody = rigidbody
+                        rigidbody = rigidbody,
+                        destroyable = true
                     };
                     transformCollector.transformDataList.Add(data);
                 }

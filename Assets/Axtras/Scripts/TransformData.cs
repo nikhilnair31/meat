@@ -19,7 +19,7 @@ public class TransformData
     public int transformCurrentHealth;
 
     [Header("Flags")]
-    [SerializeField] private bool destroyable;
+    public bool destroyable;
     [SerializeField] private bool destroyed;
 
     public void Init(GameObject defaultSpawnedLimbObject, GameObject defaultDamageImpactObject) 
@@ -39,8 +39,7 @@ public class TransformData
         {
             if ((destroyed || transformCurrentHealth <= 0) && !wasDestroyed)
             {
-                collider.transform.localScale = Vector3.zero;
-                collider.gameObject.SetActive(false);
+                wasDestroyed = true;
 
                 // Spawn spawned limb
                 GameObject newLimb = Object.Instantiate(spawnedLimbObject, collider.transform.position, collider.transform.rotation);
@@ -50,14 +49,12 @@ public class TransformData
                 GameObject impact = Object.Instantiate(damageImpactObject, collider.transform.position, collider.transform.rotation);
                 Object.Destroy(impact, 5f);
 
-                wasDestroyed = true;
+                var ragdoll = Helper.GetComponentInParentByTag<Ragdoll>(collider.transform, "Enemy");
+                if(ragdoll != null) ragdoll.isRagdoll = true;
+
+                collider.transform.localScale = Vector3.zero;
+                collider.gameObject.SetActive(false);
             }
-            // else if (!destroyed && wasDestroyed)
-            // {
-            //     collider.transform.localScale = Vector3.one;
-            //     collider.gameObject.SetActive(true);
-            //     wasDestroyed = false;
-            // }
         }
     }
 }

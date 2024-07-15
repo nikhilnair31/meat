@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +9,8 @@ public class PlayerInteract : MonoBehaviour
     [Header("Main")]
     public Animator playerAnimator;
     [SerializeField] private Transform playerEyes;
-    [SerializeField] public Transform playerInteractHolder;
+    public Transform playerInteractHolder;
+    public Transform playerInteractPlaceholder;
     [SerializeField] private LayerMask interactableLayer;
     [SerializeField] private float interactableRange = 5f;
 
@@ -48,5 +50,5 @@ public class PlayerInteract : MonoBehaviour
                 interactable.Interact();
             }
         }
-    }  
+    }
 }
