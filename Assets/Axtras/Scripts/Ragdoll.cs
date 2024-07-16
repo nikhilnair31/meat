@@ -2,23 +2,38 @@ using UnityEngine;
 
 public class Ragdoll : MonoBehaviour 
 {
-    public bool isRagdoll = false;
-
-    private void Start() {
-        if (isRagdoll) {
-            EnableRagdoll();
+    [SerializeField] private bool initRagdollOn = false;
+    private bool isRagdoll = false;
+    public bool IsRagdoll {
+        get { 
+            return isRagdoll; 
         }
-        else {
-            DisableRagdoll();
+        set {
+            if (isRagdoll != value) {
+                isRagdoll = value;
+                if(isRagdoll) {
+                    DisableAllPhysics();
+                }
+                else {
+                    EnableAllPhysics();
+                }
+            }
         }
     }
 
-    private void DisableRagdoll() {
-        isRagdoll = false;
-        GetComponent<Animator>().enabled = true;
-        DisableAllPhysics();
+    private void Update() {
+        IsRagdoll = initRagdollOn;
     }
+
+    public void EnableRagdoll() {
+        IsRagdoll = true;
+    }
+    public void DisableRagdoll() {
+        IsRagdoll = false;
+    }
+
     private void DisableAllPhysics() {
+        GetComponent<Animator>().enabled = true;
         foreach (Rigidbody rgb in GetComponentsInChildren<Rigidbody>()) {
             rgb.isKinematic = true;
             rgb.useGravity = false;
@@ -28,13 +43,8 @@ public class Ragdoll : MonoBehaviour
             coll.isTrigger = false;
         }
     }
-
-    public void EnableRagdoll() {
-        isRagdoll = true;
-        GetComponent<Animator>().enabled = false;
-        EnableAllPhysics();
-    }
     private void EnableAllPhysics() {
+        GetComponent<Animator>().enabled = false;
         foreach (Rigidbody rgb in GetComponentsInChildren<Rigidbody>()) {
             rgb.isKinematic = false;
             rgb.useGravity = true;
@@ -43,5 +53,6 @@ public class Ragdoll : MonoBehaviour
             coll.enabled = true;
             coll.isTrigger = false;
         }
+        GetComponent<Enemy>().DisableKickWeapon();
     }
 }

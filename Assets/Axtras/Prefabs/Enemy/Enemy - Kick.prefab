@@ -779,6 +779,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kickCollider: {fileID: 7528007331653351867}
+  kickRGB: {fileID: 0}
   damageAmount: 10
   damageDuration: 0.01
   hurtShakeMagnitude: 12
@@ -1240,7 +1241,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4476426569185288487}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b2d8418b0b9634b1892b0268dd9c2743, type: 3}
   m_Name: 
@@ -1311,7 +1312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8366f3a01a9066c4f80c0fb42d440a56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isRagdoll: 0
+  initRagdollOn: 0
 --- !u!114 &2302922245230599032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1328,7 +1329,8 @@ MonoBehaviour:
   - transformName: mixamorig:Head
     collider: {fileID: 1737535461515424875}
     rigidbody: {fileID: 701930326888437052}
-    spawnedLimbObject: {fileID: 0}
+    spawnedLimbObject: {fileID: 2153641451951631465, guid: 213ccdb087fd3bf4f9926e2b4756f10d,
+      type: 3}
     damageImpactObject: {fileID: 0}
     transformMaxHealth: 25
     transformCurrentHealth: 0

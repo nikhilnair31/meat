@@ -50,7 +50,7 @@ public class TransformData
                 Object.Destroy(impact, 5f);
 
                 var ragdoll = Helper.GetComponentInParentByTag<Ragdoll>(collider.transform, "Enemy");
-                if(ragdoll != null) ragdoll.isRagdoll = true;
+                if(ragdoll != null) ragdoll.IsRagdoll = true;
 
                 collider.transform.localScale = Vector3.zero;
                 collider.gameObject.SetActive(false);

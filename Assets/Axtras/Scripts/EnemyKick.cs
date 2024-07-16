@@ -7,6 +7,7 @@ public class EnemyKick : MonoBehaviour
 
     [Header("Collision Properties")]
     public Collider kickCollider;
+    public Rigidbody kickRGB;
 
     [Header("Damage Properties")]
     [SerializeField] private int damageAmount = 10;
@@ -23,6 +24,7 @@ public class EnemyKick : MonoBehaviour
         enemy = Helper.GetComponentInParentByTag<Enemy>(transform, "Enemy");
 
         kickCollider = GetComponent<Collider>();
+        kickRGB = GetComponent<Rigidbody>();
 
         kickCollider.enabled = false;
     }

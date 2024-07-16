@@ -268,4 +268,11 @@ public class Enemy : MonoBehaviour
     public void EnableKickColl() {
         enemyKick.kickCollider.enabled = true;
     }
+    public void DisableKickWeapon() {
+        Destroy(enemyKick.kickRGB);
+        Destroy(enemyKick.kickCollider);
+
+        navMeshAgent.enabled = false;
+        this.enabled = false;
+    }
 }
