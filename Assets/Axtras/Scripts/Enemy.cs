@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -17,6 +18,11 @@ public class Enemy : MonoBehaviour
     private float distanceToOriginalPosition;
     private float distanceToLastSeenPosition;
     private bool isIdle;
+    private bool isWalking;
+    private bool isChasing;
+    private bool isSearching;
+    private bool isAttacking;
+
     public bool IsIdle {
         get { 
             return isIdle; 
@@ -29,7 +35,6 @@ public class Enemy : MonoBehaviour
             IsWalking = false;
         }
     }
-    private bool isWalking;
     public bool IsWalking {
         get { 
             return isWalking; 
@@ -41,7 +46,6 @@ public class Enemy : MonoBehaviour
             }
         }
     }
-    private bool isChasing;
     public bool IsChasing {
         get { 
             return isChasing; 
@@ -54,7 +58,6 @@ public class Enemy : MonoBehaviour
             IsIdle = false;
         }
     }
-    private bool isSearching;
     public bool IsSearching {
         get { 
             return isSearching; 
@@ -67,26 +70,44 @@ public class Enemy : MonoBehaviour
             IsChasing = false;
         }
     }
-    private bool hasLostSight;
-    public bool HasLostSight {
+    public bool IsAttacking {
         get { 
-            return hasLostSight; 
+            return isAttacking; 
         }
         set {
-            if (hasLostSight != value) {
-                hasLostSight = value;
-                animator.SetBool("hasLostSight", value);
+            if (isAttacking != value) {
+                isAttacking = value;
+                if(isAttacking) {
+                    navMeshAgent.isStopped = true;
+                    animator.SetTrigger("Attack");
+                }
+                else {
+                    navMeshAgent.isStopped = false;
+                    animator.ResetTrigger("Attack");
+                }
+                animator.SetBool("isAttacking", value);
             }
         }
     }
 
+    [Header("Detection Settings")]
     [SerializeField] private LayerMask detectionLayer;
     [SerializeField] private float detectionAngle = 45f;
     [SerializeField] private float detectionDistance = 10f;
+
+    [Header("Chase Settings")]
     [SerializeField] private float chaseDistance = 15f;
-    [SerializeField] private float resetAfterDuration = 10f;
+    
+    [Header("Search Settings")]
     [SerializeField] private float searchingForDuration = 5f;
-    [SerializeField] private float waitTimeAtLastSeen = 3f;
+
+    [Header("Attack Settings")]
+    [SerializeField] private EnemyKick enemyKick;
+    [SerializeField] private float attackDistance = 3f;
+    [SerializeField] private float attackTime = 1f;
+    
+    [Header("Reset Settings")]
+    [SerializeField] private float resetAfterDuration = 10f;
 
     // FIXME: Fix enemy logic
     void Start() {
@@ -101,14 +122,15 @@ public class Enemy : MonoBehaviour
 
         IsIdle = true;
         IsChasing = false;
-        HasLostSight = false;
+        IsAttacking = false;
     }
 
     private void Update() {
         CalcValues();
-        Chasing();
+        Detection();
         Idle();
         Searching();
+        Attack();
         Reseter();
     }
 
@@ -120,7 +142,7 @@ public class Enemy : MonoBehaviour
         distanceToLastSeenPosition = Vector3.Distance(transform.position, lastSeenPosition);
     }
 
-    private void Chasing() {
+    private void Detection() {
         // If not current chasing the player
         if (!IsChasing) {
             // If player in detetcion distance and angle range
@@ -144,8 +166,8 @@ public class Enemy : MonoBehaviour
         }
         // If enemy is currently chasing the player
         else {
-            // If player in chase distance
-            if (distanceToPlayer < chaseDistance) {
+            // If player is within chase distance but outside of attack distance
+            if (distanceToPlayer < chaseDistance && distanceToPlayer > attackDistance) {
                 // Check if anything between enemy and player
                 if (Physics.Raycast(transform.position, directionToPlayer, out RaycastHit hit, chaseDistance, detectionLayer)) {
                     // If can see player then chase
@@ -163,6 +185,14 @@ public class Enemy : MonoBehaviour
                 }
             }
             // If player is out of chase distance then return to original position
+            else if (distanceToPlayer > chaseDistance) {
+                ReturnToOriginalPosition();
+            }
+            // If player is within attack distance then attack
+            else if (distanceToPlayer < attackDistance) {
+                StartCoroutine(AttackOverTime(attackTime));
+            }
+            // If player is out of attack distance then return to original position
             else {
                 ReturnToOriginalPosition();
             }
@@ -195,9 +225,13 @@ public class Enemy : MonoBehaviour
     }
 
     private void Searching() {
+        // If not currently searching for player
         if(!IsSearching) {
-            if (distanceToLastSeenPosition < 1.1f) {
-                IsSearching = true;
+            // If not currently chasing the player
+            if (!IsChasing) {
+                if (distanceToLastSeenPosition < 1.1f) {
+                    IsSearching = true;
+                }
             }
         }
         else {
@@ -217,5 +251,21 @@ public class Enemy : MonoBehaviour
                 ReturnToOriginalPosition();
             }
         }
+    }
+
+    private void Attack() {
+        if (distanceToPlayer < attackDistance) {
+            StartCoroutine(AttackOverTime(attackTime));
+        }
+    }
+    private IEnumerator AttackOverTime(float duration) {
+        IsAttacking = true;
+        
+        yield return new WaitForSeconds(duration);
+        
+        IsAttacking = false;
+    }
+    public void EnableKickColl() {
+        enemyKick.kickCollider.enabled = true;
     }
 }
