@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 using DG.Tweening;
 using Cinemachine;
 
@@ -85,5 +86,15 @@ public static class Helper
 
         // Perform the shake animation on the UI element
         uiElement.DOShakeAnchorPos(duration, strength, vibrato, randomness, false, fadeOut);
+    }
+
+    public static Vector3 GetClosestPointOnNavMesh(Vector3 targetPosition, float maxDistance) {
+        if (NavMesh.SamplePosition(targetPosition, out NavMeshHit hit, maxDistance, NavMesh.AllAreas)) {
+            return hit.position;
+        }
+        else {
+            Debug.LogWarning("No valid NavMesh point found within the specified distance.");
+            return targetPosition; // Return the original position if no valid point is found.
+        }
     }
 }
