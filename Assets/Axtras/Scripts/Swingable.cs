@@ -10,6 +10,7 @@ public class Swingable : PickableLimb
 
     [Header("Damage Properties")]
     [SerializeField] private int damageAmount = 20;
+    [SerializeField] private float damageDuration = 0.01f;
     [SerializeField] private float lightAttackDuration = 1f;
 
     [Header("Effects")]
@@ -101,7 +102,14 @@ public class Swingable : PickableLimb
                     if (transformCollector != null) {
                         foreach (TransformData data in transformCollector.transformDataList) {
                             if(data.transformName.Contains(other.collider.name)) {
-                                data.transformCurrentHealth -= damageAmount;
+                                float scaledDamageAmount = damageAmount * data.transformDamageMultiplier;
+
+                                data.transformCurrentHealth -= scaledDamageAmount;
+                            
+                                EnemyHealth enemyHealth = Helper.GetComponentInParentByTag<EnemyHealth>(other.transform, "Enemy");
+                                if (enemyHealth != null) {
+                                    enemyHealth.DiffHealth(scaledDamageAmount, damageDuration);
+                                }
                             }
                         }
                     }

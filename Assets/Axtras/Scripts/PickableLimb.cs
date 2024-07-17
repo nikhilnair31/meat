@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class PickableLimb : Interactable 
@@ -38,7 +37,6 @@ public class PickableLimb : Interactable
     }
 
     public void ReduceDurabilityByCollision() {
-        // Decrease durability on collision
         ReduceDurability(reduceByImpactDurability);
     }
     private void DecayDurabilityOverTime() {
@@ -48,6 +46,7 @@ public class PickableLimb : Interactable
             ReduceDurability(decayAmount);
         }
     }
+
     private void ReduceDurability(float reduceDurabilityAmount) {
         currentDurability -= reduceDurabilityAmount;
         currentDurability = Mathf.Clamp(currentDurability, 0, maxDurability);

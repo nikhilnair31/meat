@@ -50,6 +50,7 @@ public class TransformData
                 GameObject impact = Object.Instantiate(damageImpactObject, collider.transform.position, collider.transform.rotation);
                 Object.Destroy(impact, 5f);
 
+                // Make enemy ragdoll when any limb is completely destroyed
                 var enemyRagdoll = Helper.GetComponentInParentByTag<EnemyRagdoll>(collider.transform, "Enemy");
                 if(enemyRagdoll != null) enemyRagdoll.IsRagdoll = true;
 

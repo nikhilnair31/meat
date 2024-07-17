@@ -91,16 +91,17 @@ public class Throwable : PickableLimb
             if (other.collider.CompareTag("Limb")){
                 Debug.Log($"Limb {other.transform.name} hit!");
                 
-                EnemyHealth enemyHealth = Helper.GetComponentInParentByTag<EnemyHealth>(other.transform, "Enemy");
-                
                 TransformCollector transformCollector = Helper.GetComponentInParentByTag<TransformCollector>(other.transform, "Enemy");
                 if (transformCollector != null) {
                     foreach (TransformData data in transformCollector.transformDataList) {
                         if(data.transformName.Contains(other.collider.name)) {
-                            data.transformCurrentHealth -= damageAmount * data.transformDamageMultiplier;
+                            float scaledDamageAmount = damageAmount * data.transformDamageMultiplier;
+
+                            data.transformCurrentHealth -= scaledDamageAmount;
                             
+                            EnemyHealth enemyHealth = Helper.GetComponentInParentByTag<EnemyHealth>(other.transform, "Enemy");
                             if (enemyHealth != null) {
-                                enemyHealth.DiffHealth(damageAmount * data.transformDamageMultiplier, damageDuration);
+                                enemyHealth.DiffHealth(scaledDamageAmount, damageDuration);
                             }
                         }
                     }

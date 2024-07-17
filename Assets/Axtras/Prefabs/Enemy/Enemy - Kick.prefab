@@ -1412,7 +1412,7 @@ MonoBehaviour:
   - transformName: mixamorig:Spine
     collider: {fileID: 3067029031724558004}
     rigidbody: {fileID: 2951903368432475635}
-    spawnedLimbObject: {fileID: 7829000381030253684, guid: 6692de5dffa198f48bae934d0f970259,
+    spawnedLimbObject: {fileID: 3883134143409885345, guid: 59af6ee1a7b28284fbe7409302b012da,
       type: 3}
     damageImpactObject: {fileID: 0}
     transformDamageMultiplier: 0.8
