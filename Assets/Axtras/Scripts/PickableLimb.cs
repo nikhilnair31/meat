@@ -12,13 +12,13 @@ public class PickableLimb : Interactable
     public Animator animator;
     
     [Header("Durability Properties")]
-    [SerializeField] private int reduceByImpactDurability = 2;
-    [SerializeField] private int reduceByDecayDurability = 2;
-    [SerializeField] private float durabilityDecayRate = 1f;
-    [SerializeField] private int maxDurability = 20;
-    [SerializeField] private int currentDurability;
+    [SerializeField] private float reduceByImpactDurability = 2f;
+    [SerializeField] private float durabilityDecayInTime = 5f;
+    [SerializeField] private float maxDurability = 20;
+    [SerializeField] private float currentDurability;
     private Material weaponMaterial;
     private Color originalColor;
+    private float decayTimer;
 
     private void Start() {
         playerInteract = GameObject.Find("Player").GetComponent<PlayerInteract>();
@@ -32,23 +32,25 @@ public class PickableLimb : Interactable
 
         originalColor = weaponMaterial.color;
         currentDurability = maxDurability;
-
-        StartCoroutine(DecayDurabilityOverTime());
+    }
+    protected virtual void Update() {
+        DecayDurabilityOverTime();
     }
 
     public void ReduceDurabilityByCollision() {
         // Decrease durability on collision
         ReduceDurability(reduceByImpactDurability);
     }
-    public IEnumerator DecayDurabilityOverTime() {
-        while (true) {
-            // Decrease durability continuously
-            yield return new WaitForSeconds(durabilityDecayRate);
-            ReduceDurability(reduceByDecayDurability);
+    private void DecayDurabilityOverTime() {
+        if (currentDurability > 0f) {
+            decayTimer += Time.deltaTime;
+            float decayAmount = Time.deltaTime * (maxDurability / durabilityDecayInTime);
+            ReduceDurability(decayAmount);
         }
     }
-    private void ReduceDurability(int reduceDurabulityAmount) {
-        currentDurability -= reduceDurabulityAmount;
+    private void ReduceDurability(float reduceDurabilityAmount) {
+        currentDurability -= reduceDurabilityAmount;
+        currentDurability = Mathf.Clamp(currentDurability, 0, maxDurability);
         UpdateWeaponColor();
 
         if (currentDurability <= 0) {
@@ -56,7 +58,7 @@ public class PickableLimb : Interactable
         }
     }
     private void UpdateWeaponColor() {
-        float healthRatio = (float)currentDurability / maxDurability;
+        float healthRatio = currentDurability / maxDurability;
         weaponMaterial.color = Color.Lerp(Color.black, originalColor, healthRatio);
     }
     private void Break() {

@@ -778,13 +778,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 430db9cfbecd6c5499c3e6fc36a9816a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  meleeWeaponData: {fileID: 11400000, guid: 7525be46a58e77e48a2bcc3a62d9392b, type: 2}
   kickCollider: {fileID: 7528007331653351867}
-  kickRGB: {fileID: 0}
-  damageAmount: 10
-  damageDuration: 0.01
-  hurtShakeMagnitude: 12
-  hurtShakeDuration: 0.2
-  hurtShakeMultiplier: 1.3
+  kickRGB: {fileID: 2440996784759394794}
 --- !u!1 &3003739586062509537
 GameObject:
   m_ObjectHideFlags: 0
@@ -1186,9 +1182,10 @@ GameObject:
   - component: {fileID: 1394985062732284179}
   - component: {fileID: 865113606611461893}
   - component: {fileID: 1163530439052640523}
-  - component: {fileID: 690784106466484356}
   - component: {fileID: 2302922245230599032}
-  - component: {fileID: 2070972236825456341}
+  - component: {fileID: 7493227590050893546}
+  - component: {fileID: 5199316736870161825}
+  - component: {fileID: 5376067575905486488}
   m_Layer: 7
   m_Name: Enemy - Kick
   m_TagString: Enemy
@@ -1241,7 +1238,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4476426569185288487}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b2d8418b0b9634b1892b0268dd9c2743, type: 3}
   m_Name: 
@@ -1300,19 +1297,6 @@ NavMeshAgent:
   m_BaseOffset: -0.1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &690784106466484356
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4476426569185288487}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8366f3a01a9066c4f80c0fb42d440a56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  initRagdollOn: 0
 --- !u!114 &2302922245230599032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1332,6 +1316,7 @@ MonoBehaviour:
     spawnedLimbObject: {fileID: 2153641451951631465, guid: 213ccdb087fd3bf4f9926e2b4756f10d,
       type: 3}
     damageImpactObject: {fileID: 0}
+    transformDamageMultiplier: 0.8
     transformMaxHealth: 25
     transformCurrentHealth: 0
     destroyable: 1
@@ -1342,6 +1327,7 @@ MonoBehaviour:
     spawnedLimbObject: {fileID: 1033440920666895420, guid: 1691292f6040bf5458172ac018399192,
       type: 3}
     damageImpactObject: {fileID: 0}
+    transformDamageMultiplier: 0.8
     transformMaxHealth: 45
     transformCurrentHealth: 0
     destroyable: 1
@@ -1352,6 +1338,7 @@ MonoBehaviour:
     spawnedLimbObject: {fileID: 1453305421458283894, guid: 6c9a4d95fb9ee074fac260e6c4c6725a,
       type: 3}
     damageImpactObject: {fileID: 0}
+    transformDamageMultiplier: 0.8
     transformMaxHealth: 35
     transformCurrentHealth: 0
     destroyable: 1
@@ -1362,6 +1349,7 @@ MonoBehaviour:
     spawnedLimbObject: {fileID: 1033440920666895420, guid: 1691292f6040bf5458172ac018399192,
       type: 3}
     damageImpactObject: {fileID: 0}
+    transformDamageMultiplier: 0.8
     transformMaxHealth: 45
     transformCurrentHealth: 0
     destroyable: 1
@@ -1372,6 +1360,7 @@ MonoBehaviour:
     spawnedLimbObject: {fileID: 1453305421458283894, guid: 6c9a4d95fb9ee074fac260e6c4c6725a,
       type: 3}
     damageImpactObject: {fileID: 0}
+    transformDamageMultiplier: 0.8
     transformMaxHealth: 35
     transformCurrentHealth: 0
     destroyable: 1
@@ -1382,6 +1371,7 @@ MonoBehaviour:
     spawnedLimbObject: {fileID: 4507142109278807159, guid: f3115358c587b2c44a79423215819f83,
       type: 3}
     damageImpactObject: {fileID: 0}
+    transformDamageMultiplier: 0.8
     transformMaxHealth: 45
     transformCurrentHealth: 0
     destroyable: 1
@@ -1392,6 +1382,7 @@ MonoBehaviour:
     spawnedLimbObject: {fileID: 6578803607925183423, guid: ebf7167d42c447e4881bbeff9ce40b09,
       type: 3}
     damageImpactObject: {fileID: 0}
+    transformDamageMultiplier: 0.8
     transformMaxHealth: 35
     transformCurrentHealth: 0
     destroyable: 1
@@ -1402,6 +1393,7 @@ MonoBehaviour:
     spawnedLimbObject: {fileID: 4507142109278807159, guid: f3115358c587b2c44a79423215819f83,
       type: 3}
     damageImpactObject: {fileID: 0}
+    transformDamageMultiplier: 0.8
     transformMaxHealth: 45
     transformCurrentHealth: 0
     destroyable: 1
@@ -1412,6 +1404,7 @@ MonoBehaviour:
     spawnedLimbObject: {fileID: 6578803607925183423, guid: ebf7167d42c447e4881bbeff9ce40b09,
       type: 3}
     damageImpactObject: {fileID: 0}
+    transformDamageMultiplier: 0.8
     transformMaxHealth: 35
     transformCurrentHealth: 0
     destroyable: 1
@@ -1422,6 +1415,7 @@ MonoBehaviour:
     spawnedLimbObject: {fileID: 7829000381030253684, guid: 6692de5dffa198f48bae934d0f970259,
       type: 3}
     damageImpactObject: {fileID: 0}
+    transformDamageMultiplier: 0.8
     transformMaxHealth: 50
     transformCurrentHealth: 0
     destroyable: 1
@@ -1431,6 +1425,7 @@ MonoBehaviour:
     rigidbody: {fileID: 6573692110522351244}
     spawnedLimbObject: {fileID: 0}
     damageImpactObject: {fileID: 0}
+    transformDamageMultiplier: 0.8
     transformMaxHealth: 10
     transformCurrentHealth: 0
     destroyable: 1
@@ -1439,7 +1434,7 @@ MonoBehaviour:
     type: 3}
   defaultDamageImpactObject: {fileID: 5821601681023750136, guid: 9be9bcfc0c7cc3e4ba2f9b10b3d95d4a,
     type: 3}
---- !u!114 &2070972236825456341
+--- !u!114 &7493227590050893546
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1448,20 +1443,50 @@ MonoBehaviour:
   m_GameObject: {fileID: 4476426569185288487}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e00fb2206a7f621408e8227aa71669f2, type: 3}
+  m_Script: {fileID: 11500000, guid: f8c4673b26e33344a8a7b981e47a837f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   detectionLayer:
     serializedVersion: 2
     m_Bits: 73
-  detectionAngle: 90
+  detectionAngle: 85
   detectionDistance: 10
-  chaseDistance: 25
+  walkSpeed: 3
+  chaseSpeed: 6
+  chaseDistance: 15
   searchingForDuration: 10
-  enemyKick: {fileID: 6176215894140826620}
+  searchingForTimer: 0
+  enemyMelee: {fileID: 6176215894140826620}
   attackDistance: 3
   attackTime: 1
   resetAfterDuration: 30
+--- !u!114 &5199316736870161825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4476426569185288487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 271f2e8e24d819c4a89f3778dfc546af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startWithEnemyRagdolled: 0
+--- !u!114 &5376067575905486488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4476426569185288487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57c447c87b32abc48aa42f4702c271eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
 --- !u!1 &4564840656579373384
 GameObject:
   m_ObjectHideFlags: 0

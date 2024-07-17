@@ -60,7 +60,9 @@ public class Swingable : PickableLimb
         }
     }
 
-    private void Update() {
+    protected override void Update() {
+        base.Update();
+        
         if (isHeld) {
             if (Input.GetMouseButtonDown(0)) {
                 StartCoroutine(Swing(lightAttackDuration));

@@ -175,16 +175,21 @@ MonoBehaviour:
   transitionAmount: 1
   canvasOffsetY: 0.5
   displayDuration: 3
+  playerInteract: {fileID: 0}
+  playerHealth: {fileID: 0}
+  playerHand: {fileID: 0}
+  itemRigidbody: {fileID: 0}
+  itemCollider: {fileID: 0}
+  animator: {fileID: 0}
+  reduceByImpactDurability: 5
+  durabilityDecayInTime: 50
+  maxDurability: 50
+  currentDurability: 0
   isHeld: 0
   isAttacking: 0
   isBlocking: 0
   damageAmount: 40
   lightAttackDuration: 1
-  reduceByDecayDurability: 1
-  durabilityDecayRate: 4
-  reduceByImpactDurability: 4
-  maxDurability: 50
-  currentDurability: 0
   hurtShakeMagnitude: 6
   hurtShakeDuration: 0.3
 --- !u!1001 &5430982640271642593

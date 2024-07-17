@@ -175,18 +175,23 @@ MonoBehaviour:
   transitionAmount: 1
   canvasOffsetY: 0.5
   displayDuration: 3
+  playerInteract: {fileID: 0}
+  playerHealth: {fileID: 0}
+  playerHand: {fileID: 0}
+  itemRigidbody: {fileID: 0}
+  itemCollider: {fileID: 0}
+  animator: {fileID: 0}
+  reduceByImpactDurability: 3
+  durabilityDecayInTime: 45
+  maxDurability: 35
+  currentDurability: 0
   isHeld: 0
   isThrown: 0
   throwForce: 20
-  damageAmount: 30
-  reduceByDecayDurability: 1
-  durabilityDecayRate: 4
-  reduceByImpactDurability: 2
-  maxDurability: 30
-  currentDurability: 0
+  damageAmount: 15
+  damageDuration: 0.01
   hurtShakeMagnitude: 6
   hurtShakeDuration: 0.3
-  durability: 3
 --- !u!1001 &1388478282788704248
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -8,7 +8,8 @@ public class Throwable : PickableLimb
     [SerializeField] private float throwForce = 20f;
 
     [Header("Damage Properties")]
-    [SerializeField] private int damageAmount = 20;
+    [SerializeField] private float damageAmount = 20f;
+    [SerializeField] private float damageDuration = 0.01f;
 
     [Header("Effects")]
     [SerializeField] private float hurtShakeMagnitude = 6.0f;
@@ -58,7 +59,9 @@ public class Throwable : PickableLimb
         }
     }
 
-    private void Update() {
+    protected override void Update() {
+        base.Update();
+        
         if (isHeld && Input.GetMouseButtonDown(0)) {
             Throw();
         }
@@ -86,18 +89,19 @@ public class Throwable : PickableLimb
     private void OnCollisionEnter(Collision other) {
         if (!isHeld && isThrown) {
             if (other.collider.CompareTag("Limb")){
-                Debug.Log("Limb hit!");
+                Debug.Log($"Limb {other.transform.name} hit!");
                 
-                Ragdoll ragdoll = Helper.GetComponentInParentByTag<Ragdoll>(other.transform, "Enemy");
-                if (ragdoll != null) {
-                    ragdoll.EnableRagdoll();
-                }
+                EnemyHealth enemyHealth = Helper.GetComponentInParentByTag<EnemyHealth>(other.transform, "Enemy");
                 
                 TransformCollector transformCollector = Helper.GetComponentInParentByTag<TransformCollector>(other.transform, "Enemy");
                 if (transformCollector != null) {
                     foreach (TransformData data in transformCollector.transformDataList) {
                         if(data.transformName.Contains(other.collider.name)) {
-                            data.transformCurrentHealth -= damageAmount;
+                            data.transformCurrentHealth -= damageAmount * data.transformDamageMultiplier;
+                            
+                            if (enemyHealth != null) {
+                                enemyHealth.DiffHealth(damageAmount * data.transformDamageMultiplier, damageDuration);
+                            }
                         }
                     }
                 }

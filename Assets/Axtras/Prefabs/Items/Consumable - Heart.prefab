@@ -175,15 +175,21 @@ MonoBehaviour:
   transitionAmount: 1
   canvasOffsetY: 0.5
   displayDuration: 2
+  playerInteract: {fileID: 0}
+  playerHealth: {fileID: 0}
+  playerHand: {fileID: 0}
+  itemRigidbody: {fileID: 0}
+  itemCollider: {fileID: 0}
+  animator: {fileID: 0}
+  reduceByImpactDurability: 0
+  durabilityDecayInTime: 50
+  maxDurability: 40
+  currentDurability: 0
   isHeld: 0
   healAmount: 20
   healTime: 4
   consumeTime: 2
   holdTime: 0
-  reduceByDecayDurability: 1
-  durabilityDecayRate: 4
-  maxDurability: 40
-  currentDurability: 0
 --- !u!1001 &106566676286871294
 PrefabInstance:
   m_ObjectHideFlags: 0

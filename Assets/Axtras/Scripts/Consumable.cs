@@ -59,7 +59,9 @@ public class Consumable : PickableLimb
         }
     }
 
-    private void Update() {
+    protected override void Update() {
+        base.Update();
+        
         if (isHeld) {
             if(Input.GetMouseButton(0)) {
                 HandleConsumption();

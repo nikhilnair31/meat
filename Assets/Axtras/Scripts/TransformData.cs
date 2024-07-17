@@ -15,8 +15,9 @@ public class TransformData
     [SerializeField] private GameObject damageImpactObject;
 
     [Header("Data")]
-    [SerializeField] private int transformMaxHealth = 100;
-    public int transformCurrentHealth;
+    public float transformDamageMultiplier = 0.8f;
+    [SerializeField] private float transformMaxHealth = 100;
+    public float transformCurrentHealth;
 
     [Header("Flags")]
     public bool destroyable;
@@ -49,8 +50,8 @@ public class TransformData
                 GameObject impact = Object.Instantiate(damageImpactObject, collider.transform.position, collider.transform.rotation);
                 Object.Destroy(impact, 5f);
 
-                var ragdoll = Helper.GetComponentInParentByTag<Ragdoll>(collider.transform, "Enemy");
-                if(ragdoll != null) ragdoll.IsRagdoll = true;
+                var enemyRagdoll = Helper.GetComponentInParentByTag<EnemyRagdoll>(collider.transform, "Enemy");
+                if(enemyRagdoll != null) enemyRagdoll.IsRagdoll = true;
 
                 collider.transform.localScale = Vector3.zero;
                 collider.gameObject.SetActive(false);
