@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2357850222633370531}
   - component: {fileID: 5651159569636031679}
   - component: {fileID: 7823679848106981669}
+  - component: {fileID: 7375374186194068164}
   m_Layer: 0
   m_Name: spike-obstacle.001
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3343178882307832109}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+  m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: -0.5}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -104,8 +105,25 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4.625003, y: 2.3561168, z: 0.339457}
-  m_Center: {x: -0.0000010678256, y: 0.00000000505827, z: 0.1697284}
+  m_Size: {x: 4.625003, y: 2.356117, z: 0.339457}
+  m_Center: {x: -0.000001067826, y: 0.00000000505827, z: 0.1697284}
+--- !u!114 &7375374186194068164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3343178882307832109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7da724aec3a606e44b9a00fc05710444, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spikeTransform: {fileID: 1368575581821540010}
+  spikeMoveY: 0.1
+  spikeMoveInTime: 0.1
+  spikeInTime: 1
+  damageAmount: 1000
 --- !u!1 &7491409356562063054
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,7 +168,8 @@ GameObject:
   - component: {fileID: 1368575581821540010}
   - component: {fileID: 4047136878051064617}
   - component: {fileID: 2756638822080562243}
-  - component: {fileID: 6221007953985579111}
+  - component: {fileID: 8641537776571733509}
+  - component: {fileID: 2323865924766109580}
   m_Layer: 0
   m_Name: spike-obstacle.003
   m_TagString: Untagged
@@ -166,8 +185,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8731199375624130391}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: -0.5}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -223,8 +242,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6221007953985579111
-BoxCollider:
+--- !u!114 &8641537776571733509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8731199375624130391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52169dd38f9384c45ae98ca0f4545f1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 20
+  cameraShakeData: {fileID: 11400000, guid: 28c017427d6ad3247adeefabd358c27c, type: 2}
+--- !u!64 &2323865924766109580
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -241,6 +274,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 4.1816797, y: 1.8709979, z: 0.7601307}
-  m_Center: {x: 0.0000020378852, y: -0.00000004827777, z: 0.38006526}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8896568062329162453, guid: f2fb85581f9571f4f8b7e7155a08b91d, type: 3}
