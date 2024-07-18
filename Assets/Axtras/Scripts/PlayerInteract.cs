@@ -24,9 +24,7 @@ public class PlayerInteract : MonoBehaviour
     private void HandleItemViewing() {
         if (Physics.Raycast(playerEyes.position, playerEyes.forward, out RaycastHit hit, interactableRange, interactableLayer)) {
             if (hit.collider.TryGetComponent<Interactable>(out Interactable interactable)) {
-                if(currentHeldItem != interactable) {
-                    interactable.ShowUI = true;
-                }
+                interactable.ShowUI = true;
             }
         }
     }
