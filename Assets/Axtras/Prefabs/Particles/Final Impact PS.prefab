@@ -4904,3 +4904,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healAmount: 2
   healTime: 0.1
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 64

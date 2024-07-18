@@ -2,17 +2,28 @@ using UnityEngine;
 
 public class BloodHealth : MonoBehaviour 
 {
-    [Header("Heal Properties")]
-    [SerializeField] public int healAmount = 20;
-    [SerializeField] public float healTime = 0f;
+    private ParticleSystem bloodParticleSystem;
+    private ParticleSystem.CollisionModule collisionModule;
 
-    // TODO: Update to make heal only when blood spurts not when it's not ground
+    [Header("Heal Properties")]
+    [SerializeField] private int healAmount = 20;
+    [SerializeField] private float healTime = 0f;
+    [SerializeField] private LayerMask playerLayer;
+
+    void Start() {
+        bloodParticleSystem = GetComponent<ParticleSystem>();
+        collisionModule = bloodParticleSystem.collision;
+    }
+
     private void OnParticleCollision(GameObject other) {
         if (other.CompareTag("Player")) {
             if(other.TryGetComponent<PlayerHealth>(out PlayerHealth playerHealth)) {
                 Debug.Log("Player healing with blood");
                 playerHealth.AddHealth(healAmount, healTime);
             }
+        }
+        if (other.CompareTag("Ground")) {
+            collisionModule.collidesWith &= ~playerLayer;
         }
     }    
 }
