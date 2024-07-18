@@ -119,6 +119,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7da724aec3a606e44b9a00fc05710444, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allowedTags:
+  - Player
+  - Enemy
+  - Physics
   spikeTransform: {fileID: 1368575581821540010}
   spikeMoveY: 0.1
   spikeMoveInTime: 0.1

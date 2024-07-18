@@ -1,10 +1,12 @@
 using UnityEngine;
 using DG.Tweening;
+using System.Collections.Generic;
 
 public class GroundSpikes : MonoBehaviour
 {
     private bool triggerTimerToLaunch;
     private float standingOnTimer;
+    [SerializeField] private List<string> allowedTags;
     [SerializeField] private Transform spikeTransform;
     [SerializeField] private float spikeMoveY = 0.5f;
     [SerializeField] private float spikeMoveInTime = 0.5f;
@@ -35,25 +37,22 @@ public class GroundSpikes : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision other) {
-        if (IsRelevantCollider(other.collider)) {
+        if (Helper.IsRelevantCollider(other.collider, allowedTags)) {
             TriggerTimerToLaunch = true;
         }
     }
 
+    // FIXME: Spike doesn't move back to its original position
     private void MoveSpikes() {
         float yValue = spikeTransform.localPosition.y;
         spikeTransform
             .DOLocalMoveY(spikeMoveY, spikeMoveInTime)
             .OnComplete(() => {
                 spikeTransform
-                .DOLocalMoveY(-spikeMoveY, spikeMoveInTime)
+                .DOLocalMoveY(yValue, spikeMoveInTime)
                 .OnComplete(() => {
                     TriggerTimerToLaunch = false;
                 });
             });
-    }
-
-    private bool IsRelevantCollider(Collider collider) {
-        return collider.CompareTag("Player") || collider.CompareTag("Enemy") || collider.CompareTag("Physics");
     }
 }

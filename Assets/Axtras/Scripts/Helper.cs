@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using DG.Tweening;
 using Cinemachine;
+using System.Collections.Generic;
 
 public static class Helper 
 {
@@ -96,5 +97,15 @@ public static class Helper
             Debug.LogWarning("No valid NavMesh point found within the specified distance.");
             return targetPosition; // Return the original position if no valid point is found.
         }
+    }
+
+    public static bool IsRelevantCollider(Collider collider, List<string> tags) {
+        foreach (string tag in tags) {
+            if (collider.CompareTag(tag)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
