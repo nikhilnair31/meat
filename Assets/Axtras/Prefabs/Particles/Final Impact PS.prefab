@@ -4902,7 +4902,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35ec76b7ce443114880de75812f16406, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healAmount: 2
+  healAmount: 1
   healTime: 0.1
   playerLayer:
     serializedVersion: 2

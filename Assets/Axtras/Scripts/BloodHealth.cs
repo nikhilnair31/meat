@@ -6,7 +6,7 @@ public class BloodHealth : MonoBehaviour
     private ParticleSystem.CollisionModule collisionModule;
 
     [Header("Heal Properties")]
-    [SerializeField] private int healAmount = 20;
+    [SerializeField] private float healAmount = 20;
     [SerializeField] private float healTime = 0f;
     [SerializeField] private LayerMask playerLayer;
 

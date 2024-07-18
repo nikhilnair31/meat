@@ -4981,6 +4981,7 @@ MonoBehaviour:
   canvasOffsetY: 0.5
   displayDuration: 2
   isOn: 0
+  startOn: 1
   flameParticle: {fileID: 6302018356258932584}
 --- !u!114 &3617995316457560707
 MonoBehaviour:

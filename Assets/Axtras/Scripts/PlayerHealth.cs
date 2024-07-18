@@ -32,7 +32,7 @@ public class PlayerHealth : MonoBehaviour
 
         while (elapsedTime < duration) {
             elapsedTime += Time.deltaTime;
-            currHealth = Mathf.RoundToInt(Mathf.Lerp(initialHealth, targetHealth, elapsedTime / duration));
+            currHealth = Mathf.Lerp(initialHealth, targetHealth, elapsedTime / duration);
 
             UpdateHealthUI();
 
@@ -58,7 +58,7 @@ public class PlayerHealth : MonoBehaviour
 
         while (elapsedTime < duration) {
             elapsedTime += Time.deltaTime;
-            currHealth = Mathf.RoundToInt(Mathf.Lerp(initialHealth, targetHealth, elapsedTime / duration));
+            currHealth = Mathf.Lerp(initialHealth, targetHealth, elapsedTime / duration);
 
             UpdateHealthUI();
 
@@ -81,6 +81,6 @@ public class PlayerHealth : MonoBehaviour
     }
     
     private void UpdateHealthUI() {
-        healthText.text = $"{currHealth}/{maxHealth}";
+        healthText.text = $"{(int)currHealth}/{maxHealth}";
     }
 }

@@ -77,7 +77,7 @@ public class EnemyBehaviour : Enemy
             IsChasing = false;
         }
     }
-    // TODO: Update to make enemy move back when too close for an attack
+    // TODO: Updte to make enemy move back when too close for an attack
     public bool IsAttacking {
         get { 
             return isAttacking; 
