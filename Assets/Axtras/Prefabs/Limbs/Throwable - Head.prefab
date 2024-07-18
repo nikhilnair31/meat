@@ -190,8 +190,7 @@ MonoBehaviour:
   throwForce: 20
   damageAmount: 15
   damageDuration: 0.01
-  hurtShakeMagnitude: 6
-  hurtShakeDuration: 0.3
+  cameraShakeData: {fileID: 11400000, guid: 68f92288f704d9c4e9ad5859e2c69d77, type: 2}
 --- !u!1001 &1388478282788704248
 PrefabInstance:
   m_ObjectHideFlags: 0

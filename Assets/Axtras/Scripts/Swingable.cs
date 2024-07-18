@@ -14,8 +14,7 @@ public class Swingable : PickableLimb
     [SerializeField] private float lightAttackDuration = 1f;
 
     [Header("Effects")]
-    [SerializeField] private float hurtShakeMagnitude = 6.0f;
-    [SerializeField] private float hurtShakeDuration = 0.3f;
+    [SerializeField] private CameraShakeData cameraShakeData;
 
     public override void Interact() {
         Pickup();
@@ -125,7 +124,11 @@ public class Swingable : PickableLimb
                 // Decrease durability on collision
                 ReduceDurabilityByCollision();
 
-                Helper.CameraShake(hurtShakeMagnitude, hurtShakeDuration);
+                Helper.CameraShake(
+                    cameraShakeData.hurtShakeMagnitude, 
+                    cameraShakeData.hurtShakeDuration, 
+                    cameraShakeData.hurtShakeMultiplier
+                );
             }
         }
     }

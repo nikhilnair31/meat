@@ -189,9 +189,9 @@ MonoBehaviour:
   isAttacking: 0
   isBlocking: 0
   damageAmount: 45
+  damageDuration: 0.01
   lightAttackDuration: 0.5
-  hurtShakeMagnitude: 6
-  hurtShakeDuration: 0.3
+  cameraShakeData: {fileID: 11400000, guid: 3105ad3872b60424299079baa87b2d51, type: 2}
 --- !u!1001 &6411590894313027829
 PrefabInstance:
   m_ObjectHideFlags: 0

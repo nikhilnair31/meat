@@ -18,7 +18,8 @@ public class Fireplace : Interactable
     public override void Drop() {
     }
 
+    // FIXME: Fireplace turns on and off isn't working?
     public void StartStopFireplace() {
-        if(isOn) flameParticle.Play(); else flameParticle.Stop();
+        if(!isOn) flameParticle.Play(); else flameParticle.Stop();
     }
 }

@@ -39,7 +39,7 @@ public class PlayerInteract : MonoBehaviour
     private void ItemInteractRaycast() {
         if (Physics.Raycast(playerEyes.position, playerEyes.forward, out RaycastHit hit, interactableRange, interactableLayer)) {
             if (hit.collider.TryGetComponent<Interactable>(out Interactable interactable)) {
-                // Debug.Log($"Interact with {hit.collider.name}");
+                Debug.Log($"Interact with {hit.collider.name}");
                 if (currentHeldItem != null) {
                     currentHeldItem.Drop();
                 }

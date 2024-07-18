@@ -4980,7 +4980,7 @@ MonoBehaviour:
   transitionAmount: 0.2
   canvasOffsetY: 0.5
   displayDuration: 2
-  isOn: 1
+  isOn: 0
   flameParticle: {fileID: 6302018356258932584}
 --- !u!114 &3617995316457560707
 MonoBehaviour:
@@ -4998,9 +4998,7 @@ MonoBehaviour:
   continuousDamage: 2
   damageDuration: 5
   fireParticleSystem: {fileID: 6302018356258932584}
-  hurtShakeMagnitude: 4
-  hurtShakeDuration: 0.4
-  hurtShakeMultiplier: 1.2
+  cameraShakeData: {fileID: 11400000, guid: 6ac2873053756324991624966b2458ec, type: 2}
 --- !u!1001 &8121540249737706836
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5009,6 +5007,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7172431142029435416}
     m_Modifications:
+    - target: {fileID: 564367146828039328, guid: 57110631f5f6ba140a6fc53b32aa8097,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 743413128454421170, guid: 57110631f5f6ba140a6fc53b32aa8097,
         type: 3}
       propertyPath: m_Pivot.x
@@ -5128,6 +5131,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Interact Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 2456804751903344615, guid: 57110631f5f6ba140a6fc53b32aa8097,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485827947042891476, guid: 57110631f5f6ba140a6fc53b32aa8097,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8767298655903108431, guid: 57110631f5f6ba140a6fc53b32aa8097,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8967864457356893480, guid: 57110631f5f6ba140a6fc53b32aa8097,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

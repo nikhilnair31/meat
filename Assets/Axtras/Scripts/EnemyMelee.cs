@@ -30,8 +30,8 @@ public class EnemyMelee : MonoBehaviour
                     meleeWeaponData.damageDuration
                 );
                 Helper.CameraShake(
-                    meleeWeaponData.hurtShakeMagnitude, 
-                    meleeWeaponData.hurtShakeDuration
+                    meleeWeaponData.cameraShakeData.hurtShakeMagnitude, 
+                    meleeWeaponData.cameraShakeData.hurtShakeDuration
                 );
                 kickCollider.enabled = false;
             }

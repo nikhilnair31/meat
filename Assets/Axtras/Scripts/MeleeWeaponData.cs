@@ -8,8 +8,7 @@ public class MeleeWeaponData : ScriptableObject
     public float damageDuration;
 
     [Header("Camera Shake Settings")]
-    public float hurtShakeMagnitude;
-    public float hurtShakeDuration;
+    public CameraShakeData cameraShakeData;
 
     [Header("Audio Settings")]
     public AudioClip attackSound;

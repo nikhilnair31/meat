@@ -8,8 +8,8 @@ public class PlayerHealth : MonoBehaviour
 
     [Header("Health Properties")]
     [SerializeField] private TextMeshProUGUI healthText;
-    [SerializeField] private int maxHealth = 100;
-    [SerializeField] private int currHealth;
+    [SerializeField] private float maxHealth = 100;
+    [SerializeField] private float currHealth;
 
     [Header("Effects")]
     public ParticleSystem fireEffect;
@@ -22,13 +22,13 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealthUI();
     }
 
-    public void AddHealth(int amount, float duration) {
+    public void AddHealth(float amount, float duration) {
         StartCoroutine(AddHealthOverTime(amount, duration));
     }
-    private IEnumerator AddHealthOverTime(int amount, float duration) {
+    private IEnumerator AddHealthOverTime(float amount, float duration) {
         float elapsedTime = 0f;
-        int initialHealth = currHealth;
-        int targetHealth = Mathf.Clamp(currHealth + amount, 0, maxHealth);
+        float initialHealth = currHealth;
+        float targetHealth = Mathf.Clamp(currHealth + amount, 0, maxHealth);
 
         while (elapsedTime < duration) {
             elapsedTime += Time.deltaTime;
@@ -48,13 +48,13 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealthUI();
     }
     
-    public void DiffHealth(int amount, float duration) {
+    public void DiffHealth(float amount, float duration) {
         StartCoroutine(DiffHealthOverTime(amount, duration));
     }
-    private IEnumerator DiffHealthOverTime(int amount, float duration) {
+    private IEnumerator DiffHealthOverTime(float amount, float duration) {
         float elapsedTime = 0f;
-        int initialHealth = currHealth;
-        int targetHealth = Mathf.Clamp(currHealth - amount, 0, maxHealth);
+        float initialHealth = currHealth;
+        float targetHealth = Mathf.Clamp(currHealth - amount, 0, maxHealth);
 
         while (elapsedTime < duration) {
             elapsedTime += Time.deltaTime;

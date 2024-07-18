@@ -12,8 +12,7 @@ public class Throwable : PickableLimb
     [SerializeField] private float damageDuration = 0.01f;
 
     [Header("Effects")]
-    [SerializeField] private float hurtShakeMagnitude = 6.0f;
-    [SerializeField] private float hurtShakeDuration = 0.3f;
+    [SerializeField] private CameraShakeData cameraShakeData;
 
     public override void Interact() {
         Pickup();
@@ -83,6 +82,7 @@ public class Throwable : PickableLimb
         Vector3 throwVelocity = (throwPoint - transform.position).normalized * throwForce;
         itemRigidbody.velocity = throwVelocity;
             
+        // FIXME: Sometimes doesn't show up after having been thrown
         ShowUI = false;
     }
 
@@ -114,7 +114,11 @@ public class Throwable : PickableLimb
             // Decrease durability on collision
             ReduceDurabilityByCollision();
 
-            Helper.CameraShake(hurtShakeMagnitude, hurtShakeDuration);
+            Helper.CameraShake(
+                cameraShakeData.hurtShakeMagnitude, 
+                cameraShakeData.hurtShakeDuration, 
+                cameraShakeData.hurtShakeMultiplier
+            );
         }
     }
 }

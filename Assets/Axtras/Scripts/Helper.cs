@@ -5,7 +5,7 @@ using Cinemachine;
 
 public static class Helper 
 {
-    public static void CameraShake(float amplitude, float duration) {
+    public static void CameraShake(float amplitude, float duration, float amplitudemultiplier = 1f) {
         // Get the Cinemachine Basic Multi Channel Perlin component from the virtual camera
         CinemachineVirtualCamera virtualCamera = GameObject.Find("Game Virtual Camera").GetComponent<CinemachineVirtualCamera>();
         CinemachineBasicMultiChannelPerlin noise = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
@@ -16,7 +16,7 @@ public static class Helper
         }
 
         // Set the initial amplitude and frequency
-        noise.m_AmplitudeGain = amplitude;
+        noise.m_AmplitudeGain = amplitude * amplitudemultiplier;
 
         // Create a tween to gradually reduce the amplitude and frequency over the duration
         DOTween.To(() => noise.m_AmplitudeGain, x => noise.m_AmplitudeGain = x, 0f, duration).SetEase(Ease.OutQuad);

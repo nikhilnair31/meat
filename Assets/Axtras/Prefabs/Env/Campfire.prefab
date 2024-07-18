@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8905592538648031544}
   - component: {fileID: 502218494028827058}
   - component: {fileID: 316764947913253243}
+  - component: {fileID: 3389155439162598212}
   m_Layer: 9
   m_Name: Campfire
   m_TagString: Fireplace
@@ -150,8 +151,25 @@ MonoBehaviour:
   transitionAmount: 0.2
   canvasOffsetY: 1
   displayDuration: 2
-  isOn: 0
+  isOn: 1
   flameParticle: {fileID: 1722286860441280146}
+--- !u!114 &3389155439162598212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4037853612149448477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6163ae57afeb45841b6443091197aec2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialDamage: 5
+  continuousDamage: 2
+  damageDuration: 5
+  fireParticleSystem: {fileID: 1722286860441280146}
+  cameraShakeData: {fileID: 11400000, guid: 6ac2873053756324991624966b2458ec, type: 2}
 --- !u!1 &8494426163692666598
 GameObject:
   m_ObjectHideFlags: 0
@@ -4990,6 +5008,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5542444373119385733}
     m_Modifications:
+    - target: {fileID: 564367146828039328, guid: 57110631f5f6ba140a6fc53b32aa8097,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 743413128454421170, guid: 57110631f5f6ba140a6fc53b32aa8097,
         type: 3}
       propertyPath: m_Pivot.x
@@ -5094,6 +5117,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Interact Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 2456804751903344615, guid: 57110631f5f6ba140a6fc53b32aa8097,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485827947042891476, guid: 57110631f5f6ba140a6fc53b32aa8097,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8767298655903108431, guid: 57110631f5f6ba140a6fc53b32aa8097,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8967864457356893480, guid: 57110631f5f6ba140a6fc53b32aa8097,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
