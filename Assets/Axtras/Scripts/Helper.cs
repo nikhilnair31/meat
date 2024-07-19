@@ -3,6 +3,7 @@ using UnityEngine.AI;
 using DG.Tweening;
 using Cinemachine;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public static class Helper 
 {
@@ -87,6 +88,19 @@ public static class Helper
 
         // Perform the shake animation on the UI element
         uiElement.DOShakeAnchorPos(duration, strength, vibrato, randomness, false, fadeOut);
+    }
+    public static void UIFade(GameObject menuGameObject, float alpha, float duration, bool fadeIn) {
+        Image transitionImage = menuGameObject.transform.Find("Transition Image").GetComponent<Image>();
+        if (fadeIn) {
+            transitionImage
+                .DOFade(alpha, duration)
+                .OnStart(() => {
+                    transitionImage.DOFade(0f, 0f);
+                })
+                .SetUpdate(true);
+        } else {
+            transitionImage.DOFade(alpha, duration).SetUpdate(true);
+        }
     }
 
     public static Vector3 GetClosestPointOnNavMesh(Vector3 targetPosition, float maxDistance) {
