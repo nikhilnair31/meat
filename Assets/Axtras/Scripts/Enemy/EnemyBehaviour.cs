@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -38,7 +37,7 @@ public class EnemyBehaviour : MonoBehaviour
     [Header("Reset Settings")]
     [SerializeField] private float resetAfterDuration = 10f;
     private float resetTimer;
-
+    
     private bool inDetectionDistanceRange;
     private bool inDetectionAngleRange;
     private bool inDetectionLOS;
