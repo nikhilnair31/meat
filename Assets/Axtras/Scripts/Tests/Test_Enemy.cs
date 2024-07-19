@@ -172,7 +172,7 @@ public class Test_Enemy : MonoBehaviour
     private void HandleStates() {
         if (IsAtInitPos) {
             if (inDetectionDistanceRange && inDetectionAngleRange && inDetectionLOS) {
-                lastPlayerPosition = player.position;
+                lastPlayerPosition = Helper.GetClosestPointOnNavMesh(player.position, 5f);
                 IsAtInitPos = false;
                 IsChasing = true;
             }
@@ -195,7 +195,7 @@ public class Test_Enemy : MonoBehaviour
                 }
             } 
             else {
-                lastPlayerPosition = player.position;
+                lastPlayerPosition = Helper.GetClosestPointOnNavMesh(player.position, 5f);
                 agent.SetDestination(lastPlayerPosition);
             }
         } 
