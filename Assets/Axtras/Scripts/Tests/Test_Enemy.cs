@@ -5,48 +5,59 @@ public class Test_Enemy : MonoBehaviour
 {
     private RaycastHit hit;
 
-    [SerializeField] private Transform player;
+    private Transform player;
 
-    [SerializeField] private NavMeshAgent agent;
-    [SerializeField] private Animator animator;
+    private NavMeshAgent agent;
+    private Animator animator;
 
-    [SerializeField] private Vector3 initialEnemyPosition;
-    [SerializeField] private Vector3 lastPlayerPosition;
-    [SerializeField] private Vector3 directionToPlayer;
+    private Vector3 initialEnemyPosition;
+    private Vector3 lastPlayerPosition;
+    private Vector3 directionToPlayer;
 
-    [SerializeField] private float playerDistance;
-    [SerializeField] private float playerAngle;
-    [SerializeField] private float initialEnemyPositionDistance;
-    [SerializeField] private float lastPlayerPositionDistance;
-    [SerializeField] private float lostSightForTime;
+    private float playerDistance;
+    private float playerAngle;
+    private float initialEnemyPositionDistance;
+    private float lastPlayerPositionDistance;
+
+    [Header("Speed Settings")]
+    [SerializeField] private float walkSpeed = 6f;
+    [SerializeField] private float chaseSpeed = 6f;
+
+    [Header("Detection Settings")]
+    [SerializeField] private float detectionDistanceRange = 15f;
+    [SerializeField] private float detectionAngleRange = 90f;
+    
+    [Header("Search Settings")]
+    [SerializeField] private float searchingDuration = 5f;
+    private float searchingForTimer;
+    
+    [Header("Attack Settings")]
+    [SerializeField] private float attackDistanceRange = 2f;
+    
+    [Header("Reset Settings")]
+    [SerializeField] private float resetAfterDuration = 10f;
+    private float resetTimer;
 
     private bool inDetectionDistanceRange;
     private bool inDetectionAngleRange;
     private bool inDetectionLOS;
     private bool isAtInitPos;
-    private bool isReturning;
     private bool isChasing;
-    private bool isSearching;
     private bool isAttacking;
-    private bool inAttackDistanceRange;
-
-    [SerializeField] private float walkSpeed = 6f;
-    [SerializeField] private float chaseSpeed = 6f;
-    [SerializeField] private float detectionDistanceRange = 15f;
-    [SerializeField] private float detectionAngleRange = 90f;
-    [SerializeField] private float lostSightForTimeMax = 5f;
-    [SerializeField] private float attackDistanceRange = 2f;
+    private bool isSearching;
+    private bool isReturning;
 
     public bool IsAtInitPos {
         get { return isAtInitPos; }
         set { 
             isAtInitPos = value; 
+
+            animator.SetBool("isAtInitPos", isAtInitPos);
+
             if (isAtInitPos) {
                 IsSearching = false;
                 IsReturning = false;
                 IsChasing = false;
-
-                animator.SetBool("isAtInitPos", true);
 
                 agent.isStopped = true;
                 agent.speed = 0f;
@@ -63,7 +74,7 @@ public class Test_Enemy : MonoBehaviour
             if (isChasing) {
                 agent.isStopped = false;
                 agent.speed = chaseSpeed;
-                agent.SetDestination(player.position);
+                agent.SetDestination(lastPlayerPosition);
             }
         }
     }
@@ -128,12 +139,7 @@ public class Test_Enemy : MonoBehaviour
         Calc();
         Detect();
         HandleStates();
-
-        // Chasing();
-        // Returning();
-        // Wait();
-        // Attack();
-        // Search();
+        // Reseter();
     }
 
     private void Calc() {
@@ -166,8 +172,9 @@ public class Test_Enemy : MonoBehaviour
     private void HandleStates() {
         if (IsAtInitPos) {
             if (inDetectionDistanceRange && inDetectionAngleRange && inDetectionLOS) {
-                IsChasing = true;
+                lastPlayerPosition = player.position;
                 IsAtInitPos = false;
+                IsChasing = true;
             }
         } 
         else if (IsChasing) {
@@ -179,32 +186,30 @@ public class Test_Enemy : MonoBehaviour
             }
 
             if (!inDetectionDistanceRange || !inDetectionLOS) {
-                // lostSightForTime += Time.deltaTime;
-                // if (lostSightForTime > lostSightForTimeMax) {
-                //     IsChasing = false;
-                //     IsSearching = true;
-                //     lostSightForTime = 0;
-                // }
-                IsChasing = false;
-                IsSearching = true;
+                if (lastPlayerPositionDistance < 2f) {
+                    IsChasing = false;
+                    IsSearching = true;
+                }
+                else {
+                    IsSearching = false;
+                }
             } 
             else {
-                lostSightForTime = 0;
-                agent.SetDestination(player.position);
                 lastPlayerPosition = player.position;
+                agent.SetDestination(lastPlayerPosition);
             }
         } 
         else if (IsSearching) {
-            if (inDetectionDistanceRange && inDetectionLOS) {
+            if (inDetectionDistanceRange && inDetectionAngleRange && inDetectionLOS) {
                 IsSearching = false;
                 IsChasing = true;
             } 
             else {
-                lostSightForTime += Time.deltaTime;
-                if (lostSightForTime > lostSightForTimeMax) {
+                searchingForTimer += Time.deltaTime;
+                if (searchingForTimer > searchingDuration) {
                     IsSearching = false;
                     IsReturning = true;
-                    lostSightForTime = 0;
+                    searchingForTimer = 0;
                 } 
                 else {
                     agent.SetDestination(lastPlayerPosition);
@@ -212,9 +217,23 @@ public class Test_Enemy : MonoBehaviour
             }
         } 
         else if (IsReturning) {
+            if (inDetectionDistanceRange && inDetectionAngleRange && inDetectionLOS) {
+                IsReturning = false;
+                IsChasing = true;
+            } 
+
             if (initialEnemyPositionDistance < 2f) {
                 IsReturning = false;
                 IsAtInitPos = true;
+            }
+        }
+    }
+
+    private void Reseter() {
+        if(agent.velocity.magnitude < 0.1f) {
+            resetTimer += Time.deltaTime;
+            if (resetTimer > resetAfterDuration) {
+                IsReturning = true;
             }
         }
     }

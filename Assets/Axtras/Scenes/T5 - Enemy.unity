@@ -8056,26 +8056,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e533d00c090cd8944a0355239272790e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  agent: {fileID: 0}
-  animator: {fileID: 0}
-  initialPosition: {x: 0, y: 0, z: 0}
-  lastPosition: {x: 0, y: 0, z: 0}
-  directionToPlayer: {x: 0, y: 0, z: 0}
-  playerDistance: 0
-  playerAngle: 0
-  initialPositionDistance: 0
-  inDetectionDistanceRange: 0
-  inDetectionAngleRange: 0
-  inInitialPosition: 0
-  isChasing: 0
-  isAttacking: 0
-  inAttackDistanceRange: 0
   walkSpeed: 6
   chaseSpeed: 6
   detectionDistanceRange: 10
   detectionAngleRange: 90
+  searchingDuration: 5
   attackDistanceRange: 2
+  resetAfterDuration: 30
 --- !u!195 &152863105
 NavMeshAgent:
   m_ObjectHideFlags: 0
