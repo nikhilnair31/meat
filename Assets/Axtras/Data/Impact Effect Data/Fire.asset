@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6badd85f69955ac41b40ff53d5f5ad22, type: 3}
-  m_Name: Camera Shake Data - Swingable
+  m_Name: Fire
   m_EditorClassIdentifier: 
-  hurtShakeMagnitude: 6
-  hurtShakeDuration: 0.15
-  hurtShakeMultiplier: 1
+  hurtShakeMagnitude: 4
+  hurtShakeDuration: 0.4
+  hurtShakeMultiplier: 1.2
   impactClip: {fileID: 8300000, guid: e4ca19b9b1b7138409e842f9aa8480f0, type: 3}
   impactVolume: 2

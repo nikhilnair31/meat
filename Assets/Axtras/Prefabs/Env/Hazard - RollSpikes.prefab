@@ -122,7 +122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hurtOnTouch: 1
   damageAmount: 10
-  cameraShakeData: {fileID: 11400000, guid: ab93d9032a0106a479f60ebf80a3c601, type: 2}
+  impactEffectData: {fileID: 11400000, guid: 28c017427d6ad3247adeefabd358c27c, type: 2}
   rotationAxis: {x: 0, y: 0, z: 360}
   rotationSpeed: 1
 --- !u!1 &5894647186561610080

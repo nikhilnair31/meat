@@ -4999,7 +4999,7 @@ MonoBehaviour:
   continuousDamage: 2
   damageDuration: 5
   fireParticleSystem: {fileID: 6302018356258932584}
-  cameraShakeData: {fileID: 11400000, guid: 6ac2873053756324991624966b2458ec, type: 2}
+  impactEffectData: {fileID: 11400000, guid: 6ac2873053756324991624966b2458ec, type: 2}
 --- !u!1001 &8121540249737706836
 PrefabInstance:
   m_ObjectHideFlags: 0

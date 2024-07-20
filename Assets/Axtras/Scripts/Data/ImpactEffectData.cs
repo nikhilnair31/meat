@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CameraShakeData", menuName = "ScriptableObjects/CameraShakeData", order = 1)]
-public class CameraShakeData : ScriptableObject
+[CreateAssetMenu(fileName = "ImpactEffectData", menuName = "ScriptableObjects/ImpactEffectData", order = 1)]
+public class ImpactEffectData : ScriptableObject
 {
     [Header("Impact Shake Effects")]
     public float hurtShakeMagnitude = 4.0f;

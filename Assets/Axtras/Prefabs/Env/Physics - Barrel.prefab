@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 3500513033939241472}
   - component: {fileID: 28535937566104530}
   - component: {fileID: 3656758353430863083}
-  - component: {fileID: 8460270294895828944}
   - component: {fileID: 3758506717182691495}
   - component: {fileID: 1329248287335946953}
+  - component: {fileID: 8460270294895828944}
   m_Layer: 0
   m_Name: Physics - Barrel
   m_TagString: Physics
@@ -137,21 +137,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -7953268094655662732, guid: f2fb85581f9571f4f8b7e7155a08b91d, type: 3}
---- !u!114 &8460270294895828944
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5888182415821729201}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52169dd38f9384c45ae98ca0f4545f1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hurtOnTouch: 0
-  damageAmount: 0
-  cameraShakeData: {fileID: 11400000, guid: a8848253cde6b9a4496b525db56f51b4, type: 2}
 --- !u!82 &3758506717182691495
 AudioSource:
   m_ObjectHideFlags: 0
@@ -301,3 +286,18 @@ MonoBehaviour:
     m_DissipationDistance: 20
     m_PropagationSpeed: 343
   m_DefaultVelocity: {x: 0, y: -0.1, z: 0}
+--- !u!114 &8460270294895828944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5888182415821729201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52169dd38f9384c45ae98ca0f4545f1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hurtOnTouch: 0
+  damageAmount: 0
+  impactEffectData: {fileID: 11400000, guid: a8848253cde6b9a4496b525db56f51b4, type: 2}

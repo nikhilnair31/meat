@@ -1,3 +1,4 @@
+using Cinemachine;
 using UnityEngine;
 
 public class Throwable : PickableLimb
@@ -12,7 +13,7 @@ public class Throwable : PickableLimb
     [SerializeField] private float damageDuration = 0.01f;
 
     [Header("Effects")]
-    [SerializeField] private CameraShakeData cameraShakeData;
+    [SerializeField] private ImpactEffectData impactEffectData;
 
     public override void Interact() {
         Pickup();
@@ -82,7 +83,6 @@ public class Throwable : PickableLimb
         Vector3 throwVelocity = (throwPoint - transform.position).normalized * throwForce;
         itemRigidbody.velocity = throwVelocity;
             
-        // FIXME: Sometimes doesn't show up after having been thrown
         ShowUI = false;
     }
 
@@ -114,10 +114,11 @@ public class Throwable : PickableLimb
             // Decrease durability on collision
             ReduceDurabilityByCollision();
 
-            Helper.CameraShake(
-                cameraShakeData.hurtShakeMagnitude, 
-                cameraShakeData.hurtShakeDuration, 
-                cameraShakeData.hurtShakeMultiplier
+            Helper.CameraImpulse(
+                GetComponent<CinemachineImpulseSource>(),
+                impactEffectData.hurtShakeMagnitude, 
+                impactEffectData.hurtShakeDuration, 
+                impactEffectData.hurtShakeMultiplier
             );
         }
     }

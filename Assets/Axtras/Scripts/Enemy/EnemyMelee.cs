@@ -21,9 +21,9 @@ public class EnemyMelee : MonoBehaviour
                     meleeWeaponData.damageDuration
                 );
                 Helper.CameraShake(
-                    meleeWeaponData.cameraShakeData.hurtShakeMagnitude, 
-                    meleeWeaponData.cameraShakeData.hurtShakeDuration, 
-                    meleeWeaponData.cameraShakeData.hurtShakeMultiplier
+                    meleeWeaponData.impactEffectData.hurtShakeMagnitude, 
+                    meleeWeaponData.impactEffectData.hurtShakeDuration, 
+                    meleeWeaponData.impactEffectData.hurtShakeMultiplier
                 );
             }
         }

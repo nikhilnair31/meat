@@ -15,7 +15,7 @@ public class Fire : MonoBehaviour
     [SerializeField] private ParticleSystem fireParticleSystem;
 
     [Header("Camera Shake Effects")]
-    [SerializeField] private CameraShakeData cameraShakeData;
+    [SerializeField] private ImpactEffectData impactEffectData;
 
     void Start() {
         playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
@@ -65,9 +65,9 @@ public class Fire : MonoBehaviour
     private void ApplyDamage(int damage) {
         playerHealth.DiffHealth(damage, 0.01f);
         Helper.CameraShake(
-            cameraShakeData.hurtShakeMagnitude, 
-            cameraShakeData.hurtShakeDuration, 
-            cameraShakeData.hurtShakeMultiplier
+            impactEffectData.hurtShakeMagnitude, 
+            impactEffectData.hurtShakeDuration, 
+            impactEffectData.hurtShakeMultiplier
         );
         EnableDisableFireEffect(true);
     }

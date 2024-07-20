@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6badd85f69955ac41b40ff53d5f5ad22, type: 3}
-  m_Name: Camera Shake Data - Barrel
+  m_Name: Throwable
   m_EditorClassIdentifier: 
   hurtShakeMagnitude: 6
   hurtShakeDuration: 0.15

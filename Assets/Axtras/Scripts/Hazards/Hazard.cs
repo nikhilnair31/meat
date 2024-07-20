@@ -5,7 +5,7 @@ public class Hazard : MonoBehaviour
 {
     [SerializeField] private bool hurtOnTouch = true;
     [SerializeField] private float damageAmount = 1000f;
-    [SerializeField] private CameraShakeData cameraShakeData;
+    [SerializeField] private ImpactEffectData impactEffectData;
 
     private void OnCollisionEnter(Collision other) {
         if (hurtOnTouch) {
@@ -18,14 +18,14 @@ public class Hazard : MonoBehaviour
 
     private void PlayEffects() {
         GetComponent<AudioSource>().PlayOneShot(
-            cameraShakeData.impactClip, 
-            cameraShakeData.impactVolume
+            impactEffectData.impactClip, 
+            impactEffectData.impactVolume
         );
         Helper.CameraImpulse(
             GetComponent<CinemachineImpulseSource>(),
-            cameraShakeData.hurtShakeMagnitude, 
-            cameraShakeData.hurtShakeDuration, 
-            cameraShakeData.hurtShakeMultiplier
+            impactEffectData.hurtShakeMagnitude, 
+            impactEffectData.hurtShakeDuration, 
+            impactEffectData.hurtShakeMultiplier
         );
     }
 }

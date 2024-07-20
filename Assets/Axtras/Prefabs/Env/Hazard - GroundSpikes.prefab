@@ -428,7 +428,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hurtOnTouch: 1
   damageAmount: 20
-  cameraShakeData: {fileID: 11400000, guid: 28c017427d6ad3247adeefabd358c27c, type: 2}
+  impactEffectData: {fileID: 11400000, guid: 28c017427d6ad3247adeefabd358c27c, type: 2}
 --- !u!64 &2323865924766109580
 MeshCollider:
   m_ObjectHideFlags: 0

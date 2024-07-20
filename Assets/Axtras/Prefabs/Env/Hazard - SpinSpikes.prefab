@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 5559109442878751864}
   - component: {fileID: 2941419096735630464}
   - component: {fileID: 7987504331257033849}
-  - component: {fileID: 3405793445380140196}
-  - component: {fileID: 7030409337498401563}
   - component: {fileID: 1782186456858001867}
+  - component: {fileID: 7030409337498401563}
   - component: {fileID: 2673332879330158909}
+  - component: {fileID: 3405793445380140196}
   m_Layer: 0
   m_Name: Hazard - SpinSpikes
   m_TagString: Untagged
@@ -111,39 +111,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -8385964888439318584, guid: f2fb85581f9571f4f8b7e7155a08b91d, type: 3}
---- !u!114 &3405793445380140196
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8542650664863862116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 081da7fd6ea7fb546abdd3efc0f453a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hurtOnTouch: 1
-  damageAmount: 10
-  cameraShakeData: {fileID: 11400000, guid: 28c017427d6ad3247adeefabd358c27c, type: 2}
-  rotationAxis: {x: 0, y: 360, z: 0}
-  rotationSpeed: 1
---- !u!208 &7030409337498401563
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8542650664863862116}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 1.0040001, y: 1.3670001, z: 1.0040001}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: -0.001, y: 1.3670001, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!82 &1782186456858001867
 AudioSource:
   m_ObjectHideFlags: 0
@@ -240,6 +207,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!208 &7030409337498401563
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8542650664863862116}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.0040001, y: 1.3670001, z: 1.0040001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.001, y: 1.3670001, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!114 &2673332879330158909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -293,3 +276,20 @@ MonoBehaviour:
     m_DissipationDistance: 100
     m_PropagationSpeed: 343
   m_DefaultVelocity: {x: 0, y: -0.3, z: 0}
+--- !u!114 &3405793445380140196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8542650664863862116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 081da7fd6ea7fb546abdd3efc0f453a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hurtOnTouch: 1
+  damageAmount: 10
+  impactEffectData: {fileID: 11400000, guid: 28c017427d6ad3247adeefabd358c27c, type: 2}
+  rotationAxis: {x: 0, y: 360, z: 0}
+  rotationSpeed: 1
