@@ -175,6 +175,7 @@ MonoBehaviour:
   transitionAmount: 1
   canvasOffsetY: 0.5
   displayDuration: 2
+  playerMovementRigidbody: {fileID: 0}
   playerInteract: {fileID: 0}
   playerHealth: {fileID: 0}
   playerHand: {fileID: 0}
@@ -190,6 +191,7 @@ MonoBehaviour:
   healTime: 4
   consumeTime: 2
   holdTime: 0
+  speedReductionMultiplier: 0.5
 --- !u!1001 &106566676286871294
 PrefabInstance:
   m_ObjectHideFlags: 0

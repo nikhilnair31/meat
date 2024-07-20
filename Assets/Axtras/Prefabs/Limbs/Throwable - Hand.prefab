@@ -187,7 +187,7 @@ MonoBehaviour:
   currentDurability: 0
   isHeld: 0
   isThrown: 0
-  throwForce: 20
+  throwForce: 30
   damageAmount: 15
   damageDuration: 0.01
   cameraShakeData: {fileID: 11400000, guid: 68f92288f704d9c4e9ad5859e2c69d77, type: 2}

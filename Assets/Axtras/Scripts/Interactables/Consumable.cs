@@ -14,6 +14,9 @@ public class Consumable : PickableLimb
     [SerializeField] public float consumeTime = 3f;
     [SerializeField] private float holdTime = 0f;
 
+    [Header("Move Properties")]
+    [SerializeField] private float speedReductionMultiplier = 0.8f;
+
     public override void Interact() {
         Pickup();
     }
@@ -76,6 +79,8 @@ public class Consumable : PickableLimb
         if (Input.GetMouseButton(0)) {
             holdTime += Time.deltaTime;
             fillableCursorImage.fillAmount = holdTime / consumeTime;
+            playerMovementRigidbody.isConsuming = true;
+            playerMovementRigidbody.speedReductionMultiplier = speedReductionMultiplier;
 
             if (holdTime >= consumeTime) {
                 Consume();
@@ -86,6 +91,8 @@ public class Consumable : PickableLimb
     void ResetConsumptionOnMouseRelease() {
         holdTime = 0f;
         fillableCursorImage.fillAmount = 0f;
+        playerMovementRigidbody.isConsuming = false;
+        playerMovementRigidbody.speedReductionMultiplier = 1f;
     }
 
     void Consume() {

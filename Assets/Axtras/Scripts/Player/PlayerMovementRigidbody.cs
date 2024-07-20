@@ -11,16 +11,26 @@ public class PlayerMovementRigidbody : MonoBehaviour
     private bool isRunning;
     private bool isCrouching;
 
+    [Header("Move Settings")]
     [SerializeField] private float speed = 12f;
     [SerializeField] private float runSpeedMultiplier = 1.5f;
+
+    [Header("Crouch Settings")]
     [SerializeField] private float crouchSpeedMultiplier = 0.5f;
-    [SerializeField] private float jumpForce = 5f;
-    [SerializeField] private float groundDistance = 0.4f;
-    [SerializeField] private LayerMask groundMask;
     [SerializeField] private float crouchHeight = 1f;
 
-    void Start()
-    {
+    [Header("Jump Settings")]
+    [SerializeField] private float jumpForce = 5f;
+
+    [Header("Ground Settings")]
+    [SerializeField] private float groundDistance = 0.4f;
+    [SerializeField] private LayerMask groundMask;
+
+    [Header("Consuming Settings")]
+    public bool isConsuming = false;
+    public float speedReductionMultiplier = 1f;
+
+    private void Start() {
         rb = GetComponent<Rigidbody>();
         playerAnimator = GetComponent<Animator>();
 
@@ -34,27 +44,23 @@ public class PlayerMovementRigidbody : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
+    private void Update() {
         isRunning = Input.GetKey(KeyCode.LeftShift);
         playerAnimator.SetBool("isRunning", isRunning);
 
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-        {
+        if (Input.GetKeyDown(KeyCode.LeftControl)) {
             isCrouching = !isCrouching;
             playerAnimator.SetBool("isCrouching", isCrouching);
             playerCollider.height = isCrouching ? crouchHeight : originalHeight;
         }
 
-        if (isGrounded && Input.GetButtonDown("Jump") && !isCrouching)
-        {
+        if (isGrounded && Input.GetButtonDown("Jump") && !isCrouching) {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
     }
 
     // TODO: Add more animations for movement (all direction movement)
-    void FixedUpdate()
-    {
+    void FixedUpdate() {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         playerAnimator.SetBool("isGrounded", isGrounded);
 
@@ -62,13 +68,15 @@ public class PlayerMovementRigidbody : MonoBehaviour
         float z = Input.GetAxis("Vertical");
 
         float currentSpeed = speed;
-        if (isRunning && !isCrouching)
-        {
+        if (isRunning && !isCrouching) {
             currentSpeed *= runSpeedMultiplier;
         }
-        else if (isCrouching)
-        {
+        else if (isCrouching) {
             currentSpeed *= crouchSpeedMultiplier;
+        }
+
+        if (isConsuming) {
+            currentSpeed *= speedReductionMultiplier;
         }
 
         Vector3 move = transform.right * x + transform.forward * z;

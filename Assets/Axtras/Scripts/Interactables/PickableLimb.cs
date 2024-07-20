@@ -3,6 +3,7 @@ using UnityEngine;
 public class PickableLimb : Interactable 
 {
     [Header("General Properties")]
+    public PlayerMovementRigidbody playerMovementRigidbody;
     public PlayerInteract playerInteract;
     public PlayerHealth playerHealth;
     public Transform playerHand;
@@ -20,6 +21,7 @@ public class PickableLimb : Interactable
     private float decayTimer;
 
     private void Start() {
+        playerMovementRigidbody = GameObject.Find("Player").GetComponent<PlayerMovementRigidbody>();
         playerInteract = GameObject.Find("Player").GetComponent<PlayerInteract>();
         playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
 
