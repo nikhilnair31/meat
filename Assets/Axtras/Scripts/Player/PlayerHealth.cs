@@ -17,6 +17,9 @@ public class PlayerHealth : MonoBehaviour
 
     [Header("Effects")]
     public ParticleSystem fireEffect;
+    [SerializeField] private AudioClip hurtClip;
+    [SerializeField] private AudioClip healClip;
+    [SerializeField] private float healClipVoume =2f;
 
     private void Start() {
         menuManager = FindObjectOfType<MenuManager>();
@@ -24,7 +27,7 @@ public class PlayerHealth : MonoBehaviour
         currHealth = maxHealth;
         healthBarWidth = healthBarRect.sizeDelta.x;
 
-        UpdateHealthUI();
+        UpdateHealthEffects(null);
     }
 
     public void AddHealth(float amount, float duration) {
@@ -39,7 +42,7 @@ public class PlayerHealth : MonoBehaviour
             elapsedTime += Time.deltaTime;
             currHealth = Mathf.Lerp(initialHealth, targetHealth, elapsedTime / duration);
 
-            UpdateHealthUI();
+            UpdateHealthEffects(healClip);
 
             if (currHealth > maxHealth) {
                 currHealth = maxHealth;
@@ -50,7 +53,7 @@ public class PlayerHealth : MonoBehaviour
         }
 
         currHealth = Mathf.Min(currHealth, maxHealth);
-        UpdateHealthUI();
+        UpdateHealthEffects(healClip);
     }
     
     public void DiffHealth(float amount, float duration) {
@@ -65,7 +68,7 @@ public class PlayerHealth : MonoBehaviour
             elapsedTime += Time.deltaTime;
             currHealth = Mathf.Lerp(initialHealth, targetHealth, elapsedTime / duration);
 
-            UpdateHealthUI();
+            UpdateHealthEffects(hurtClip);
 
             if (currHealth <= 0) {
                 currHealth = 0;
@@ -77,7 +80,7 @@ public class PlayerHealth : MonoBehaviour
         }
 
         currHealth = Mathf.Min(currHealth, maxHealth);
-        UpdateHealthUI();
+        UpdateHealthEffects(hurtClip);
     }
     
     private void Die() {
@@ -85,7 +88,11 @@ public class PlayerHealth : MonoBehaviour
         menuManager.ShowDeathMenu();
     }
     
-    private void UpdateHealthUI() {
+    private void UpdateHealthEffects(AudioClip clip) {
+        if (clip != null) {
+            GetComponent<AudioSource>().PlayOneShot(clip, healClipVoume);
+        }
+
         healthText.text = $"{(int)currHealth}/{maxHealth}";
         healthBarRect.sizeDelta = new Vector2(
             healthBarWidth * currHealth / maxHealth, 

@@ -328,7 +328,7 @@ MonoBehaviour:
     m_DissipationMode: 2
     m_DissipationDistance: 100
     m_PropagationSpeed: 343
-  m_DefaultVelocity: {x: 0, y: -1, z: 0}
+  m_DefaultVelocity: {x: 0, y: -0.3, z: 0}
 --- !u!1 &8731199375624130391
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,6 +426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52169dd38f9384c45ae98ca0f4545f1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hurtOnTouch: 1
   damageAmount: 20
   cameraShakeData: {fileID: 11400000, guid: 28c017427d6ad3247adeefabd358c27c, type: 2}
 --- !u!64 &2323865924766109580

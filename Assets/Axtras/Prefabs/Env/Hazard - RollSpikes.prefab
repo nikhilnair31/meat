@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 081da7fd6ea7fb546abdd3efc0f453a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hurtOnTouch: 1
   damageAmount: 10
   cameraShakeData: {fileID: 11400000, guid: ab93d9032a0106a479f60ebf80a3c601, type: 2}
   rotationAxis: {x: 0, y: 0, z: 360}
@@ -325,7 +326,7 @@ MonoBehaviour:
     m_DissipationMode: 2
     m_DissipationDistance: 100
     m_PropagationSpeed: 343
-  m_DefaultVelocity: {x: 0, y: -1, z: 0}
+  m_DefaultVelocity: {x: 0, y: -0.3, z: 0}
 --- !u!1 &7372207238517216592
 GameObject:
   m_ObjectHideFlags: 0
