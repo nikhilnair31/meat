@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyRagdoll : MonoBehaviour 
 {
@@ -32,6 +33,8 @@ public class EnemyRagdoll : MonoBehaviour
 
     private void DisableAllPhysics() {
         GetComponent<Animator>().enabled = true;
+        GetComponent<NavMeshAgent>().enabled = true;
+
         foreach (Rigidbody rgb in GetComponentsInChildren<Rigidbody>()) {
             rgb.isKinematic = true;
             rgb.useGravity = false;
@@ -43,6 +46,8 @@ public class EnemyRagdoll : MonoBehaviour
     }
     private void EnableAllPhysics() {
         GetComponent<Animator>().enabled = false;
+        GetComponent<NavMeshAgent>().enabled = false;
+
         foreach (Rigidbody rgb in GetComponentsInChildren<Rigidbody>()) {
             rgb.isKinematic = false;
             rgb.useGravity = true;
@@ -51,6 +56,7 @@ public class EnemyRagdoll : MonoBehaviour
             coll.enabled = true;
             coll.isTrigger = false;
         }
-        GetComponent<EnemyBehaviour>().DisableKickWeapon();
+        
+        GetComponentInChildren<EnemyMelee>().DisableOnRagdoll();
     }   
 }

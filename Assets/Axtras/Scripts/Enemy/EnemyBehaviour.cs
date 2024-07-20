@@ -33,6 +33,7 @@ public class EnemyBehaviour : MonoBehaviour
     
     [Header("Attack Settings")]
     [SerializeField] private float attackDistanceRange = 2f;
+    [SerializeField] private float attackLookAtPlayerSpeed = 5f;
     
     [Header("Reset Settings")]
     [SerializeField] private float resetAfterDuration = 10f;
@@ -105,6 +106,8 @@ public class EnemyBehaviour : MonoBehaviour
             isAttacking = value; 
 
             if (isAttacking) {
+                FacePlayer();
+
                 animator.SetBool("isAttacking", true);
                 animator.SetTrigger("Attack");
 
@@ -185,7 +188,7 @@ public class EnemyBehaviour : MonoBehaviour
                 IsAttacking = false;
             }
 
-            if (!inDetectionDistanceRange || !inDetectionLOS) {
+            if (!inDetectionDistanceRange) {
                 if (lastPlayerPositionDistance < 2f) {
                     IsChasing = false;
                     IsSearching = true;
@@ -236,6 +239,12 @@ public class EnemyBehaviour : MonoBehaviour
                 IsReturning = true;
             }
         }
+    }
+
+    private void FacePlayer() {
+        Vector3 direction = directionToPlayer.normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * attackLookAtPlayerSpeed);
     }
 
     private void OnDrawGizmos() {

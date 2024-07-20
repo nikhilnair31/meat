@@ -3,7 +3,7 @@ using UnityEngine;
 public class EnemyMelee : MonoBehaviour 
 {
     private PlayerHealth playerHealth;
-    private Test_Enemy enemyBehaviour;
+    private EnemyBehaviour enemyBehaviour;
 
     [Header("Weapon Properties")]
     [SerializeField] private MeleeWeaponData meleeWeaponData;
@@ -11,7 +11,7 @@ public class EnemyMelee : MonoBehaviour
     private void Start() {
         playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
 
-        enemyBehaviour = Helper.GetComponentInParentByTag<Test_Enemy>(transform, "Enemy");
+        enemyBehaviour = Helper.GetComponentInParentByTag<EnemyBehaviour>(transform, "Enemy");
     }
     private void OnCollisionEnter(Collision other) {
         if (enemyBehaviour.IsAttacking) {
@@ -27,5 +27,9 @@ public class EnemyMelee : MonoBehaviour
                 );
             }
         }
+    }
+    public void DisableOnRagdoll() {
+        Destroy(GetComponent<Collider>());
+        Destroy(GetComponent<Rigidbody>());
     }
 }
