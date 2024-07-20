@@ -13,7 +13,11 @@ public class PlayerMovementRigidbody : MonoBehaviour
 
     [Header("Move Settings")]
     [SerializeField] private float speed = 12f;
+
+    [Header("Run Settings")]
     [SerializeField] private float runSpeedMultiplier = 1.5f;
+    [SerializeField] private RectTransform runBarRect;
+    private float runBarWidth;
 
     [Header("Crouch Settings")]
     [SerializeField] private float crouchSpeedMultiplier = 0.5f;
@@ -83,5 +87,12 @@ public class PlayerMovementRigidbody : MonoBehaviour
         Vector3 moveVelocity = move * currentSpeed;
         rb.velocity = new Vector3(moveVelocity.x, rb.velocity.y, moveVelocity.z);
         playerAnimator.SetFloat("moveVelocity", moveVelocity.magnitude);
+    }    
+
+    private void UpdateRunUI() {
+        // runBarRect.sizeDelta = new Vector2(
+        //     runBarWidth * currrun / maxrun, 
+        //     runBarRect.sizeDelta.y
+        // );
     }
 }
