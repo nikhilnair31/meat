@@ -4,47 +4,21 @@ using UnityEngine.AI;
 public class EnemyRagdoll : MonoBehaviour 
 {
     [SerializeField] private bool startWithEnemyRagdolled = false;
-    private bool isRagdoll = false;
-    public bool IsRagdoll {
-        get { 
-            return isRagdoll; 
-        }
-        set {
-            isRagdoll = value;
-            if(isRagdoll) {
-                EnableAllPhysics();
-            }
-            else {
-                DisableAllPhysics();
-            }
-        }
-    }
+    public bool isRagdoll = false;
 
     private void Start() {
-        IsRagdoll = startWithEnemyRagdolled;
+        isRagdoll = startWithEnemyRagdolled;
+        if (isRagdoll) {
+            EnableRagdoll();
+        }
+        else {
+            DisableRagdoll();
+        }
     }
 
     public void EnableRagdoll() {
-        IsRagdoll = true;
-    }
-    public void DisableRagdoll() {
-        IsRagdoll = false;
-    }
+        isRagdoll = true;
 
-    private void DisableAllPhysics() {
-        GetComponent<Animator>().enabled = true;
-        GetComponent<NavMeshAgent>().enabled = true;
-
-        foreach (Rigidbody rgb in GetComponentsInChildren<Rigidbody>()) {
-            rgb.isKinematic = true;
-            rgb.useGravity = false;
-        }
-        foreach (Collider coll in GetComponentsInChildren<Collider>()) {
-            coll.enabled = true;
-            coll.isTrigger = false;
-        }
-    }
-    private void EnableAllPhysics() {
         GetComponent<Animator>().enabled = false;
         GetComponent<NavMeshAgent>().enabled = false;
 
@@ -57,6 +31,21 @@ public class EnemyRagdoll : MonoBehaviour
             coll.isTrigger = false;
         }
         
-        GetComponentInChildren<EnemyMelee>().DisableOnRagdoll();
-    }   
+        GetComponentInChildren<EnemyMelee>().DisablePhysicsOnRagdoll();
+    }
+    public void DisableRagdoll() {
+        isRagdoll = false;
+        
+        GetComponent<Animator>().enabled = true;
+        GetComponent<NavMeshAgent>().enabled = true;
+
+        foreach (Rigidbody rgb in GetComponentsInChildren<Rigidbody>()) {
+            rgb.isKinematic = true;
+            rgb.useGravity = false;
+        }
+        foreach (Collider coll in GetComponentsInChildren<Collider>()) {
+            coll.enabled = true;
+            coll.isTrigger = false;
+        }
+    }  
 }

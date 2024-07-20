@@ -75,9 +75,11 @@ public class EnemyBehaviour : MonoBehaviour
             animator.SetBool("isChasing", isChasing);
 
             if (isChasing) {
-                agent.isStopped = false;
-                agent.speed = chaseSpeed;
-                agent.SetDestination(lastPlayerPosition);
+                if (agent != null && agent.enabled) {
+                    agent.isStopped = false;
+                    agent.speed = chaseSpeed;
+                    agent.SetDestination(lastPlayerPosition);
+                }
             }
         }
     }
@@ -96,9 +98,11 @@ public class EnemyBehaviour : MonoBehaviour
             animator.SetBool("isReturning", isReturning);
 
             if (isReturning) {
-                agent.isStopped = false;
-                agent.speed = walkSpeed;
-                agent.SetDestination(initialEnemyPosition);
+                if (agent != null && agent.enabled) {
+                    agent.isStopped = false;
+                    agent.speed = walkSpeed;
+                    agent.SetDestination(initialEnemyPosition);
+                }
             }
         }
     }
@@ -233,7 +237,7 @@ public class EnemyBehaviour : MonoBehaviour
                 IsChasing = true;
             } 
 
-            if (initialEnemyPositionDistance < 2f) {
+            if (initialEnemyPositionDistance < 3f) {
                 IsReturning = false;
                 IsAtInitPos = true;
             }

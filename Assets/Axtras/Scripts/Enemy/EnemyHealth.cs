@@ -35,7 +35,7 @@ public class EnemyHealth : MonoBehaviour
         currentHealth = Mathf.Min(currentHealth, maxHealth);
     }
     
-    private void EnemyDead() {
+    public void EnemyDead() {
         if (TryGetComponent<EnemyRagdoll>(out var enemyRagdoll)) {
             enemyRagdoll.EnableRagdoll();
         }     

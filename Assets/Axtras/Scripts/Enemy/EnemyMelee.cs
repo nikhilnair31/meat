@@ -28,7 +28,7 @@ public class EnemyMelee : MonoBehaviour
             }
         }
     }
-    public void DisableOnRagdoll() {
+    public void DisablePhysicsOnRagdoll() {
         Destroy(GetComponent<Collider>());
         Destroy(GetComponent<Rigidbody>());
     }

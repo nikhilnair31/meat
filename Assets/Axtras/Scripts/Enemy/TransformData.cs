@@ -51,8 +51,8 @@ public class TransformData
                 Object.Destroy(impact, 5f);
 
                 // Make enemy ragdoll when any limb is completely destroyed
-                var enemyRagdoll = Helper.GetComponentInParentByTag<EnemyRagdoll>(collider.transform, "Enemy");
-                if(enemyRagdoll != null) enemyRagdoll.IsRagdoll = true;
+                var enemyHealth = Helper.GetComponentInParentByTag<EnemyHealth>(collider.transform, "Enemy");
+                if(enemyHealth != null) enemyHealth.EnemyDead();
 
                 collider.transform.localScale = Vector3.zero;
                 collider.gameObject.SetActive(false);
