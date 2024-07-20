@@ -7,9 +7,13 @@ public class PlayerHealth : MonoBehaviour
     private MenuManager menuManager;
 
     [Header("Health Properties")]
-    [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private float maxHealth = 100;
     [SerializeField] private float currHealth;
+
+    [Header("Health Properties")]
+    [SerializeField] private TextMeshProUGUI healthText;
+    [SerializeField] private RectTransform healthBarRect;
+    private float healthBarWidth;
 
     [Header("Effects")]
     public ParticleSystem fireEffect;
@@ -18,6 +22,7 @@ public class PlayerHealth : MonoBehaviour
         menuManager = FindObjectOfType<MenuManager>();
 
         currHealth = maxHealth;
+        healthBarWidth = healthBarRect.sizeDelta.x;
 
         UpdateHealthUI();
     }
@@ -82,5 +87,9 @@ public class PlayerHealth : MonoBehaviour
     
     private void UpdateHealthUI() {
         healthText.text = $"{(int)currHealth}/{maxHealth}";
+        healthBarRect.sizeDelta = new Vector2(
+            healthBarWidth * currHealth / maxHealth, 
+            healthBarRect.sizeDelta.y
+        );
     }
 }
