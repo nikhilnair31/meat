@@ -23,6 +23,17 @@ public static class Helper
         // Create a tween to gradually reduce the amplitude and frequency over the duration
         DOTween.To(() => noise.m_AmplitudeGain, x => noise.m_AmplitudeGain = x, 0f, duration).SetEase(Ease.OutQuad);
     }
+    public static void CameraImpulse(CinemachineImpulseSource impulseSource, float amplitude, float duration, float amplitudemultiplier = 1f) {
+        if (impulseSource == null) {
+            Debug.LogError("No CinemachineImpulseSource component.");
+            return;
+        }
+
+        impulseSource.m_ImpulseDefinition.m_AmplitudeGain = amplitude * amplitudemultiplier;
+        impulseSource.m_ImpulseDefinition.m_TimeEnvelope.m_SustainTime = duration;
+
+        impulseSource.GenerateImpulse();
+    }
     public static Vector3 CameraCenterTargetPoint() {
         Camera mainCamera = Camera.main;
         Vector3 screenCenter = new(Screen.width / 2, Screen.height / 2, mainCamera.nearClipPlane + 1f);

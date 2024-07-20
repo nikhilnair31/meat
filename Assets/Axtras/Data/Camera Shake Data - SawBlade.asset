@@ -15,3 +15,5 @@ MonoBehaviour:
   hurtShakeMagnitude: 12
   hurtShakeDuration: 0.4
   hurtShakeMultiplier: 2
+  impactClip: {fileID: 8300000, guid: e4ca19b9b1b7138409e842f9aa8480f0, type: 3}
+  impactVolume: 2
