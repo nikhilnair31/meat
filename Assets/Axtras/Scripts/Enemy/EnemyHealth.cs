@@ -36,10 +36,14 @@ public class EnemyHealth : MonoBehaviour
     }
     
     private void EnemyDead() {
-        // Add death effect here
-                
         if (TryGetComponent<EnemyRagdoll>(out var enemyRagdoll)) {
             enemyRagdoll.EnableRagdoll();
+        }     
+        if (TryGetComponent<EnemyBehaviour>(out var enemyBehaviour)) {
+            enemyBehaviour.enabled = false;
+        }
+        if (TryGetComponent<EnemyHealth>(out var enemyHealth)) {
+            enemyHealth.enabled = false;
         }
     }
 }

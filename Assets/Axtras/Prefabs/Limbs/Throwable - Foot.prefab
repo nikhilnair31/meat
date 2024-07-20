@@ -175,6 +175,7 @@ MonoBehaviour:
   transitionAmount: 1
   canvasOffsetY: 0.5
   displayDuration: 3
+  playerMovementRigidbody: {fileID: 0}
   playerInteract: {fileID: 0}
   playerHealth: {fileID: 0}
   playerHand: {fileID: 0}
@@ -188,7 +189,7 @@ MonoBehaviour:
   isHeld: 0
   isThrown: 0
   throwForce: 30
-  damageAmount: 15
+  damageAmount: 25
   damageDuration: 0.01
   cameraShakeData: {fileID: 11400000, guid: 68f92288f704d9c4e9ad5859e2c69d77, type: 2}
 --- !u!1001 &3246908972931432339

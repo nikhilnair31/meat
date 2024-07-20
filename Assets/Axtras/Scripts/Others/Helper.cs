@@ -24,7 +24,6 @@ public static class Helper
         DOTween.To(() => noise.m_AmplitudeGain, x => noise.m_AmplitudeGain = x, 0f, duration).SetEase(Ease.OutQuad);
     }
     public static Vector3 CameraCenterTargetPoint() {
-        // FIXME: Make thrown item go to center of camera
         Camera mainCamera = Camera.main;
         Vector3 screenCenter = new(Screen.width / 2, Screen.height / 2, mainCamera.nearClipPlane + 1f);
         Vector3 screenCenterWorldPoint = mainCamera.ScreenToWorldPoint(screenCenter);

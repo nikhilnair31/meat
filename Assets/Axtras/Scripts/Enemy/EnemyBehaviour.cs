@@ -60,8 +60,10 @@ public class EnemyBehaviour : MonoBehaviour
                 IsReturning = false;
                 IsChasing = false;
 
-                agent.isStopped = true;
-                agent.speed = 0f;
+                if (agent != null && agent.enabled) {
+                    agent.isStopped = true;
+                    agent.speed = 0f;
+                }
             }
         }
     }
@@ -111,15 +113,19 @@ public class EnemyBehaviour : MonoBehaviour
                 animator.SetBool("isAttacking", true);
                 animator.SetTrigger("Attack");
 
-                agent.isStopped = true;
-                agent.speed = 0f;
+                if (agent != null && agent.enabled) {
+                    agent.isStopped = true;
+                    agent.speed = 0f;
+                }
             }
             else {
                 animator.SetBool("isAttacking", false);
                 animator.ResetTrigger("Attack");
 
-                agent.isStopped = false;
-                agent.speed = chaseSpeed;
+                if (agent != null && agent.enabled) {
+                    agent.isStopped = false;
+                    agent.speed = chaseSpeed;
+                }
             }
         }
     }
@@ -199,7 +205,9 @@ public class EnemyBehaviour : MonoBehaviour
             } 
             else {
                 lastPlayerPosition = Helper.GetClosestPointOnNavMesh(player.position, 5f);
-                agent.SetDestination(lastPlayerPosition);
+                if (agent != null && agent.enabled) {
+                    agent.SetDestination(lastPlayerPosition);
+                }
             }
         } 
         else if (IsSearching) {
