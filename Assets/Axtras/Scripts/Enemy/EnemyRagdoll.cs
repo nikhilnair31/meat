@@ -17,6 +17,11 @@ public class EnemyRagdoll : MonoBehaviour
     }
 
     public void EnableRagdoll() {
+        // Don't bother running anything if ragdoll is already enabled
+        if(isRagdoll) { 
+            return; 
+        }
+        
         isRagdoll = true;
 
         GetComponent<Animator>().enabled = false;
@@ -34,6 +39,10 @@ public class EnemyRagdoll : MonoBehaviour
         GetComponentInChildren<EnemyMelee>().DisablePhysicsOnRagdoll();
     }
     public void DisableRagdoll() {
+        if(!isRagdoll) { 
+            return; 
+        }
+        
         isRagdoll = false;
         
         GetComponent<Animator>().enabled = true;

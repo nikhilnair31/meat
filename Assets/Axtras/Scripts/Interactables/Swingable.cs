@@ -124,6 +124,10 @@ public class Swingable : PickableLimb
                 // Decrease durability on collision
                 ReduceDurabilityByCollision();
 
+                GetComponent<AudioSource>().PlayOneShot(
+                    impactEffectData.impactClip, 
+                    impactEffectData.impactVolume
+                );
                 Helper.CameraShake(
                     impactEffectData.hurtShakeMagnitude, 
                     impactEffectData.hurtShakeDuration, 

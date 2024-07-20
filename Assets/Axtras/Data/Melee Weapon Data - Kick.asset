@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageAmount: 10
   damageDuration: 0.01
-  cameraShakeData: {fileID: 11400000, guid: 879afb89a64ca1e4ab3f3ddcc983949f, type: 2}
+  impactEffectData: {fileID: 11400000, guid: 879afb89a64ca1e4ab3f3ddcc983949f, type: 2}
   attackSound: {fileID: 0}
