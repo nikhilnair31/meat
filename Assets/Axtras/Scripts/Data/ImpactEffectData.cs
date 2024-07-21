@@ -11,4 +11,5 @@ public class ImpactEffectData : ScriptableObject
     [Header("Impact Sound Effects")]
     public AudioClip impactClip;
     public float impactVolume = 1.0f;
+    public bool randPitch = false;
 }

@@ -1081,7 +1081,7 @@ NavMeshAgent:
   m_Acceleration: 20
   avoidancePriority: 50
   m_AngularSpeed: 500
-  m_StoppingDistance: 3
+  m_StoppingDistance: 3.3
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -1244,6 +1244,7 @@ MonoBehaviour:
   detectionAngleRange: 90
   searchingDuration: 10
   attackDistanceRange: 3.3
+  attackLookAtPlayerSpeed: 5
   resetAfterDuration: 30
 --- !u!114 &6802966947559017601
 MonoBehaviour:
@@ -1272,6 +1273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startWithEnemyRagdolled: 0
+  isRagdoll: 0
 --- !u!1 &4858076479601660726
 GameObject:
   m_ObjectHideFlags: 0

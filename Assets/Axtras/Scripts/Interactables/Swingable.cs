@@ -1,4 +1,5 @@
 using System.Collections;
+using Cinemachine;
 using UnityEngine;
 
 public class Swingable : PickableLimb
@@ -124,11 +125,14 @@ public class Swingable : PickableLimb
                 // Decrease durability on collision
                 ReduceDurabilityByCollision();
 
-                GetComponent<AudioSource>().PlayOneShot(
-                    impactEffectData.impactClip, 
-                    impactEffectData.impactVolume
+                Helper.PlayOneShotWithRandPitch(
+                    GetComponent<AudioSource>(),
+                    impactEffectData.impactClip,
+                    impactEffectData.impactVolume,
+                    impactEffectData.randPitch
                 );
-                Helper.CameraShake(
+                Helper.CameraImpulse(
+                    GetComponent<CinemachineImpulseSource>(),
                     impactEffectData.hurtShakeMagnitude, 
                     impactEffectData.hurtShakeDuration, 
                     impactEffectData.hurtShakeMultiplier

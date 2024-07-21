@@ -15,4 +15,4 @@ MonoBehaviour:
   damageAmount: 10
   damageDuration: 0.01
   impactEffectData: {fileID: 11400000, guid: 879afb89a64ca1e4ab3f3ddcc983949f, type: 2}
-  attackSound: {fileID: 0}
+  attackSound: {fileID: 8300000, guid: e868640c0066698418b2337e6ee47c02, type: 3}

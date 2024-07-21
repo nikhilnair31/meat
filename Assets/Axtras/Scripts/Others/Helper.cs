@@ -53,6 +53,11 @@ public static class Helper
         }
     }
 
+    public static void PlayOneShotWithRandPitch(AudioSource audioSource, AudioClip clip, float volume, bool randPitch) {
+        audioSource.PlayOneShot(clip, volume);
+        audioSource.pitch = randPitch ? Random.Range(0.9f, 1.1f) : 1f;
+    }
+
     public static T GetComponentInParentByName<T>(Transform currentTransform, string parentName) where T : Component {
         if (currentTransform == null) {
             // Debug.LogWarning("Current transform is null.");

@@ -14,12 +14,14 @@ public class Hazard : MonoBehaviour
             }
         }
         PlayEffects();
-    }    
+    }
 
     private void PlayEffects() {
-        GetComponent<AudioSource>().PlayOneShot(
-            impactEffectData.impactClip, 
-            impactEffectData.impactVolume
+        Helper.PlayOneShotWithRandPitch(
+            GetComponent<AudioSource>(),
+            impactEffectData.impactClip,
+            impactEffectData.impactVolume,
+            impactEffectData.randPitch
         );
         Helper.CameraImpulse(
             GetComponent<CinemachineImpulseSource>(),

@@ -114,9 +114,11 @@ public class Throwable : PickableLimb
             // Decrease durability on collision
             ReduceDurabilityByCollision();
 
-            GetComponent<AudioSource>().PlayOneShot(
-                impactEffectData.impactClip, 
-                impactEffectData.impactVolume
+            Helper.PlayOneShotWithRandPitch(
+                GetComponent<AudioSource>(),
+                impactEffectData.impactClip,
+                impactEffectData.impactVolume,
+                impactEffectData.randPitch
             );
             Helper.CameraImpulse(
                 GetComponent<CinemachineImpulseSource>(),

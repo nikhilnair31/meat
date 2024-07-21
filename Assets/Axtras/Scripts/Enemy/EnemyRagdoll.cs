@@ -7,8 +7,7 @@ public class EnemyRagdoll : MonoBehaviour
     public bool isRagdoll = false;
 
     private void Start() {
-        isRagdoll = startWithEnemyRagdolled;
-        if (isRagdoll) {
+        if (startWithEnemyRagdolled) {
             EnableRagdoll();
         }
         else {
