@@ -34,7 +34,7 @@ public class PlayerMovementRigidbody : MonoBehaviour
 
     private void Start() {
         rb = GetComponent<Rigidbody>();
-        playerAnimator = GetComponent<Animator>();
+        playerAnimator = GetComponentInChildren<Animator>();
 
         if (TryGetComponent<CapsuleCollider>(out playerCollider)) {
             originalHeight = playerCollider.height;
