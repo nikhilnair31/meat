@@ -15,8 +15,8 @@ MonoBehaviour:
   m_Active: 1
   settings:
     setInverseViewMatrix: 0
-    requireDepthNormals: 0
-    overrideGraphicsFormat: 0
+    requireDepthNormals: 1
+    overrideGraphicsFormat: 1
     graphicsFormat: 48
 --- !u!114 &11400000
 MonoBehaviour:

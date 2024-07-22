@@ -5,23 +5,29 @@ public class PlayerAttack : MonoBehaviour
 {
     private PlayerAnimations playerAnimations;
 
-    public const string ATTACK1 = "Punch L";
-    public const string ATTACK2 = "Punch R";
-
-    [Header("Components Properties")]
+    [Header("General Properties")]
     [SerializeField] private Transform raycastSourceTranform;
+    public bool playerIsUnarmed = true;
 
     [Header("Attack Properties")]
     public bool readyToAttack = true;
     public bool isAttacking = false;
-    public bool playerIsUnarmed = true;
     [SerializeField] private int attackCount = 1;
+
+    [Header("Defend Properties")]
+    public bool isBlocking = false;
 
     [Header("Weapon Properties")]
     [SerializeField] private MeleeWeaponData meleeWeaponData;
 
     [Header("UI Properties")]
     [SerializeField] private Image weaponIconImage;
+
+    [Header("Animation Properties")]
+    public const string IDLE = "Idle";
+    public const string ATTACK1 = "Punch L";
+    public const string ATTACK2 = "Punch R";
+    public const string BLOCK = "Block";
 
     private void Start() {
         if (playerAnimations == null) {
@@ -37,18 +43,22 @@ public class PlayerAttack : MonoBehaviour
     }
 
     private void Update() {
-        if (Input.GetMouseButtonDown(0)) {
-            Attack();
+        if (playerIsUnarmed) {
+            if (Input.GetMouseButtonDown(0)) {
+                Attack();
+            }
+            if (Input.GetMouseButtonDown(1)) {
+                Block();
+            }
         }
-    }    
+    }
 
-    public void Attack() {
-        if(!playerIsUnarmed) return;
-
+    private void Attack() {
         if(!readyToAttack || isAttacking) return;
 
         readyToAttack = false;
         isAttacking = true;
+        isBlocking = false;
 
         Invoke(nameof(ResetAttack), meleeWeaponData.attackSpeed);
         Invoke(nameof(AttackRaycast), meleeWeaponData.attackDelay);
@@ -117,7 +127,21 @@ public class PlayerAttack : MonoBehaviour
         }
     }
     private void ResetAttack() {
-        isAttacking = false;
         readyToAttack = true;
+        isAttacking = false;
+        playerAnimations.ChangeAnimationState(IDLE);
+    }
+
+    private void Block() {
+        if (!isBlocking) {
+            isBlocking = true;
+
+            playerAnimations.ChangeAnimationState(BLOCK);
+        }
+        else {
+            isBlocking = false;
+
+            playerAnimations.ChangeAnimationState(IDLE);
+        }
     }
 }

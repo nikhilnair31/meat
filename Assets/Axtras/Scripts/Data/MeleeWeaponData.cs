@@ -13,6 +13,9 @@ public class MeleeWeaponData : ScriptableObject
     public float attackRange = 1f;
     public LayerMask attackLayer;
 
+    [Header("Defend Settings")]
+    public bool canBlock;
+
     [Header("UI Settings")]
     public Sprite weaponIcon;
 
