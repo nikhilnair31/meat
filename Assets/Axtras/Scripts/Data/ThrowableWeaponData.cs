@@ -11,5 +11,8 @@ public class ThrowableWeaponData : ScriptableObject
     public float damageDuration;
 
     [Header("UI Settings")]
-    public Sprite weaponIcon;
+    public Sprite pickupIcon;
+
+    [Header("Animation Settings")]
+    public string HOLDING;
 }

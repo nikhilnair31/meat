@@ -324,8 +324,7 @@ MonoBehaviour:
   uiTransitionData: {fileID: 11400000, guid: 08cbf8b4c1f25c04591dcf22f67423bc, type: 2}
   interactTransform: {fileID: 8212630733240168606}
   durabilityData: {fileID: 11400000, guid: fb99ca2e9b376964bbca82a1a1b85ce9, type: 2}
-  throwableWeaponData: {fileID: 11400000, guid: 2ef846068d94a534ea8daccd1889c43b,
-    type: 2}
+  weaponData: {fileID: 11400000, guid: 2ef846068d94a534ea8daccd1889c43b, type: 2}
   impactEffectData: {fileID: 11400000, guid: 68f92288f704d9c4e9ad5859e2c69d77, type: 2}
 --- !u!1001 &8910374536451410476
 PrefabInstance:

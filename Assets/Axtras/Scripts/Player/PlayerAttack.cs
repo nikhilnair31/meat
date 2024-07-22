@@ -14,6 +14,7 @@ public class PlayerAttack : MonoBehaviour
     [Header("Attack Properties")]
     bool readyToAttack = true;
     public bool isAttacking = false;
+    public bool playerIsUnarmed = true;
     [SerializeField] private int attackCount = 1;
 
     [Header("Weapon Properties")]
@@ -42,6 +43,8 @@ public class PlayerAttack : MonoBehaviour
     }    
 
     public void Attack() {
+        if(!playerIsUnarmed) return;
+
         if(!readyToAttack || isAttacking) return;
 
         readyToAttack = false;

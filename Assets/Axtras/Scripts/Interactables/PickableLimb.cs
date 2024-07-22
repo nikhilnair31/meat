@@ -4,8 +4,10 @@ public class PickableLimb : Interactable
 {
     [Header("General Properties")]
     internal PlayerMovementRigidbody playerMovementRigidbody;
+    internal PlayerAnimations playerAnimations;
     internal PlayerInteract playerInteract;
     internal PlayerHealth playerHealth;
+    internal PlayerAttack playerAttack;
     internal Transform playerHand;
     internal Rigidbody itemRigidbody;
     internal Collider itemCollider;
@@ -20,8 +22,10 @@ public class PickableLimb : Interactable
 
     private void Start() {
         playerMovementRigidbody = GameObject.Find("Player").GetComponent<PlayerMovementRigidbody>();
+        playerAnimations = GameObject.Find("Player").GetComponent<PlayerAnimations>();
         playerInteract = GameObject.Find("Player").GetComponent<PlayerInteract>();
         playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
+        playerAttack = GameObject.Find("Player").GetComponent<PlayerAttack>();
 
         itemCollider = GetComponent<Collider>();
         itemRigidbody = GetComponent<Rigidbody>();

@@ -35,6 +35,10 @@ public class Consumable : PickableLimb
             animator.enabled = true;
 
             pickupIconImage.sprite = consumableData.pickupIcon;
+
+            playerAnimations.ChangeAnimationState(consumableData.HOLDING);
+
+            playerAttack.playerIsUnarmed = false;
             
             ShowUI = false;
         }

@@ -326,8 +326,7 @@ MonoBehaviour:
   durabilityData: {fileID: 11400000, guid: 2e3d1195cb6ff7c49945a24c9b9aa982, type: 2}
   isAttacking: 0
   isBlocking: 0
-  swingableWeaponData: {fileID: 11400000, guid: ddadb63e9c392be4182113729f924481,
-    type: 2}
+  weaponData: {fileID: 11400000, guid: ddadb63e9c392be4182113729f924481, type: 2}
   impactEffectData: {fileID: 11400000, guid: 3105ad3872b60424299079baa87b2d51, type: 2}
 --- !u!1001 &6411590894313027829
 PrefabInstance:

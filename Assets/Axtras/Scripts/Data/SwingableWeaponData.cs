@@ -14,5 +14,8 @@ public class SwingableWeaponData : ScriptableObject
     public LayerMask attackLayer;
 
     [Header("UI Settings")]
-    public Sprite weaponIcon;
+    public Sprite pickupIcon;
+
+    [Header("Animation Settings")]
+    public string HOLDING;
 }

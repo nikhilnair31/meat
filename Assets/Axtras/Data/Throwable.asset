@@ -15,5 +15,5 @@ MonoBehaviour:
   throwForce: 30
   damageAmount: 15
   damageDuration: 0.01
-  weaponIcon: {fileID: 21300000, guid: e11533dd39453a94c9d46c5f6c181972, type: 3}
-  impactEffectData: {fileID: 11400000, guid: 68f92288f704d9c4e9ad5859e2c69d77, type: 2}
+  pickupIcon: {fileID: 21300000, guid: ffb0bb0142e2c304fb35524a3d61f55c, type: 3}
+  HOLDING: Holding

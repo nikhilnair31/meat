@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class PlayerInteract : MonoBehaviour 
 {
     private Interactable lastSeenInteractable;
-    private Interactable currentHeldItem;
+    internal Interactable currentHeldItem;
 
     [Header("Main")]
     public Animator playerAnimator;
@@ -50,9 +50,11 @@ public class PlayerInteract : MonoBehaviour
     }
     private void ItemInteractRaycast() {
         if (lastSeenInteractable != null) {
+            Debug.Log($"Has seen {lastSeenInteractable.name}");
             lastSeenInteractable.Interact();
         }
         else {
+            Debug.Log($"Has NOT seen interactable");
             if (Physics.Raycast(playerEyes.position, playerEyes.forward, out RaycastHit hit, interactableRange, interactableLayer)) {
                 if (hit.collider.TryGetComponent<Interactable>(out Interactable interactable)) {
                     Debug.Log($"Interact with {hit.collider.name}");
@@ -61,6 +63,9 @@ public class PlayerInteract : MonoBehaviour
                     }
                     currentHeldItem = interactable;
                     interactable.Interact();
+                }
+                else {
+                    Debug.Log($"{hit.collider.name} isn't interactable");
                 }
             }
         }

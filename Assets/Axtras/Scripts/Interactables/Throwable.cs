@@ -1,13 +1,15 @@
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Throwable : PickableLimb
 {
+    private Image pickupIconImage;
     private bool isHeld = false;
     private bool isThrown = false;
 
     [Header("Throwable Properties")]
-    [SerializeField] private ThrowableWeaponData throwableWeaponData;
+    [SerializeField] private ThrowableWeaponData weaponData;
 
     [Header("Impact Properties")]
     [SerializeField] private ImpactEffectData impactEffectData;
@@ -21,17 +23,24 @@ public class Throwable : PickableLimb
             
             playerHand = playerInteract.playerInteractHolder;
             playerInteract.playerAnimator = animator;
+            pickupIconImage = playerInteract.pickupIconImage;
 
             transform.SetParent(playerInteract.playerInteractHolder);
             transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
-
-            animator.enabled = true;
 
             itemRigidbody.isKinematic = true;
             itemRigidbody.useGravity = false;
 
             itemCollider.enabled = false;
             itemCollider.isTrigger = false;
+
+            animator.enabled = true;
+
+            pickupIconImage.sprite = weaponData.pickupIcon;
+
+            playerAnimations.ChangeAnimationState(weaponData.HOLDING);
+
+            playerAttack.playerIsUnarmed = false;
             
             ShowUI = false;
         }
@@ -77,7 +86,7 @@ public class Throwable : PickableLimb
         itemCollider.isTrigger = false;
 
         Vector3 throwPoint = Helper.CameraCenterTargetPoint();
-        Vector3 throwVelocity = (throwPoint - transform.position).normalized * throwableWeaponData.throwForce;
+        Vector3 throwVelocity = (throwPoint - transform.position).normalized * weaponData.throwForce;
         itemRigidbody.velocity = throwVelocity;
             
         ShowUI = false;
@@ -92,13 +101,13 @@ public class Throwable : PickableLimb
                 if (transformCollector != null) {
                     foreach (TransformData data in transformCollector.transformDataList) {
                         if(data.transformName.Contains(other.collider.name)) {
-                            float scaledDamageAmount = throwableWeaponData.damageAmount * data.transformDamageMultiplier;
+                            float scaledDamageAmount = weaponData.damageAmount * data.transformDamageMultiplier;
 
                             data.transformCurrentHealth -= scaledDamageAmount;
                             
                             EnemyHealth enemyHealth = Helper.GetComponentInParentByTag<EnemyHealth>(other.transform, "Enemy");
                             if (enemyHealth != null) {
-                                enemyHealth.DiffHealth(scaledDamageAmount, throwableWeaponData.damageDuration);
+                                enemyHealth.DiffHealth(scaledDamageAmount, weaponData.damageDuration);
                             }
                         }
                     }
