@@ -20,7 +20,7 @@ public class PlayerInteract : MonoBehaviour
     public Image fillableCursorImage;
     public Image pickupIconImage;
 
-    void Update() {
+    private void Update() {
         HandleItemViewing();
         HandleItemInteraction();
         HandleItemPickupTimer();

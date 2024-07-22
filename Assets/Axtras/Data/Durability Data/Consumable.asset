@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Consumable
   m_EditorClassIdentifier: 
   reduceByImpactDurability: 2
-  durabilityDecayInTime: 30
+  durabilityDecayInTime: 6
   maxDurability: 20

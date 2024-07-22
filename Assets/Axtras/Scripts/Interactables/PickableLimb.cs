@@ -12,6 +12,7 @@ public class PickableLimb : Interactable
     internal Rigidbody itemRigidbody;
     internal Collider itemCollider;
     internal Animator animator;
+    internal bool isHeld = false;
     
     [Header("Durability Properties")]
     [SerializeField] private DurabilityData durabilityData;
@@ -67,11 +68,13 @@ public class PickableLimb : Interactable
     private void Break() {
         Debug.Log($"Item {gameObject.name} broke!");
 
-        playerInteract.pickupIconImage.sprite = null;
+        if (isHeld) {
+            playerInteract.pickupIconImage.sprite = null;
 
-        playerAnimations.ChangeAnimationState();
+            playerAnimations.ChangeAnimationState();
 
-        playerAttack.playerIsUnarmed = true;
+            playerAttack.playerIsUnarmed = true;
+        }
 
         Destroy(gameObject);
     }

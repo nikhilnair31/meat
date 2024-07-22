@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 public class Consumable : PickableLimb
 {
-    private bool isHeld = false;
     private float holdTime = 0f;
 
     [Header("Consumable Properties")]
@@ -29,7 +28,7 @@ public class Consumable : PickableLimb
             itemCollider.enabled = false;
             itemCollider.isTrigger = false;
 
-            animator.enabled = true;
+            // animator.enabled = true;
 
             playerInteract.pickupIconImage.sprite = consumableData.pickupIcon;
 
@@ -53,7 +52,7 @@ public class Consumable : PickableLimb
             itemCollider.enabled = true;
             itemCollider.isTrigger = false;
 
-            animator.enabled = false;
+            // animator.enabled = false;
 
             playerInteract.pickupIconImage.sprite = null;
 

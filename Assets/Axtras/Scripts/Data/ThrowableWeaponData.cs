@@ -15,4 +15,5 @@ public class ThrowableWeaponData : ScriptableObject
 
     [Header("Animation Settings")]
     public string holdingAnimationName;
+    public string throwingAnimationName;
 }

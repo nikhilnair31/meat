@@ -12,7 +12,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private Transform raycastSourceTranform;
 
     [Header("Attack Properties")]
-    bool readyToAttack = true;
+    public bool readyToAttack = true;
     public bool isAttacking = false;
     public bool playerIsUnarmed = true;
     [SerializeField] private int attackCount = 1;

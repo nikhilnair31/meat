@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class Swingable : PickableLimb
 {
     private Image pickupIconImage;
-    private bool isHeld = false;
 
     [Header("Main")]
     public bool isAttacking = false;
@@ -38,7 +37,7 @@ public class Swingable : PickableLimb
             itemCollider.enabled = true;
             itemCollider.isTrigger = false;
 
-            animator.enabled = true;
+            // animator.enabled = true;
 
             pickupIconImage.sprite = weaponData.pickupIcon;
 
@@ -63,6 +62,14 @@ public class Swingable : PickableLimb
 
             itemCollider.enabled = true;
             itemCollider.isTrigger = false;
+
+            // animator.enabled = false;
+
+            playerInteract.pickupIconImage.sprite = null;
+
+            playerAnimations.ChangeAnimationState();
+
+            playerAttack.playerIsUnarmed = true;
         }
         else {
             Debug.Log($"Item {gameObject.name} NOT held");

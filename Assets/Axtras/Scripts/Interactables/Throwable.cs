@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class Throwable : PickableLimb
 {
     private Image pickupIconImage;
-    private bool isHeld = false;
     private bool isThrown = false;
 
     [Header("Throwable Properties")]
@@ -34,14 +33,14 @@ public class Throwable : PickableLimb
             itemCollider.enabled = false;
             itemCollider.isTrigger = false;
 
-            animator.enabled = true;
+            // animator.enabled = true;
 
             pickupIconImage.sprite = weaponData.pickupIcon;
 
+            playerAttack.playerIsUnarmed = false;
+
             playerAnimations.ChangeAnimationState(weaponData.holdingAnimationName);
 
-            playerAttack.playerIsUnarmed = false;
-            
             ShowUI = false;
         }
         else {
@@ -59,6 +58,14 @@ public class Throwable : PickableLimb
 
             itemCollider.enabled = true;
             itemCollider.isTrigger = false;
+
+            // animator.enabled = false;
+
+            playerAttack.playerIsUnarmed = true;
+
+            playerInteract.pickupIconImage.sprite = null;
+
+            playerAnimations.ChangeAnimationState();
         }
         else {
             Debug.Log($"Item {gameObject.name} NOT held");
@@ -85,9 +92,17 @@ public class Throwable : PickableLimb
         itemCollider.enabled = true;
         itemCollider.isTrigger = false;
 
+        playerAnimations.ChangeAnimationState(weaponData.throwingAnimationName);
+
         Vector3 throwPoint = Helper.CameraCenterTargetPoint();
         Vector3 throwVelocity = (throwPoint - transform.position).normalized * weaponData.throwForce;
         itemRigidbody.velocity = throwVelocity;
+
+        playerInteract.pickupIconImage.sprite = null;
+
+        playerAnimations.ChangeAnimationState();
+
+        playerAttack.playerIsUnarmed = true;
             
         ShowUI = false;
     }

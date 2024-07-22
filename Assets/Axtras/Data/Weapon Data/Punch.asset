@@ -15,7 +15,7 @@ MonoBehaviour:
   damageAmount: 10
   damageDuration: 0.01
   attackDelay: 0.4
-  attackSpeed: 0.2
+  attackSpeed: 0.06
   attackRange: 2
   attackLayer:
     serializedVersion: 2
