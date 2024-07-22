@@ -42,7 +42,7 @@ public class Swingable : PickableLimb
 
             pickupIconImage.sprite = weaponData.pickupIcon;
 
-            playerAnimations.ChangeAnimationState(weaponData.HOLDING);
+            playerAnimations.ChangeAnimationState(weaponData.holdingAnimationName);
 
             playerAttack.playerIsUnarmed = false;
             

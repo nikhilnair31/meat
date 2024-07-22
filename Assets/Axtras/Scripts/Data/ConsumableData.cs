@@ -15,5 +15,5 @@ public class ConsumableData : ScriptableObject
     public Sprite pickupIcon;
 
     [Header("Animation Settings")]
-    public string HOLDING;
+    public string holdingAnimationName;
 }

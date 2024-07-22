@@ -67,6 +67,12 @@ public class PickableLimb : Interactable
     private void Break() {
         Debug.Log($"Item {gameObject.name} broke!");
 
+        playerInteract.pickupIconImage.sprite = null;
+
+        playerAnimations.ChangeAnimationState();
+
+        playerAttack.playerIsUnarmed = true;
+
         Destroy(gameObject);
     }
 }

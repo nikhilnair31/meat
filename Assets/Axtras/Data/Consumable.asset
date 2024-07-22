@@ -17,4 +17,4 @@ MonoBehaviour:
   consumeTime: 3
   speedReductionMultiplier: 0.4
   pickupIcon: {fileID: 21300000, guid: 32ab398b822481d4bb6da6c99f463d70, type: 3}
-  HOLDING: Holding Consumable
+  holdingAnimationName: Holding Consumable

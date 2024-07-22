@@ -14,5 +14,5 @@ public class ThrowableWeaponData : ScriptableObject
     public Sprite pickupIcon;
 
     [Header("Animation Settings")]
-    public string HOLDING;
+    public string holdingAnimationName;
 }

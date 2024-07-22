@@ -3,13 +3,11 @@ using UnityEngine.UI;
 
 public class Consumable : PickableLimb
 {
-    private Image fillableCursorImage;
-    private Image pickupIconImage;
     private bool isHeld = false;
+    private float holdTime = 0f;
 
     [Header("Consumable Properties")]
     [SerializeField] private ConsumableData consumableData;
-    private float holdTime = 0f;
 
     public override void Interact() {
         Pickup();
@@ -17,10 +15,9 @@ public class Consumable : PickableLimb
     public override void Pickup() {
         if (!isHeld) {
             isHeld = true;
+            ShowUI = false;
             
             playerHand = playerInteract.playerInteractHolder;
-            fillableCursorImage = playerInteract.fillableCursorImage;
-            pickupIconImage = playerInteract.pickupIconImage;
             playerInteract.playerAnimator = animator;
 
             transform.SetParent(playerHand);
@@ -34,13 +31,11 @@ public class Consumable : PickableLimb
 
             animator.enabled = true;
 
-            pickupIconImage.sprite = consumableData.pickupIcon;
+            playerInteract.pickupIconImage.sprite = consumableData.pickupIcon;
 
-            playerAnimations.ChangeAnimationState(consumableData.HOLDING);
+            playerAnimations.ChangeAnimationState(consumableData.holdingAnimationName);
 
             playerAttack.playerIsUnarmed = false;
-            
-            ShowUI = false;
         }
         else {
             Debug.Log($"Item {gameObject.name} is already held");
@@ -60,7 +55,11 @@ public class Consumable : PickableLimb
 
             animator.enabled = false;
 
-            pickupIconImage.sprite = null;
+            playerInteract.pickupIconImage.sprite = null;
+
+            playerAnimations.ChangeAnimationState();
+
+            playerAttack.playerIsUnarmed = true;
         }
         else {
             Debug.Log($"Item {gameObject.name} NOT held");
@@ -83,7 +82,7 @@ public class Consumable : PickableLimb
     void HandleConsumption() {
         if (Input.GetMouseButton(0)) {
             holdTime += Time.deltaTime;
-            fillableCursorImage.fillAmount = holdTime / consumableData.consumeTime;
+            playerInteract.fillableCursorImage.fillAmount = holdTime / consumableData.consumeTime;
             playerMovementRigidbody.isConsuming = true;
             playerMovementRigidbody.speedReductionMultiplier = consumableData.speedReductionMultiplier;
 
@@ -95,7 +94,7 @@ public class Consumable : PickableLimb
 
     void ResetConsumptionOnMouseRelease() {
         holdTime = 0f;
-        fillableCursorImage.fillAmount = 0f;
+        playerInteract.fillableCursorImage.fillAmount = 0f;
         playerMovementRigidbody.isConsuming = false;
         playerMovementRigidbody.speedReductionMultiplier = 1f;
     }

@@ -50,7 +50,7 @@ public class PlayerAnimations : MonoBehaviour
     //         //
     //     }
     // }
-    public void ChangeAnimationState(string newState, float animSpeed = 1f) {
+    public void ChangeAnimationState(string newState = IDLE, float animSpeed = 1f) {
         // STOP THE SAME ANIMATION FROM INTERRUPTING WITH ITSELF //
         if (currentAnimationState == newState && playerAnimator.speed == animSpeed) {
             return;
