@@ -5,13 +5,14 @@ public class PlayerMovementRigidbody : MonoBehaviour
     private Transform groundCheck;
     private CapsuleCollider playerCollider;
     private Animator playerAnimator;
+    private Rigidbody rb;
     private float originalHeight;
     private bool isGrounded;
-    private bool isRunning;
-    private bool isCrouching;
 
     [Header("Move Settings")]
-    public Rigidbody rb;
+    public bool isWalking;
+    public bool isRunning;
+    public bool isCrouching;
     [SerializeField] private float speed = 12f;
 
     [Header("Run Settings")]
@@ -67,6 +68,9 @@ public class PlayerMovementRigidbody : MonoBehaviour
 
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
+        Vector3 move = transform.right * x + transform.forward * z;
+
+        isWalking = move.magnitude > 0 && !isRunning && !isCrouching;
 
         float currentSpeed = speed;
         if (isRunning && !isCrouching) {
@@ -80,7 +84,6 @@ public class PlayerMovementRigidbody : MonoBehaviour
             currentSpeed *= speedReductionMultiplier;
         }
 
-        Vector3 move = transform.right * x + transform.forward * z;
         Vector3 moveVelocity = move * currentSpeed;
         rb.velocity = new Vector3(moveVelocity.x, rb.velocity.y, moveVelocity.z);
         playerAnimator.SetFloat("moveVelocity", moveVelocity.magnitude);

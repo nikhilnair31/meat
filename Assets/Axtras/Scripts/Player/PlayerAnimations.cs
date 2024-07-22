@@ -28,11 +28,17 @@ public class PlayerAnimations : MonoBehaviour
     public void SetAnimations() {
         // If player is not isAttacking
         if(!playerAttack.isAttacking) {
-            if (playerMovementRigidbody.rb.velocity == Vector3.zero) {
-                ChangeAnimationState(IDLE, 0.5f);
+            if (playerMovementRigidbody.isWalking) {
+                ChangeAnimationState(IDLE, 0.6f);
+            }
+            else if (playerMovementRigidbody.isRunning) {
+                ChangeAnimationState(IDLE, 1.0f);
+            }
+            else if (playerMovementRigidbody.isCrouching) {
+                ChangeAnimationState(IDLE, 0.1f);
             }
             else {
-                ChangeAnimationState(IDLE, 1.0f);
+                ChangeAnimationState(IDLE, 0.3f);
             }
         }
     }
