@@ -3,14 +3,13 @@ using UnityEngine.UI;
 
 public class PlayerAttack : MonoBehaviour 
 {
-    public const string IDLE = "Idle";
+    private PlayerAnimations playerAnimations;
+
     public const string ATTACK1 = "Punch L";
     public const string ATTACK2 = "Punch R";
-    string currentAnimationState;
 
     [Header("Components Properties")]
     [SerializeField] private Transform raycastSourceTranform;
-    [SerializeField] private Animator playerAnimator;
 
     [Header("Attack Properties")]
     bool readyToAttack = true;
@@ -24,8 +23,8 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private Image weaponIconImage;
 
     private void Start() {
-        if (playerAnimator == null) {
-            playerAnimator = GetComponentInChildren<Animator>();
+        if (playerAnimations == null) {
+            playerAnimations = GetComponent<PlayerAnimations>();
         }
 
         InitUI();
@@ -40,8 +39,6 @@ public class PlayerAttack : MonoBehaviour
         if (Input.GetMouseButtonDown(0)) {
             Attack();
         }
-
-        SetAnimations();
     }    
 
     public void Attack() {
@@ -54,16 +51,15 @@ public class PlayerAttack : MonoBehaviour
         Invoke(nameof(AttackRaycast), meleeWeaponData.attackDelay);
 
         if(attackCount == 1) {
-            ChangeAnimationState(ATTACK1);
+            playerAnimations.ChangeAnimationState(ATTACK1);
             attackCount++;
         }
         else if(attackCount == 2) {
-            ChangeAnimationState(ATTACK2);
+            playerAnimations.ChangeAnimationState(ATTACK2);
             attackCount = 1;
         }
     }
-   
-    void AttackRaycast() {
+    private void AttackRaycast() {
         // Debug.Log("AttackRaycast");
 
         Debug.DrawRay(raycastSourceTranform.position, raycastSourceTranform.forward * meleeWeaponData.attackRange, Color.red, 1f);
@@ -117,27 +113,8 @@ public class PlayerAttack : MonoBehaviour
             // Debug.Log("Did not hit anything");
         }
     }
-
-    void ResetAttack() {
+    private void ResetAttack() {
         isAttacking = false;
         readyToAttack = true;
-    }
-
-    public void ChangeAnimationState(string newState)  {
-        // STOP THE SAME ANIMATION FROM INTERRUPTING WITH ITSELF //
-        if (currentAnimationState == newState) {
-            return;
-        }
-
-        // PLAY THE ANIMATION //
-        currentAnimationState = newState;
-        playerAnimator.CrossFadeInFixedTime(currentAnimationState, 0.1f);
-    }
-
-    void SetAnimations() {
-        // If player is not isAttacking
-        if(!isAttacking) {
-            ChangeAnimationState(IDLE);
-        }
     }
 }

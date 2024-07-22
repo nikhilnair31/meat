@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class Consumable : PickableLimb
 {
     private Image fillableCursorImage;
+    private Image pickupIconImage;
     private bool isHeld = false;
 
     [Header("Consumable Properties")]
@@ -19,18 +20,21 @@ public class Consumable : PickableLimb
             
             playerHand = playerInteract.playerInteractHolder;
             fillableCursorImage = playerInteract.fillableCursorImage;
+            pickupIconImage = playerInteract.pickupIconImage;
             playerInteract.playerAnimator = animator;
 
             transform.SetParent(playerHand);
             transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
-
-            animator.enabled = true;
 
             itemRigidbody.isKinematic = true;
             itemRigidbody.useGravity = false;
 
             itemCollider.enabled = false;
             itemCollider.isTrigger = false;
+
+            animator.enabled = true;
+
+            pickupIconImage.sprite = consumableData.pickupIcon;
             
             ShowUI = false;
         }
@@ -49,6 +53,10 @@ public class Consumable : PickableLimb
 
             itemCollider.enabled = true;
             itemCollider.isTrigger = false;
+
+            animator.enabled = false;
+
+            pickupIconImage.sprite = null;
         }
         else {
             Debug.Log($"Item {gameObject.name} NOT held");

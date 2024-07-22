@@ -18,6 +18,7 @@ public class PlayerInteract : MonoBehaviour
     [Header("UI Related")]
     public Image baseCursorImage;
     public Image fillableCursorImage;
+    public Image pickupIconImage;
 
     void Update() {
         HandleItemViewing();

@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class PlayerMovementRigidbody : MonoBehaviour
 {
-    private Rigidbody rb;
     private Transform groundCheck;
     private CapsuleCollider playerCollider;
     private Animator playerAnimator;
@@ -12,6 +11,7 @@ public class PlayerMovementRigidbody : MonoBehaviour
     private bool isCrouching;
 
     [Header("Move Settings")]
+    public Rigidbody rb;
     [SerializeField] private float speed = 12f;
 
     [Header("Run Settings")]

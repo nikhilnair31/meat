@@ -12,5 +12,5 @@ public class ConsumableData : ScriptableObject
     public float speedReductionMultiplier = 0.8f;
 
     [Header("UI Settings")]
-    public Sprite consumableIcon;
+    public Sprite pickupIcon;
 }
