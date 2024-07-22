@@ -47,10 +47,14 @@ public class PlayerInteract : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E)) {
             ItemInteractRaycast();
         }
+        if (Input.GetKeyDown(KeyCode.G)) {
+            ItemHeldDrop();
+        }
     }
     private void ItemInteractRaycast() {
         if (lastSeenInteractable != null) {
             Debug.Log($"Has seen {lastSeenInteractable.name}");
+            currentHeldItem = lastSeenInteractable;
             lastSeenInteractable.Interact();
         }
         else {
@@ -68,6 +72,11 @@ public class PlayerInteract : MonoBehaviour
                     Debug.Log($"{hit.collider.name} isn't interactable");
                 }
             }
+        }
+    }
+    private void ItemHeldDrop() {
+        if (currentHeldItem != null) {
+            currentHeldItem.Drop();
         }
     }
 
