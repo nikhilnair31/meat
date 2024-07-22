@@ -38,9 +38,9 @@ public class EnemyRagdoll : MonoBehaviour
         GetComponentInChildren<EnemyMelee>().DisablePhysicsOnRagdoll();
     }
     public void DisableRagdoll() {
-        if(!isRagdoll) { 
-            return; 
-        }
+        // if(!isRagdoll) { 
+        //     return; 
+        // }
         
         isRagdoll = false;
         
