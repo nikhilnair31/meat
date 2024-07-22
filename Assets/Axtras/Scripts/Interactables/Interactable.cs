@@ -3,14 +3,10 @@ using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour 
 {
-    private bool showUI;
-
     [Header("UI Related")]
+    [SerializeField] private UITransitionData uiTransitionData;
     [SerializeField] private Transform interactTransform;
-    [SerializeField] private float transitionDuration = 1f;
-    [SerializeField] private float transitionAmount = 0.3f;
-    [SerializeField] private float canvasOffsetY = 3f;
-    [SerializeField] private float displayDuration = 2f;
+    private bool showUI;
 
     public virtual void Interact() {}
     public virtual void Pickup() {}
@@ -29,6 +25,7 @@ public abstract class Interactable : MonoBehaviour
         set {
             if (showUI != value) {
                 showUI = value;
+                StopAllCoroutines();
                 if (showUI) {
                     ShowPickupItemUI();
                 }
@@ -39,28 +36,28 @@ public abstract class Interactable : MonoBehaviour
         }
     }
     private void ShowPickupItemUI() {
-        // Debug.Log($"ShowPickupItemUI");
-
-        if(interactTransform != null) {
-            interactTransform.position = transform.position + new Vector3(0, canvasOffsetY, 0);
-            Helper.ScaleInAndOutUI(interactTransform, transitionAmount, transitionDuration);
-            StartCoroutine(HidePickupItemUIAfterDelay());
-        }
+        Debug.Log("ShowPickupItemUI");
+        interactTransform.position = transform.position + new Vector3(0, uiTransitionData.canvasOffsetY, 0);
+        Helper.ScaleInAndOutUI(
+            interactTransform, 
+            uiTransitionData.transitionAmount, 
+            uiTransitionData.transitionDuration
+        );
     }
     private void HidePickupItemUI() {
-        // Debug.Log($"HidePickupItemUI");
-
-        if(interactTransform != null) {
-            Helper.ScaleInAndOutUI(interactTransform, 0f, transitionDuration);
-        }
+        Debug.Log("HidePickupItemUI");
+        Helper.ScaleInAndOutUI(
+            interactTransform, 
+            0f, 
+            uiTransitionData.transitionDuration
+        );
     }
     // FIXME: Causes scale pulsing on constant loking at item canvas
-    private IEnumerator HidePickupItemUIAfterDelay() {
-        // Debug.Log($"HidePickupItemUIAfterDelay");
+    public IEnumerator HidePickupItemUIAfterDelay() {
+        Debug.Log("HidePickupItemUIAfterDelay");
+
+        yield return new WaitForSeconds(uiTransitionData.displayDuration);
         
-        yield return new WaitForSeconds(displayDuration);
-        
-        // Debug.Log($"done waiting");
         ShowUI = false;
     }
 }

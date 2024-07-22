@@ -25,22 +25,19 @@ public class PlayerInteract : MonoBehaviour
         HandleItemPickupTimer();
     }
 
-    private void HandleItemPickupTimer() {
-        if (lastSeenInteractable != null) {
-            interactablePickupTimer += Time.deltaTime;
-            if (interactablePickupTimer >= interactablePickupInTime) {
-                lastSeenInteractable = null;
-                interactablePickupInTime = 0f;
-            }
-        }
-    }
-
     private void HandleItemViewing() {
         if (Physics.Raycast(playerEyes.position, playerEyes.forward, out RaycastHit hit, interactableRange, interactableLayer)) {
             if (hit.collider.TryGetComponent<Interactable>(out Interactable interactable)) {
+                if (lastSeenInteractable != null && lastSeenInteractable != interactable) {
+                    StartCoroutine(lastSeenInteractable.HidePickupItemUIAfterDelay());
+                }
+
                 lastSeenInteractable = interactable;
                 lastSeenInteractable.ShowUI = true;
                 interactablePickupTimer = 0f;
+            }
+            else {
+                StartCoroutine(lastSeenInteractable.HidePickupItemUIAfterDelay());
             }
         }
     }
@@ -64,6 +61,16 @@ public class PlayerInteract : MonoBehaviour
                     currentHeldItem = interactable;
                     interactable.Interact();
                 }
+            }
+        }
+    }
+
+    private void HandleItemPickupTimer() {
+        if (lastSeenInteractable != null) {
+            interactablePickupTimer += Time.deltaTime;
+            if (interactablePickupTimer >= interactablePickupInTime) {
+                lastSeenInteractable = null;
+                interactablePickupInTime = 0f;
             }
         }
     }

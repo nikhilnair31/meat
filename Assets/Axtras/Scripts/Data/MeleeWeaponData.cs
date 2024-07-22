@@ -7,9 +7,15 @@ public class MeleeWeaponData : ScriptableObject
     public int damageAmount;
     public float damageDuration;
 
-    [Header("Camera Shake Settings")]
-    public ImpactEffectData impactEffectData;
+    [Header("Attack Settings")]
+    public float attackDelay = 0.4f;
+    public float attackSpeed = 1f;
+    public float attackRange = 1f;
+    public LayerMask attackLayer;
 
-    [Header("Audio Settings")]
-    public AudioClip attackSound;
+    [Header("UI Settings")]
+    public Sprite weaponIcon;
+
+    [Header("Impact Settings")]
+    public ImpactEffectData impactEffectData;
 }

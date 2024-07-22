@@ -5,14 +5,12 @@ using UnityEngine;
 public class Swingable : PickableLimb
 {
     [Header("Main")]
-    [SerializeField] private bool isHeld = false;
+    private bool isHeld = false;
     public bool isAttacking = false;
     public bool isBlocking = false;
 
-    [Header("Damage Properties")]
-    [SerializeField] private int damageAmount = 20;
-    [SerializeField] private float damageDuration = 0.01f;
-    [SerializeField] private float lightAttackDuration = 1f;
+    [Header("Swingable Properties")]
+    [SerializeField] private SwingableWeaponData swingableWeaponData;
 
     [Header("Effects")]
     [SerializeField] private ImpactEffectData impactEffectData;
@@ -66,7 +64,7 @@ public class Swingable : PickableLimb
         
         if (isHeld) {
             if (Input.GetMouseButtonDown(0)) {
-                StartCoroutine(Swing(lightAttackDuration));
+                StartCoroutine(Swing(swingableWeaponData.attackSpeed));
             }
 
             if (Input.GetMouseButton(1)) {
@@ -102,13 +100,13 @@ public class Swingable : PickableLimb
                     if (transformCollector != null) {
                         foreach (TransformData data in transformCollector.transformDataList) {
                             if(data.transformName.Contains(other.collider.name)) {
-                                float scaledDamageAmount = damageAmount * data.transformDamageMultiplier;
+                                float scaledDamageAmount = swingableWeaponData.damageAmount * data.transformDamageMultiplier;
 
                                 data.transformCurrentHealth -= scaledDamageAmount;
                             
                                 EnemyHealth enemyHealth = Helper.GetComponentInParentByTag<EnemyHealth>(other.transform, "Enemy");
                                 if (enemyHealth != null) {
-                                    enemyHealth.DiffHealth(scaledDamageAmount, damageDuration);
+                                    enemyHealth.DiffHealth(scaledDamageAmount, swingableWeaponData.damageDuration);
                                 }
                             }
                         }

@@ -1,33 +1,38 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerAttack : MonoBehaviour 
 {
-
     public const string IDLE = "Idle";
     public const string ATTACK1 = "Punch L";
     public const string ATTACK2 = "Punch R";
     string currentAnimationState;
-
-    bool readyToAttack = true;
 
     [Header("Components Properties")]
     [SerializeField] private Transform raycastSourceTranform;
     [SerializeField] private Animator playerAnimator;
 
     [Header("Attack Properties")]
+    bool readyToAttack = true;
     public bool isAttacking = false;
     [SerializeField] private int attackCount = 1;
-    [SerializeField] private float attackDelay = 0.4f;
-    [SerializeField] private float attackSpeed = 1f;
-    [SerializeField] private float attackRange = 1f;
-    [SerializeField] private LayerMask attackLayer;
 
     [Header("Weapon Properties")]
     [SerializeField] private MeleeWeaponData meleeWeaponData;
 
+    [Header("UI Properties")]
+    [SerializeField] private Image weaponIconImage;
+
     private void Start() {
         if (playerAnimator == null) {
             playerAnimator = GetComponentInChildren<Animator>();
+        }
+
+        InitUI();
+    }
+    private void InitUI() {
+        if (meleeWeaponData.weaponIcon != null) {
+            weaponIconImage.sprite = meleeWeaponData.weaponIcon;
         }
     }
 
@@ -45,8 +50,8 @@ public class PlayerAttack : MonoBehaviour
         readyToAttack = false;
         isAttacking = true;
 
-        Invoke(nameof(ResetAttack), attackSpeed);
-        Invoke(nameof(AttackRaycast), attackDelay);
+        Invoke(nameof(ResetAttack), meleeWeaponData.attackSpeed);
+        Invoke(nameof(AttackRaycast), meleeWeaponData.attackDelay);
 
         if(attackCount == 1) {
             ChangeAnimationState(ATTACK1);
@@ -61,10 +66,10 @@ public class PlayerAttack : MonoBehaviour
     void AttackRaycast() {
         // Debug.Log("AttackRaycast");
 
-        Debug.DrawRay(raycastSourceTranform.position, raycastSourceTranform.forward * attackRange, Color.red, 1f);
+        Debug.DrawRay(raycastSourceTranform.position, raycastSourceTranform.forward * meleeWeaponData.attackRange, Color.red, 1f);
 
         RaycastHit hit;
-        if(Physics.Raycast(raycastSourceTranform.position, raycastSourceTranform.forward, out hit, attackRange, attackLayer)) {
+        if(Physics.Raycast(raycastSourceTranform.position, raycastSourceTranform.forward, out hit, meleeWeaponData.attackRange, meleeWeaponData.attackLayer)) {
             // Debug.Log($"hit name {hit.collider.name} of tag {hit.collider.tag}");
             if (hit.collider.CompareTag("Limb")) {
                 TransformCollector transformCollector = Helper.GetComponentInParentByTag<TransformCollector>(hit.transform, "Enemy");

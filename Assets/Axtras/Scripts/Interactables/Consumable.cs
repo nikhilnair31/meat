@@ -4,18 +4,11 @@ using UnityEngine.UI;
 public class Consumable : PickableLimb
 {
     private Image fillableCursorImage;
+    private bool isHeld = false;
 
-    [Header("Main")]
-    [SerializeField] private bool isHeld = false;
-
-    [Header("Heal Properties")]
-    [SerializeField] public int healAmount = 20;
-    [SerializeField] public float healTime = 3f;
-    [SerializeField] public float consumeTime = 3f;
-    [SerializeField] private float holdTime = 0f;
-
-    [Header("Move Properties")]
-    [SerializeField] private float speedReductionMultiplier = 0.8f;
+    [Header("Consumable Properties")]
+    [SerializeField] private ConsumableData consumableData;
+    private float holdTime = 0f;
 
     public override void Interact() {
         Pickup();
@@ -78,11 +71,11 @@ public class Consumable : PickableLimb
     void HandleConsumption() {
         if (Input.GetMouseButton(0)) {
             holdTime += Time.deltaTime;
-            fillableCursorImage.fillAmount = holdTime / consumeTime;
+            fillableCursorImage.fillAmount = holdTime / consumableData.consumeTime;
             playerMovementRigidbody.isConsuming = true;
-            playerMovementRigidbody.speedReductionMultiplier = speedReductionMultiplier;
+            playerMovementRigidbody.speedReductionMultiplier = consumableData.speedReductionMultiplier;
 
-            if (holdTime >= consumeTime) {
+            if (holdTime >= consumableData.consumeTime) {
                 Consume();
             }
         }
@@ -98,7 +91,10 @@ public class Consumable : PickableLimb
     void Consume() {
         Debug.Log("Player healed!");
         
-        playerHealth.AddHealth(healAmount, healTime);
+        playerHealth.AddHealth(
+            consumableData.healAmount, 
+            consumableData.healTime
+        );
         ResetConsumptionOnMouseRelease();
 
         Destroy(gameObject);
