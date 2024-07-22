@@ -17,9 +17,9 @@ public class EnemyRagdoll : MonoBehaviour
 
     public void EnableRagdoll() {
         // Don't bother running anything if ragdoll is already enabled
-        if(isRagdoll) { 
-            return; 
-        }
+        // if(isRagdoll) { 
+        //     return; 
+        // }
         
         isRagdoll = true;
 

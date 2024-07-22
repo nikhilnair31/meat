@@ -59,15 +59,13 @@ public class PlayerAttack : MonoBehaviour
     }
    
     void AttackRaycast() {
-        Debug.Log("AttackRaycast");
+        // Debug.Log("AttackRaycast");
 
-        // Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        Debug.DrawRay(raycastSourceTranform.position, raycastSourceTranform.forward * attackRange, Color.red, 1f);
 
-        Debug.DrawRay(raycastSourceTranform.position, raycastSourceTranform.forward * attackRange, Color.red, 2f);
-
-        if(Physics.Raycast(raycastSourceTranform.position, raycastSourceTranform.forward, out RaycastHit hit, attackRange, attackLayer)) {
-        // if (Physics.Raycast(ray, out RaycastHit hit, attackRange, attackLayer)) {
-            Debug.Log($"hit name {hit.collider.name} of tag {hit.collider.tag}");
+        RaycastHit hit;
+        if(Physics.Raycast(raycastSourceTranform.position, raycastSourceTranform.forward, out hit, attackRange, attackLayer)) {
+            // Debug.Log($"hit name {hit.collider.name} of tag {hit.collider.tag}");
             if (hit.collider.CompareTag("Limb")) {
                 TransformCollector transformCollector = Helper.GetComponentInParentByTag<TransformCollector>(hit.transform, "Enemy");
                 if (transformCollector != null) {
@@ -83,11 +81,19 @@ public class PlayerAttack : MonoBehaviour
                             }
                         }
                     }
-                } else {
-                    Debug.LogError($"TransformCollector not found on {hit.collider.name}");
+                } 
+                else {
+                    // Debug.LogError($"TransformCollector not found on {hit.collider.name}");
                 }
-            } else {
-                Debug.Log($"Player hit something else! {hit.collider.name}");
+            } 
+            else {
+                // Debug.Log($"Player hit something else! {hit.collider.name}");
+            }
+
+            GameObject impactParticlePrefab = meleeWeaponData.impactEffectData.impactParticlePrefab;
+            if (impactParticlePrefab != null && hit.collider != null) {
+                GameObject impactParticle = Instantiate(impactParticlePrefab, hit.point, Quaternion.LookRotation(hit.normal));
+                Destroy(impactParticle, 2f);
             }
 
             Helper.PlayOneShotWithRandPitch(
@@ -101,8 +107,9 @@ public class PlayerAttack : MonoBehaviour
                 meleeWeaponData.impactEffectData.hurtShakeDuration, 
                 meleeWeaponData.impactEffectData.hurtShakeMultiplier
             );
-        } else {
-            Debug.Log("Did not hit anything");
+        } 
+        else {
+            // Debug.Log("Did not hit anything");
         }
     }
 

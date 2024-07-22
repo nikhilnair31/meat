@@ -12,4 +12,7 @@ public class ImpactEffectData : ScriptableObject
     public AudioClip impactClip;
     public float impactVolume = 1.0f;
     public bool randPitch = false;
+
+    [Header("Impact Visual Effects")]
+    public GameObject impactParticlePrefab;
 }
