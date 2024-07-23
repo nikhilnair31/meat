@@ -8,6 +8,10 @@ public class PlayerConsumable : MonoBehaviour
     private PlayerHealth playerHealth;
     private float holdTime = 0f;
 
+    [Header("Consuming Settings")]
+    public bool isConsuming = false;
+    public float speedReductionMultiplier = 1f;
+
     private void Start() {
         playerMovementRigidbody = GetComponent<PlayerMovementRigidbody>();
         playerAnimations = GetComponent<PlayerAnimations>();
@@ -29,8 +33,8 @@ public class PlayerConsumable : MonoBehaviour
             if(playerInteract.currentHeldItem.TryGetComponent(out Consumable consumable)) {
                 holdTime += Time.deltaTime;
                 playerInteract.fillableCursorImage.fillAmount = holdTime / consumable.consumableData.consumeTime;
-                playerMovementRigidbody.isConsuming = true;
-                playerMovementRigidbody.speedReductionMultiplier = consumable.consumableData.speedReductionMultiplier;
+                speedReductionMultiplier = consumable.consumableData.speedReductionMultiplier;
+                isConsuming = true;
 
                 if (holdTime >= consumable.consumableData.consumeTime) {
                     Debug.Log("Player healed!");
@@ -51,7 +55,7 @@ public class PlayerConsumable : MonoBehaviour
     private void ResetConsumptionOnMouseRelease() {
         holdTime = 0f;
         playerInteract.fillableCursorImage.fillAmount = 0f;
-        playerMovementRigidbody.isConsuming = false;
-        playerMovementRigidbody.speedReductionMultiplier = 1f;
+        speedReductionMultiplier = 1f;
+        isConsuming = false;
     }
 }

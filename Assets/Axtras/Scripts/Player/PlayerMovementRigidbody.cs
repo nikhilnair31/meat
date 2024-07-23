@@ -3,9 +3,9 @@ using UnityEngine;
 public class PlayerMovementRigidbody : MonoBehaviour
 {
     private PlayerAnimations playerAnimations;
+    private PlayerConsumable playerConsumable;
     private Transform groundCheck;
     private CapsuleCollider playerCollider;
-    // private Animator playerAnimator;
     private Rigidbody rb;
     private float originalHeight;
     private bool isGrounded;
@@ -35,23 +35,19 @@ public class PlayerMovementRigidbody : MonoBehaviour
     [SerializeField] private float groundDistance = 0.4f;
     [SerializeField] private LayerMask groundMask;
 
-    [Header("Consuming Settings")]
-    public bool isConsuming = false;
-    public float speedReductionMultiplier = 1f;
-
     private void Start() {
-        rb = GetComponent<Rigidbody>();
         playerAnimations = GetComponent<PlayerAnimations>();
-        // playerAnimator = GetComponentInChildren<Animator>();
+        playerConsumable = GetComponent<PlayerConsumable>();
 
-        if (TryGetComponent<CapsuleCollider>(out playerCollider)) {
-            originalHeight = playerCollider.height;
-        }
+        playerCollider = GetComponent<CapsuleCollider>();
+        rb = GetComponent<Rigidbody>();
 
         groundCheck = transform.Find("GroundCheck");
         if (groundCheck == null) {
             Debug.LogError("GroundCheck object not found. Please add a child object named 'GroundCheck' to the player.");
         }
+
+        originalHeight = playerCollider.height;
 
         playerAnimations.ChangeAnimationState();
     }
@@ -68,13 +64,12 @@ public class PlayerMovementRigidbody : MonoBehaviour
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
 
+        playerAnimations.ChangeAnimationState(isCrouching ? CROUCH : IDLE);
         playerAnimations.ChangeAnimationState(isRunning ? RUN : WALK);
-        playerAnimations.ChangeAnimationState(isCrouching ? CROUCH : null);
     }
 
     void FixedUpdate() {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        // playerAnimator.SetBool("isGrounded", isGrounded);
 
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
@@ -90,12 +85,11 @@ public class PlayerMovementRigidbody : MonoBehaviour
             currentSpeed *= crouchSpeedMultiplier;
         }
 
-        if (isConsuming) {
-            currentSpeed *= speedReductionMultiplier;
+        if (playerConsumable.isConsuming) {
+            currentSpeed *= playerConsumable.speedReductionMultiplier;
         }
 
         Vector3 moveVelocity = move * currentSpeed;
         rb.velocity = new Vector3(moveVelocity.x, rb.velocity.y, moveVelocity.z);
-        // playerAnimator.SetFloat("moveVelocity", moveVelocity.magnitude);
     }
 }
