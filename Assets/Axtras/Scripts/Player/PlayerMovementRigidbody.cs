@@ -63,9 +63,6 @@ public class PlayerMovementRigidbody : MonoBehaviour
         if (isGrounded && Input.GetButtonDown("Jump") && !isCrouching) {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
-
-        playerAnimations.ChangeAnimationState(isCrouching ? CROUCH : IDLE);
-        playerAnimations.ChangeAnimationState(isRunning ? RUN : WALK);
     }
 
     void FixedUpdate() {
@@ -80,9 +77,17 @@ public class PlayerMovementRigidbody : MonoBehaviour
         float currentSpeed = speed;
         if (isRunning && !isCrouching) {
             currentSpeed *= runSpeedMultiplier;
+            playerAnimations.ChangeAnimationState(RUN);
+        }
+        else if (isWalking) {
+            playerAnimations.ChangeAnimationState(WALK);
         }
         else if (isCrouching) {
             currentSpeed *= crouchSpeedMultiplier;
+            playerAnimations.ChangeAnimationState(CROUCH);
+        }
+        else {
+            playerAnimations.ChangeAnimationState(IDLE);
         }
 
         if (playerConsumable.isConsuming) {

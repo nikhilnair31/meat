@@ -56,7 +56,7 @@ public class PlayerAnimations : MonoBehaviour
     //     }
     // }
     public void ChangeAnimationState(string newState = "Idle", float animSpeed = 1f) {
-        Debug.Log($"Changing state from {currentAnimationState} to {newState} with speed {animSpeed} while speed is {animSpeed} and player unarmed {playerAttack.playerIsUnarmed}");
+        // Debug.Log($"Changing state from {currentAnimationState} to {newState} with speed {animSpeed} while speed is {animSpeed} and player unarmed {playerAttack.playerIsUnarmed}");
 
         // STOP THE SAME ANIMATION FROM INTERRUPTING WITH ITSELF //
         if (currentAnimationState == newState && playerAnimator.speed == animSpeed) {
