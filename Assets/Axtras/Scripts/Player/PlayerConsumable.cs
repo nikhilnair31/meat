@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class PlayerConsumable : MonoBehaviour 
 {
-    private PlayerMovementRigidbody playerMovementRigidbody;
-    private PlayerAnimations playerAnimations;
     private PlayerInteract playerInteract;
     private PlayerHealth playerHealth;
     private float holdTime = 0f;
@@ -13,8 +11,6 @@ public class PlayerConsumable : MonoBehaviour
     public float speedReductionMultiplier = 1f;
 
     private void Start() {
-        playerMovementRigidbody = GetComponent<PlayerMovementRigidbody>();
-        playerAnimations = GetComponent<PlayerAnimations>();
         playerInteract = GetComponent<PlayerInteract>();
         playerHealth = GetComponent<PlayerHealth>();
     }
@@ -29,26 +25,25 @@ public class PlayerConsumable : MonoBehaviour
     }
 
     private void HandleConsumption() {
-        if(playerInteract.currentHeldItem != null) {
-            if(playerInteract.currentHeldItem.TryGetComponent(out Consumable consumable)) {
-                holdTime += Time.deltaTime;
-                playerInteract.fillableCursorImage.fillAmount = holdTime / consumable.consumableData.consumeTime;
-                speedReductionMultiplier = consumable.consumableData.speedReductionMultiplier;
-                isConsuming = true;
+        Consumable consumable = CurrentHeldItemIsConsumable();
+        if(consumable != null) {
+            holdTime += Time.deltaTime;
+            playerInteract.fillableCursorImage.fillAmount = holdTime / consumable.consumableData.consumeTime;
+            speedReductionMultiplier = consumable.consumableData.speedReductionMultiplier;
+            isConsuming = true;
 
-                if (holdTime >= consumable.consumableData.consumeTime) {
-                    Debug.Log("Player healed!");
-                    
-                    playerHealth.AddHealth(
-                        consumable.consumableData.healAmount, 
-                        consumable.consumableData.healTime
-                    );
-                    ResetConsumptionOnMouseRelease();
+            if (holdTime >= consumable.consumableData.consumeTime) {
+                Debug.Log("Player healed!");
+                
+                playerHealth.AddHealth(
+                    consumable.consumableData.healAmount, 
+                    consumable.consumableData.healTime
+                );
+                ResetConsumptionOnMouseRelease();
 
-                    consumable.Drop();
+                consumable.Drop();
 
-                    Destroy(playerInteract.currentHeldItem.transform.gameObject);
-                }
+                Destroy(playerInteract.currentHeldItem.transform.gameObject);
             }
         }
     }
@@ -57,5 +52,14 @@ public class PlayerConsumable : MonoBehaviour
         playerInteract.fillableCursorImage.fillAmount = 0f;
         speedReductionMultiplier = 1f;
         isConsuming = false;
+    }
+    
+    public Consumable CurrentHeldItemIsConsumable() {
+        if(playerInteract.currentHeldItem != null) {
+            if(playerInteract.currentHeldItem.TryGetComponent(out Consumable consumable)) {
+                return consumable;
+            }
+        }
+        return null;
     }
 }

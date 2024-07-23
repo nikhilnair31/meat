@@ -8,10 +8,8 @@ public class PickableLimb : Interactable
     internal PlayerInteract playerInteract;
     internal PlayerHealth playerHealth;
     internal PlayerAttack playerAttack;
-    internal Transform playerHand;
     internal Rigidbody itemRigidbody;
     internal Collider itemCollider;
-    internal Animator animator;
     internal bool isHeld = false;
     
     [Header("Durability Properties")]
@@ -30,7 +28,6 @@ public class PickableLimb : Interactable
 
         itemCollider = GetComponent<Collider>();
         itemRigidbody = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();
 
         weaponMaterial = GetComponent<Renderer>().material;
 

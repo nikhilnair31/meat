@@ -30,9 +30,7 @@ public class PlayerAttack : MonoBehaviour
     public const string BLOCK = "Block";
 
     private void Start() {
-        if (playerAnimations == null) {
-            playerAnimations = GetComponent<PlayerAnimations>();
-        }
+        playerAnimations = GetComponent<PlayerAnimations>();
 
         InitUI();
     }

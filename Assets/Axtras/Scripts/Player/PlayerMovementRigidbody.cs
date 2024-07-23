@@ -2,18 +2,12 @@ using UnityEngine;
 
 public class PlayerMovementRigidbody : MonoBehaviour
 {
-    private PlayerAnimations playerAnimations;
     private PlayerConsumable playerConsumable;
     private Transform groundCheck;
     private CapsuleCollider playerCollider;
     private Rigidbody rb;
     private float originalHeight;
     private bool isGrounded;
-
-    public const string IDLE = "Idle";
-    public const string WALK = "Walking";
-    public const string RUN = "Running";
-    public const string CROUCH = "Crouching";
 
     [Header("Move Settings")]
     public bool isWalking;
@@ -36,7 +30,6 @@ public class PlayerMovementRigidbody : MonoBehaviour
     [SerializeField] private LayerMask groundMask;
 
     private void Start() {
-        playerAnimations = GetComponent<PlayerAnimations>();
         playerConsumable = GetComponent<PlayerConsumable>();
 
         playerCollider = GetComponent<CapsuleCollider>();
@@ -48,8 +41,6 @@ public class PlayerMovementRigidbody : MonoBehaviour
         }
 
         originalHeight = playerCollider.height;
-
-        playerAnimations.ChangeAnimationState();
     }
 
     private void Update() {
@@ -77,17 +68,9 @@ public class PlayerMovementRigidbody : MonoBehaviour
         float currentSpeed = speed;
         if (isRunning && !isCrouching) {
             currentSpeed *= runSpeedMultiplier;
-            playerAnimations.ChangeAnimationState(RUN);
-        }
-        else if (isWalking) {
-            playerAnimations.ChangeAnimationState(WALK);
         }
         else if (isCrouching) {
             currentSpeed *= crouchSpeedMultiplier;
-            playerAnimations.ChangeAnimationState(CROUCH);
-        }
-        else {
-            playerAnimations.ChangeAnimationState(IDLE);
         }
 
         if (playerConsumable.isConsuming) {

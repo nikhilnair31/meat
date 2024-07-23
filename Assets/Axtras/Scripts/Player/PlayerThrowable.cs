@@ -2,16 +2,12 @@ using UnityEngine;
 
 public class PlayerThrowable : MonoBehaviour 
 {
-    private PlayerMovementRigidbody playerMovementRigidbody;
     private PlayerAnimations playerAnimations;
     private PlayerInteract playerInteract;
-    private PlayerHealth playerHealth;
 
     private void Start() {
-        playerMovementRigidbody = GetComponent<PlayerMovementRigidbody>();
         playerAnimations = GetComponent<PlayerAnimations>();
         playerInteract = GetComponent<PlayerInteract>();
-        playerHealth = GetComponent<PlayerHealth>();
     }
 
     private void Update() {
@@ -27,5 +23,14 @@ public class PlayerThrowable : MonoBehaviour
                 playerAnimations.ChangeAnimationState(throwable.weaponData.throwingAnimationName);
             }
         }
+    }
+
+    public Throwable CurrentHeldItemIsThrowable() {
+        if(playerInteract.currentHeldItem != null) {
+            if(playerInteract.currentHeldItem.TryGetComponent(out Throwable throwable)) {
+                return throwable;
+            }
+        }
+        return null;
     }
 }

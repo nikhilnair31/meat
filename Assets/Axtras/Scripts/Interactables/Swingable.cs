@@ -4,8 +4,6 @@ using UnityEngine.UI;
 
 public class Swingable : PickableLimb
 {
-    private Image pickupIconImage;
-
     public bool isAttacking = false;
     public bool isBlocking = false;
 
@@ -21,12 +19,9 @@ public class Swingable : PickableLimb
     public override void Pickup() {
         if (!isHeld) {
             isHeld = true;
+            ShowUI = false;
             
-            playerHand = playerInteract.playerInteractHolder;
-            playerInteract.playerAnimator = animator;
-            pickupIconImage = playerInteract.pickupIconImage;
-
-            transform.SetParent(playerHand);
+            transform.SetParent(playerInteract.playerInteractHolder);
             transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
 
             itemRigidbody.isKinematic = true;
@@ -35,15 +30,9 @@ public class Swingable : PickableLimb
             itemCollider.enabled = true;
             itemCollider.isTrigger = false;
 
-            // animator.enabled = true;
-
-            pickupIconImage.sprite = weaponData.pickupIcon;
-
-            playerAnimations.ChangeAnimationState(weaponData.holdingAnimationName);
+            playerInteract.pickupIconImage.sprite = weaponData.pickupIcon;
 
             playerAttack.playerIsUnarmed = false;
-            
-            ShowUI = false;
         }                   
         else {
             Debug.Log($"Item {gameObject.name} is already held");
@@ -52,6 +41,7 @@ public class Swingable : PickableLimb
     public override void Drop() {
         if (isHeld) {
             isHeld = false;
+            ShowUI = false;
 
             transform.SetParent(null);
             
@@ -61,11 +51,8 @@ public class Swingable : PickableLimb
             itemCollider.enabled = true;
             itemCollider.isTrigger = false;
 
-            // animator.enabled = false;
-
+            playerInteract.currentHeldItem = null;
             playerInteract.pickupIconImage.sprite = null;
-
-            playerAnimations.ChangeAnimationState();
 
             playerAttack.playerIsUnarmed = true;
         }

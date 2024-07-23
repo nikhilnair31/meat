@@ -5,56 +5,63 @@ public class PlayerAnimations : MonoBehaviour
     private PlayerAttack playerAttack;
     private PlayerInteract playerInteract;
     private PlayerMovementRigidbody playerMovementRigidbody;
+    private PlayerConsumable playerConsumable;
+    private PlayerThrowable playerThrowable;
+    private PlayerSwingable playerSwingable;
     private string currentAnimationState;
+
+    public const string IDLE = "Idle";
+    public const string WALK = "Walking";
+    public const string RUN = "Running";
+    public const string CROUCH = "Crouching";
 
     [SerializeField] private Animator playerAnimator;
 
-    public const string IDLE = "Idle";
-
     private void Start() {
-        if (playerAnimator == null) {
-            playerAnimator = GetComponentInChildren<Animator>();
-        }
-        if (playerAttack == null) {
-            playerAttack = GetComponent<PlayerAttack>();
-        }
-        if (playerInteract == null) {
-            playerInteract = GetComponent<PlayerInteract>();
-        }
-        if (playerMovementRigidbody == null) {
-            playerMovementRigidbody = GetComponent<PlayerMovementRigidbody>();
-        }
-    }
-    private void Update() {
-        // SetAnimations();
+        playerAttack = GetComponent<PlayerAttack>();
+        playerInteract = GetComponent<PlayerInteract>();
+        playerMovementRigidbody = GetComponent<PlayerMovementRigidbody>();
+        playerConsumable = GetComponent<PlayerConsumable>();
+        playerThrowable = GetComponent<PlayerThrowable>();
+        playerSwingable = GetComponent<PlayerSwingable>();
+
+        playerAnimator = GetComponentInChildren<Animator>();
+
+        ChangeAnimationState();
     }
 
-    // public void SetAnimations() {
-    //     // When fists only
-    //     if(playerAttack.playerIsUnarmed) {
-    //         // When not punching
-    //         if(!playerAttack.isAttacking) {
-    //             if (playerMovementRigidbody.isWalking) {
-    //                 ChangeAnimationState(IDLE, 0.6f);
-    //             }
-    //             else if (playerMovementRigidbody.isRunning) {
-    //                 ChangeAnimationState(IDLE, 1.0f);
-    //             }
-    //             else if (playerMovementRigidbody.isCrouching) {
-    //                 ChangeAnimationState(IDLE, 0.1f);
-    //             }
-    //             else {
-    //                 ChangeAnimationState(IDLE, 0.3f);
-    //             }
-    //         }
-    //         // When punching
-    //         else {
-    //         }
-    //     }
-    //     else {
-    //         //
-    //     }
-    // }
+    private void Update() {
+        if(playerAttack.playerIsUnarmed) {
+            if (playerMovementRigidbody.isRunning && !playerMovementRigidbody.isCrouching) {
+                ChangeAnimationState(RUN);
+            }
+            else if (playerMovementRigidbody.isWalking) {
+                ChangeAnimationState(WALK);
+            }
+            else if (playerMovementRigidbody.isCrouching) {
+                ChangeAnimationState(CROUCH);
+            }
+            else {
+                ChangeAnimationState(IDLE);
+            }
+        }
+        else {
+            Consumable consumable = playerConsumable.CurrentHeldItemIsConsumable();
+            Throwable throwable = playerThrowable.CurrentHeldItemIsThrowable();
+            Swingable swingable = playerSwingable.CurrentHeldItemIsSwingable();
+
+            if (consumable != null) {
+                ChangeAnimationState(consumable.consumableData.holdingAnimationName);
+            }
+            else if (throwable != null) {
+                ChangeAnimationState(throwable.weaponData.holdingAnimationName);
+            }
+            else if (swingable != null) {
+                ChangeAnimationState(swingable.weaponData.holdingAnimationName);
+            }
+        }
+    }
+
     public void ChangeAnimationState(string newState = "Idle", float animSpeed = 1f) {
         // Debug.Log($"Changing state from {currentAnimationState} to {newState} with speed {animSpeed} while speed is {animSpeed} and player unarmed {playerAttack.playerIsUnarmed}");
 

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Consumable : PickableLimb
 {
@@ -13,11 +12,8 @@ public class Consumable : PickableLimb
         if (!isHeld) {
             isHeld = true;
             ShowUI = false;
-            
-            playerHand = playerInteract.playerInteractHolder;
-            playerInteract.playerAnimator = animator;
 
-            transform.SetParent(playerHand);
+            transform.SetParent(playerInteract.playerInteractHolder);
             transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
 
             itemRigidbody.isKinematic = true;
@@ -26,11 +22,7 @@ public class Consumable : PickableLimb
             itemCollider.enabled = false;
             itemCollider.isTrigger = false;
 
-            // animator.enabled = true;
-
             playerInteract.pickupIconImage.sprite = consumableData.pickupIcon;
-
-            playerAnimations.ChangeAnimationState(consumableData.holdingAnimationName);
 
             playerAttack.playerIsUnarmed = false;
         }
@@ -41,6 +33,7 @@ public class Consumable : PickableLimb
     public override void Drop() {
         if (isHeld) {
             isHeld = false;
+            ShowUI = false;
 
             transform.SetParent(null);
             
@@ -50,11 +43,8 @@ public class Consumable : PickableLimb
             itemCollider.enabled = true;
             itemCollider.isTrigger = false;
 
-            // animator.enabled = false;
-
+            playerInteract.currentHeldItem = null;
             playerInteract.pickupIconImage.sprite = null;
-
-            playerAnimations.ChangeAnimationState();
 
             playerAttack.playerIsUnarmed = true;
         }

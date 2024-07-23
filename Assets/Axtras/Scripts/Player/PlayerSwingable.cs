@@ -52,4 +52,13 @@ public class PlayerSwingable : MonoBehaviour
             }
         }
     }
+
+    public Swingable CurrentHeldItemIsSwingable() {
+        if(playerInteract.currentHeldItem != null) {
+            if(playerInteract.currentHeldItem.TryGetComponent(out Swingable swingable)) {
+                return swingable;
+            }
+        }
+        return null;
+    }
 }

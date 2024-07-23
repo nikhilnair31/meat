@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class Throwable : PickableLimb
 {
-    private Image pickupIconImage;
     private bool isThrown = false;
 
     [Header("Throwable Properties")]
@@ -19,10 +18,7 @@ public class Throwable : PickableLimb
     public override void Pickup() {
         if (!isHeld) {
             isHeld = true;
-            
-            playerHand = playerInteract.playerInteractHolder;
-            playerInteract.playerAnimator = animator;
-            pickupIconImage = playerInteract.pickupIconImage;
+            ShowUI = false;
 
             transform.SetParent(playerInteract.playerInteractHolder);
             transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
@@ -33,15 +29,9 @@ public class Throwable : PickableLimb
             itemCollider.enabled = false;
             itemCollider.isTrigger = false;
 
-            // animator.enabled = true;
-
-            pickupIconImage.sprite = weaponData.pickupIcon;
+            playerInteract.pickupIconImage.sprite = weaponData.pickupIcon;
 
             playerAttack.playerIsUnarmed = false;
-
-            playerAnimations.ChangeAnimationState(weaponData.holdingAnimationName);
-
-            ShowUI = false;
         }
         else {
             Debug.Log($"Item {gameObject.name} is already held");
@@ -50,6 +40,7 @@ public class Throwable : PickableLimb
     public override void Drop() {
         if (isHeld) {
             isHeld = false;
+            ShowUI = false;
 
             transform.SetParent(null);
             
@@ -59,13 +50,10 @@ public class Throwable : PickableLimb
             itemCollider.enabled = true;
             itemCollider.isTrigger = false;
 
-            // animator.enabled = false;
-
-            playerAttack.playerIsUnarmed = true;
-
+            playerInteract.currentHeldItem = null;
             playerInteract.pickupIconImage.sprite = null;
 
-            playerAnimations.ChangeAnimationState();
+            playerAttack.playerIsUnarmed = true;
         }
         else {
             Debug.Log($"Item {gameObject.name} NOT held");
@@ -75,6 +63,7 @@ public class Throwable : PickableLimb
     public void Throw() {
         isHeld = false;
         isThrown = true;
+        ShowUI = false;
 
         transform.SetParent(null);
 
@@ -88,13 +77,10 @@ public class Throwable : PickableLimb
         Vector3 throwVelocity = (throwPoint - transform.position).normalized * weaponData.throwForce;
         itemRigidbody.velocity = throwVelocity;
 
+        playerInteract.currentHeldItem = null;
         playerInteract.pickupIconImage.sprite = null;
 
-        // playerAnimations.ChangeAnimationState();
-
         playerAttack.playerIsUnarmed = true;
-            
-        ShowUI = false;
     }
 
     private void OnCollisionEnter(Collision other) {
