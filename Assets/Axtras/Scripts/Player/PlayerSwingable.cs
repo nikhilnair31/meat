@@ -1,64 +1,133 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerSwingable : MonoBehaviour 
 {
-    private PlayerMovementRigidbody playerMovementRigidbody;
     private PlayerAnimations playerAnimations;
-    private PlayerInteract playerInteract;
-    private PlayerHealth playerHealth;
+
+    [Header("General Properties")]
+    [SerializeField] private Transform raycastSourceTranform;
+    public bool playerIsUnarmed = true;
+
+    [Header("Attack Properties")]
+    public bool readyToAttack = true;
+    public bool isAttacking = false;
+    [SerializeField] private int attackCount = 1;
+
+    [Header("Defend Properties")]
+    public bool isBlocking = false;
+
+    [Header("Weapon Properties")]
+    public MeleeWeaponData meleeWeaponData;
+
+    [Header("Animation Properties")]
+    public const string IDLE = "Idle";
+    public const string ATTACK1 = "Swinging";
+    public const string BLOCK = "Block";
 
     private void Start() {
-        playerMovementRigidbody = GetComponent<PlayerMovementRigidbody>();
         playerAnimations = GetComponent<PlayerAnimations>();
-        playerInteract = GetComponent<PlayerInteract>();
-        playerHealth = GetComponent<PlayerHealth>();
     }
 
     private void Update() {
         if (Input.GetMouseButtonDown(0)) {
-            StartCoroutine(Swing());
+            Attack();
         }
-
-        if (Input.GetMouseButton(1)) {
-            StartCoroutine(Block(true));
-        }
-        else if (Input.GetMouseButtonUp(1)) {
-            StartCoroutine(Block(false));
-        }
-    }
-    
-    private IEnumerator Swing() {
-        if(playerInteract.currentHeldItem != null) {
-            if(playerInteract.currentHeldItem.TryGetComponent(out Swingable swingable)) {
-                swingable.isAttacking = true;
-
-                playerInteract.playerAnimator.SetTrigger("Attack");
-
-                yield return new WaitForSeconds(swingable.weaponData.attackSpeed);
-
-                swingable.isAttacking = false;
-            }
-        }
-    }
-    private IEnumerator Block(bool hasBlocked) {
-        if(playerInteract.currentHeldItem != null) {
-            if(playerInteract.currentHeldItem.TryGetComponent(out Swingable swingable)) {
-                swingable.isBlocking = hasBlocked;
-                
-                playerInteract.playerAnimator.SetBool("Block", swingable.isBlocking);
-                
-                yield return null;
-            }
+        if (Input.GetMouseButtonDown(1)) {
+            Block();
         }
     }
 
-    public Swingable CurrentHeldItemIsSwingable() {
-        if(playerInteract.currentHeldItem != null) {
-            if(playerInteract.currentHeldItem.TryGetComponent(out Swingable swingable)) {
-                return swingable;
-            }
+    private void Attack() {
+        if(!readyToAttack || isAttacking) return;
+
+        readyToAttack = false;
+        isAttacking = true;
+        isBlocking = false;
+
+        Invoke(nameof(ResetAttack), meleeWeaponData.attackSpeed);
+        Invoke(nameof(AttackRaycast), meleeWeaponData.attackDelay);
+
+        if(attackCount == 1) {
+            playerAnimations.ChangeAnimationState(ATTACK1);
+            attackCount++;
         }
-        return null;
+        else if(attackCount == 2) {
+            playerAnimations.ChangeAnimationState(ATTACK1);
+            attackCount = 1;
+        }
+    }
+    private void AttackRaycast() {
+        // Debug.Log("AttackRaycast");
+
+        Debug.DrawRay(raycastSourceTranform.position, raycastSourceTranform.forward * meleeWeaponData.attackRange, Color.red, 1f);
+
+        RaycastHit hit;
+        if(Physics.Raycast(raycastSourceTranform.position, raycastSourceTranform.forward, out hit, meleeWeaponData.attackRange, meleeWeaponData.attackLayer)) {
+            // Debug.Log($"hit name {hit.collider.name} of tag {hit.collider.tag}");
+            if (hit.collider.CompareTag("Limb")) {
+                TransformCollector transformCollector = Helper.GetComponentInParentByTag<TransformCollector>(hit.transform, "Enemy");
+                if (transformCollector != null) {
+                    foreach (TransformData data in transformCollector.transformDataList) {
+                        if (data.transformName.Contains(hit.collider.name)) {
+                            float scaledDamageAmount = meleeWeaponData.damageAmount * data.transformDamageMultiplier;
+
+                            data.transformCurrentHealth -= scaledDamageAmount;
+
+                            EnemyHealth enemyHealth = Helper.GetComponentInParentByTag<EnemyHealth>(hit.transform, "Enemy");
+                            if (enemyHealth != null) {
+                                enemyHealth.DiffHealth(scaledDamageAmount, meleeWeaponData.damageDuration);
+                            }
+                        }
+                    }
+                } 
+                else {
+                    // Debug.LogError($"TransformCollector not found on {hit.collider.name}");
+                }
+            } 
+            else {
+                // Debug.Log($"Player hit something else! {hit.collider.name}");
+            }
+
+            GameObject impactParticlePrefab = meleeWeaponData.impactEffectData.impactParticlePrefab;
+            if (impactParticlePrefab != null && hit.collider != null) {
+                GameObject impactParticle = Instantiate(impactParticlePrefab, hit.point, Quaternion.LookRotation(hit.normal));
+                Destroy(impactParticle, 2f);
+            }
+
+            Helper.PlayOneShotWithRandPitch(
+                GetComponent<AudioSource>(),
+                meleeWeaponData.impactEffectData.impactClip,
+                meleeWeaponData.impactEffectData.impactVolume,
+                meleeWeaponData.impactEffectData.randPitch
+            );
+            Helper.CameraShake(
+                meleeWeaponData.impactEffectData.hurtShakeMagnitude, 
+                meleeWeaponData.impactEffectData.hurtShakeDuration, 
+                meleeWeaponData.impactEffectData.hurtShakeMultiplier
+            );
+        } 
+        else {
+            // Debug.Log("Did not hit anything");
+        }
+    }
+    private void ResetAttack() {
+        readyToAttack = true;
+        isAttacking = false;
+        playerAnimations.ChangeAnimationState(IDLE);
+    }
+
+    private void Block() {
+        if (!isBlocking) {
+            isBlocking = true;
+
+            playerAnimations.ChangeAnimationState(BLOCK);
+        }
+        else {
+            isBlocking = false;
+
+            playerAnimations.ChangeAnimationState(IDLE);
+        }
     }
 }

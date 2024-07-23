@@ -66,7 +66,7 @@ public class PickableLimb : Interactable
         Debug.Log($"Item {gameObject.name} broke!");
 
         if (isHeld) {
-            playerInteract.pickupIconImage.sprite = null;
+            playerInteract.pickupIconImage.sprite = playerAttack.meleeWeaponData.weaponIcon;
 
             playerAnimations.ChangeAnimationState();
 

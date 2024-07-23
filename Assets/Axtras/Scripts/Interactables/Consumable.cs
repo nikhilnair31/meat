@@ -22,6 +22,8 @@ public class Consumable : PickableLimb
             itemCollider.enabled = false;
             itemCollider.isTrigger = false;
 
+            playerAnimations.ChangeAnimationState(consumableData.holdingAnimationName);
+
             playerInteract.pickupIconImage.sprite = consumableData.pickupIcon;
 
             playerAttack.playerIsUnarmed = false;
@@ -44,7 +46,7 @@ public class Consumable : PickableLimb
             itemCollider.isTrigger = false;
 
             playerInteract.currentHeldItem = null;
-            playerInteract.pickupIconImage.sprite = null;
+            playerInteract.pickupIconImage.sprite = playerAttack.meleeWeaponData.weaponIcon;
 
             playerAttack.playerIsUnarmed = true;
         }

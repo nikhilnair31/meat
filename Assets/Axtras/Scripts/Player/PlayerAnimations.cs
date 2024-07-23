@@ -30,36 +30,37 @@ public class PlayerAnimations : MonoBehaviour
         ChangeAnimationState();
     }
 
+    // FIXME: Fix player animations with other thigns
     private void Update() {
-        if(playerAttack.playerIsUnarmed) {
-            if (playerMovementRigidbody.isRunning && !playerMovementRigidbody.isCrouching) {
-                ChangeAnimationState(RUN);
-            }
-            else if (playerMovementRigidbody.isWalking) {
-                ChangeAnimationState(WALK);
-            }
-            else if (playerMovementRigidbody.isCrouching) {
-                ChangeAnimationState(CROUCH);
-            }
-            else {
-                ChangeAnimationState(IDLE);
-            }
-        }
-        else {
-            Consumable consumable = playerConsumable.CurrentHeldItemIsConsumable();
-            Throwable throwable = playerThrowable.CurrentHeldItemIsThrowable();
-            Swingable swingable = playerSwingable.CurrentHeldItemIsSwingable();
+        // if(playerAttack.playerIsUnarmed) {
+        //     if (playerMovementRigidbody.isRunning && !playerMovementRigidbody.isCrouching) {
+        //         ChangeAnimationState(RUN);
+        //     }
+        //     else if (playerMovementRigidbody.isWalking) {
+        //         ChangeAnimationState(WALK);
+        //     }
+        //     else if (playerMovementRigidbody.isCrouching) {
+        //         ChangeAnimationState(CROUCH);
+        //     }
+        //     else {
+        //         ChangeAnimationState(IDLE);
+        //     }
+        // }
+        // else {
+        //     Consumable consumable = playerConsumable.CurrentHeldItemIsConsumable();
+        //     Throwable throwable = playerThrowable.CurrentHeldItemIsThrowable();
+        //     Swingable swingable = playerSwingable.CurrentHeldItemIsSwingable();
 
-            if (consumable != null) {
-                ChangeAnimationState(consumable.consumableData.holdingAnimationName);
-            }
-            else if (throwable != null) {
-                ChangeAnimationState(throwable.weaponData.holdingAnimationName);
-            }
-            else if (swingable != null) {
-                ChangeAnimationState(swingable.weaponData.holdingAnimationName);
-            }
-        }
+        //     if (consumable != null) {
+        //         ChangeAnimationState(consumable.consumableData.holdingAnimationName);
+        //     }
+        //     else if (throwable != null) {
+        //         ChangeAnimationState(throwable.weaponData.holdingAnimationName);
+        //     }
+        //     else if (swingable != null) {
+        //         ChangeAnimationState(swingable.weaponData.holdingAnimationName);
+        //     }
+        // }
     }
 
     public void ChangeAnimationState(string newState = "Idle", float animSpeed = 1f) {

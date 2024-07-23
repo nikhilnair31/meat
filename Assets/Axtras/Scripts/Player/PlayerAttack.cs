@@ -18,7 +18,7 @@ public class PlayerAttack : MonoBehaviour
     public bool isBlocking = false;
 
     [Header("Weapon Properties")]
-    [SerializeField] private MeleeWeaponData meleeWeaponData;
+    public MeleeWeaponData meleeWeaponData;
 
     [Header("UI Properties")]
     [SerializeField] private Image weaponIconImage;

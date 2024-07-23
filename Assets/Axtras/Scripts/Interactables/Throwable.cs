@@ -29,6 +29,8 @@ public class Throwable : PickableLimb
             itemCollider.enabled = false;
             itemCollider.isTrigger = false;
 
+            playerAnimations.ChangeAnimationState(weaponData.holdingAnimationName);
+
             playerInteract.pickupIconImage.sprite = weaponData.pickupIcon;
 
             playerAttack.playerIsUnarmed = false;
@@ -51,7 +53,7 @@ public class Throwable : PickableLimb
             itemCollider.isTrigger = false;
 
             playerInteract.currentHeldItem = null;
-            playerInteract.pickupIconImage.sprite = null;
+            playerInteract.pickupIconImage.sprite = playerAttack.meleeWeaponData.weaponIcon;
 
             playerAttack.playerIsUnarmed = true;
         }
@@ -78,7 +80,7 @@ public class Throwable : PickableLimb
         itemRigidbody.velocity = throwVelocity;
 
         playerInteract.currentHeldItem = null;
-        playerInteract.pickupIconImage.sprite = null;
+        playerInteract.pickupIconImage.sprite = playerAttack.meleeWeaponData.weaponIcon;
 
         playerAttack.playerIsUnarmed = true;
     }
