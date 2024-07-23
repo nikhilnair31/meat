@@ -2,12 +2,18 @@ using UnityEngine;
 
 public class PlayerMovementRigidbody : MonoBehaviour
 {
+    private PlayerAnimations playerAnimations;
     private Transform groundCheck;
     private CapsuleCollider playerCollider;
-    private Animator playerAnimator;
+    // private Animator playerAnimator;
     private Rigidbody rb;
     private float originalHeight;
     private bool isGrounded;
+
+    public const string IDLE = "Idle";
+    public const string WALK = "Walking";
+    public const string RUN = "Running";
+    public const string CROUCH = "Crouching";
 
     [Header("Move Settings")]
     public bool isWalking;
@@ -35,7 +41,8 @@ public class PlayerMovementRigidbody : MonoBehaviour
 
     private void Start() {
         rb = GetComponent<Rigidbody>();
-        playerAnimator = GetComponentInChildren<Animator>();
+        playerAnimations = GetComponent<PlayerAnimations>();
+        // playerAnimator = GetComponentInChildren<Animator>();
 
         if (TryGetComponent<CapsuleCollider>(out playerCollider)) {
             originalHeight = playerCollider.height;
@@ -45,26 +52,29 @@ public class PlayerMovementRigidbody : MonoBehaviour
         if (groundCheck == null) {
             Debug.LogError("GroundCheck object not found. Please add a child object named 'GroundCheck' to the player.");
         }
+
+        playerAnimations.ChangeAnimationState();
     }
 
     private void Update() {
         isRunning = Input.GetKey(KeyCode.LeftShift);
-        playerAnimator.SetBool("isRunning", isRunning);
 
         if (Input.GetKeyDown(KeyCode.LeftControl)) {
             isCrouching = !isCrouching;
-            playerAnimator.SetBool("isCrouching", isCrouching);
             playerCollider.height = isCrouching ? crouchHeight : originalHeight;
         }
 
         if (isGrounded && Input.GetButtonDown("Jump") && !isCrouching) {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
+
+        playerAnimations.ChangeAnimationState(isRunning ? RUN : WALK);
+        playerAnimations.ChangeAnimationState(isCrouching ? CROUCH : null);
     }
 
     void FixedUpdate() {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        playerAnimator.SetBool("isGrounded", isGrounded);
+        // playerAnimator.SetBool("isGrounded", isGrounded);
 
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
@@ -86,6 +96,6 @@ public class PlayerMovementRigidbody : MonoBehaviour
 
         Vector3 moveVelocity = move * currentSpeed;
         rb.velocity = new Vector3(moveVelocity.x, rb.velocity.y, moveVelocity.z);
-        playerAnimator.SetFloat("moveVelocity", moveVelocity.magnitude);
+        // playerAnimator.SetFloat("moveVelocity", moveVelocity.magnitude);
     }
 }

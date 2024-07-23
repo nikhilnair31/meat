@@ -8,7 +8,7 @@ public class Throwable : PickableLimb
     private bool isThrown = false;
 
     [Header("Throwable Properties")]
-    [SerializeField] private ThrowableWeaponData weaponData;
+    public ThrowableWeaponData weaponData;
 
     [Header("Impact Properties")]
     [SerializeField] private ImpactEffectData impactEffectData;
@@ -72,15 +72,7 @@ public class Throwable : PickableLimb
         }
     }
 
-    protected override void Update() {
-        base.Update();
-        
-        if (isHeld && Input.GetMouseButtonDown(0)) {
-            Throw();
-        }
-    }
-
-    private void Throw() {
+    public void Throw() {
         isHeld = false;
         isThrown = true;
 
@@ -91,8 +83,6 @@ public class Throwable : PickableLimb
 
         itemCollider.enabled = true;
         itemCollider.isTrigger = false;
-
-        playerAnimations.ChangeAnimationState(weaponData.throwingAnimationName);
 
         Vector3 throwPoint = Helper.CameraCenterTargetPoint();
         Vector3 throwVelocity = (throwPoint - transform.position).normalized * weaponData.throwForce;

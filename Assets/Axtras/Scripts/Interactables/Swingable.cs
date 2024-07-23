@@ -1,4 +1,3 @@
-using System.Collections;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,12 +6,11 @@ public class Swingable : PickableLimb
 {
     private Image pickupIconImage;
 
-    [Header("Main")]
     public bool isAttacking = false;
     public bool isBlocking = false;
 
     [Header("Swingable Properties")]
-    [SerializeField] private SwingableWeaponData weaponData;
+    public SwingableWeaponData weaponData;
 
     [Header("Effects")]
     [SerializeField] private ImpactEffectData impactEffectData;
@@ -31,7 +29,7 @@ public class Swingable : PickableLimb
             transform.SetParent(playerHand);
             transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
 
-            itemRigidbody.isKinematic = false;
+            itemRigidbody.isKinematic = true;
             itemRigidbody.useGravity = false;
 
             itemCollider.enabled = true;
@@ -74,39 +72,6 @@ public class Swingable : PickableLimb
         else {
             Debug.Log($"Item {gameObject.name} NOT held");
         }
-    }
-
-    protected override void Update() {
-        base.Update();
-        
-        if (isHeld) {
-            if (Input.GetMouseButtonDown(0)) {
-                StartCoroutine(Swing(weaponData.attackSpeed));
-            }
-
-            if (Input.GetMouseButton(1)) {
-                StartCoroutine(Block(true));
-            }
-            else if (Input.GetMouseButtonUp(1)) {
-                StartCoroutine(Block(false));
-            }
-        }
-    }
-    private IEnumerator Swing(float duration) {
-        isAttacking = true;
-
-        playerInteract.playerAnimator.SetTrigger("Attack");
-
-        yield return new WaitForSeconds(duration);
-
-        isAttacking = false;
-    }
-    private IEnumerator Block(bool hasBlocked) {
-        isBlocking = hasBlocked;
-        
-        playerInteract.playerAnimator.SetBool("Block", isBlocking);
-        
-        yield return null;
     }
 
     private void OnCollisionEnter(Collision other) {
