@@ -3,10 +3,8 @@ using UnityEngine.UI;
 
 public class Consumable : PickableLimb
 {
-    private float holdTime = 0f;
-
     [Header("Consumable Properties")]
-    [SerializeField] private ConsumableData consumableData;
+    public ConsumableData consumableData;
 
     public override void Interact() {
         Pickup();
@@ -63,50 +61,5 @@ public class Consumable : PickableLimb
         else {
             Debug.Log($"Item {gameObject.name} NOT held");
         }
-    }
-
-    protected override void Update() {
-        base.Update();
-        
-        if (isHeld) {
-            if(Input.GetMouseButton(0)) {
-                HandleConsumption();
-            }
-            else if(Input.GetMouseButtonUp(0)) {
-                ResetConsumptionOnMouseRelease();
-            }
-        }
-    }
-
-    void HandleConsumption() {
-        if (Input.GetMouseButton(0)) {
-            holdTime += Time.deltaTime;
-            playerInteract.fillableCursorImage.fillAmount = holdTime / consumableData.consumeTime;
-            playerMovementRigidbody.isConsuming = true;
-            playerMovementRigidbody.speedReductionMultiplier = consumableData.speedReductionMultiplier;
-
-            if (holdTime >= consumableData.consumeTime) {
-                Consume();
-            }
-        }
-    }
-
-    void ResetConsumptionOnMouseRelease() {
-        holdTime = 0f;
-        playerInteract.fillableCursorImage.fillAmount = 0f;
-        playerMovementRigidbody.isConsuming = false;
-        playerMovementRigidbody.speedReductionMultiplier = 1f;
-    }
-
-    void Consume() {
-        Debug.Log("Player healed!");
-        
-        playerHealth.AddHealth(
-            consumableData.healAmount, 
-            consumableData.healTime
-        );
-        ResetConsumptionOnMouseRelease();
-
-        Destroy(gameObject);
     }
 }

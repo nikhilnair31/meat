@@ -100,7 +100,7 @@ public class Throwable : PickableLimb
 
         playerInteract.pickupIconImage.sprite = null;
 
-        playerAnimations.ChangeAnimationState();
+        // playerAnimations.ChangeAnimationState();
 
         playerAttack.playerIsUnarmed = true;
             

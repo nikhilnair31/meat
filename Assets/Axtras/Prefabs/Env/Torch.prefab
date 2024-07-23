@@ -4975,11 +4975,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a89c21fe0734744db452356ad71c308, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiTransitionData: {fileID: 11400000, guid: 08cbf8b4c1f25c04591dcf22f67423bc, type: 2}
   interactTransform: {fileID: 8855382670549714918}
-  transitionDuration: 0.2
-  transitionAmount: 0.2
-  canvasOffsetY: 0.5
-  displayDuration: 2
   isOn: 0
   startOn: 1
   flameParticle: {fileID: 6302018356258932584}
