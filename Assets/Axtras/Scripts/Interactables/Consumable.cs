@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Consumable : PickableLimb
+public class Consumable : Pickables
 {
     [Header("Consumable Properties")]
     public ConsumableItemData itemData;

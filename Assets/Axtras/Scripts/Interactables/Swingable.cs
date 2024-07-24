@@ -1,8 +1,6 @@
-using Cinemachine;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class Swingable : PickableLimb
+public class Swingable : Pickables
 {
     public bool isAttacking = false;
     public bool isBlocking = false;

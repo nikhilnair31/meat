@@ -1,8 +1,7 @@
 using Cinemachine;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class Throwable : PickableLimb
+public class Throwable : Pickables
 {
     private bool isThrown = false;
 
@@ -89,8 +88,8 @@ public class Throwable : PickableLimb
         playerAttack.playerIsUnarmed = true;
     }
     private void ResetThrow() {
-        isAttacking = false;
-        playerAnimations.ChangeAnimationState(IDLE);
+        // isAttacking = false;
+        // playerAnimations.ChangeAnimationState(IDLE);
     }
 
     private void OnCollisionEnter(Collision other) {

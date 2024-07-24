@@ -1,15 +1,10 @@
 using UnityEngine;
 
-public class PickableLimb : Interactable 
+public class Pickables : Interactable 
 {
-    [Header("General Properties")]
-    internal PlayerMovementRigidbody playerMovementRigidbody;
-    internal PlayerAnimations playerAnimations;
-    internal PlayerInteract playerInteract;
-    internal PlayerHealth playerHealth;
-    internal PlayerAttack playerAttack;
     internal Rigidbody itemRigidbody;
     internal Collider itemCollider;
+    
     internal bool isHeld = false;
     
     [Header("Durability Properties")]
@@ -20,12 +15,6 @@ public class PickableLimb : Interactable
     private float decayTimer;
 
     private void Start() {
-        playerMovementRigidbody = GameObject.Find("Player").GetComponent<PlayerMovementRigidbody>();
-        playerAnimations = GameObject.Find("Player").GetComponent<PlayerAnimations>();
-        playerInteract = GameObject.Find("Player").GetComponent<PlayerInteract>();
-        playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
-        playerAttack = GameObject.Find("Player").GetComponent<PlayerAttack>();
-
         itemCollider = GetComponent<Collider>();
         itemRigidbody = GetComponent<Rigidbody>();
 

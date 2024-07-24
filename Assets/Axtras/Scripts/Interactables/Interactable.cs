@@ -3,6 +3,12 @@ using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour 
 {
+    internal PlayerMovementRigidbody playerMovementRigidbody;
+    internal PlayerAnimations playerAnimations;
+    internal PlayerInteract playerInteract;
+    internal PlayerHealth playerHealth;
+    internal PlayerAttack playerAttack;
+
     [Header("UI Related")]
     [SerializeField] private UITransitionData uiTransitionData;
     [SerializeField] private Transform interactTransform;
@@ -16,6 +22,12 @@ public abstract class Interactable : MonoBehaviour
         if(interactTransform == null) {
             interactTransform = transform.Find("Interact Canvas");
         }
+
+        playerMovementRigidbody = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovementRigidbody>();
+        playerAnimations = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAnimations>();
+        playerInteract = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInteract>();
+        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
+        playerAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
     }
 
     public bool ShowUI {
@@ -36,7 +48,8 @@ public abstract class Interactable : MonoBehaviour
         }
     }
     private void ShowPickupItemUI() {
-        Debug.Log("ShowPickupItemUI");
+        // Debug.Log("ShowPickupItemUI");
+
         interactTransform.position = transform.position + new Vector3(0, uiTransitionData.canvasOffsetY, 0);
         Helper.ScaleInAndOutUI(
             interactTransform, 
@@ -45,7 +58,8 @@ public abstract class Interactable : MonoBehaviour
         );
     }
     private void HidePickupItemUI() {
-        Debug.Log("HidePickupItemUI");
+        // Debug.Log("HidePickupItemUI");
+
         Helper.ScaleInAndOutUI(
             interactTransform, 
             0f, 
@@ -54,7 +68,7 @@ public abstract class Interactable : MonoBehaviour
     }
     // FIXME: Causes scale pulsing on constant loking at item canvas
     public IEnumerator HidePickupItemUIAfterDelay() {
-        Debug.Log("HidePickupItemUIAfterDelay");
+        // Debug.Log("HidePickupItemUIAfterDelay");
 
         yield return new WaitForSeconds(uiTransitionData.displayDuration);
         
