@@ -10,7 +10,11 @@ public class Hazard : MonoBehaviour
     private void OnCollisionEnter(Collision other) {
         if (hurtOnTouch) {
             if (other.collider.CompareTag("Player")) {
-                other.gameObject.GetComponent<PlayerHealth>().DiffHealth(damageAmount, 0.01f);
+                other.gameObject.GetComponent<PlayerHealth>().DiffHealth(
+                    true,
+                    damageAmount, 
+                    0.01f
+                );
             }
         }
         PlayEffects();

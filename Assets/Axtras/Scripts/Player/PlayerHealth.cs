@@ -4,13 +4,17 @@ using System.Collections;
 
 public class PlayerHealth : MonoBehaviour 
 {
+    private PlayerAction playerAction;
     private MenuManager menuManager;
 
     [Header("Health Properties")]
     [SerializeField] private float maxHealth = 100;
     [SerializeField] private float currHealth;
 
-    [Header("Health Properties")]
+    [Header("Blocking Properties")]
+    [SerializeField] private float blockingDamageScaling = 0.3f;
+
+    [Header("UI Properties")]
     [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private RectTransform healthBarRect;
     private float healthBarWidth;
@@ -18,11 +22,13 @@ public class PlayerHealth : MonoBehaviour
     [Header("Effects")]
     public ParticleSystem fireEffect;
     [SerializeField] private AudioClip hurtClip;
+    [SerializeField] private AudioClip blockClip;
     [SerializeField] private AudioClip healClip;
     [SerializeField] private float healClipVoume =2f;
 
     private void Start() {
         menuManager = FindObjectOfType<MenuManager>();
+        playerAction = GetComponent<PlayerAction>();
 
         currHealth = maxHealth;
         healthBarWidth = healthBarRect.sizeDelta.x;
@@ -56,10 +62,32 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealthEffects(healClip);
     }
     
-    public void DiffHealth(float amount, float duration) {
-        StartCoroutine(DiffHealthOverTime(amount, duration));
+    public void DiffHealth(bool envDamage = true, float amount = 0f, float duration = 0.01f) {
+        if (!envDamage) {
+            if (playerAction.isBlocking) {
+                StartCoroutine(DiffHealthOverTime(
+                    blockClip,
+                    amount * blockingDamageScaling, 
+                    duration
+                ));
+            }
+            else {
+                StartCoroutine(DiffHealthOverTime(
+                    hurtClip,
+                    amount, 
+                    duration
+                ));
+            }
+        }
+        else {
+            StartCoroutine(DiffHealthOverTime(
+                hurtClip,
+                amount, 
+                duration
+            ));
+        }
     }
-    private IEnumerator DiffHealthOverTime(float amount, float duration) {
+    private IEnumerator DiffHealthOverTime(AudioClip clip, float amount, float duration) {
         float elapsedTime = 0f;
         float initialHealth = currHealth;
         float targetHealth = Mathf.Clamp(currHealth - amount, 0, maxHealth);
@@ -68,7 +96,7 @@ public class PlayerHealth : MonoBehaviour
             elapsedTime += Time.deltaTime;
             currHealth = Mathf.Lerp(initialHealth, targetHealth, elapsedTime / duration);
 
-            UpdateHealthEffects(hurtClip);
+            UpdateHealthEffects(clip);
 
             if (currHealth <= 0) {
                 currHealth = 0;
@@ -80,7 +108,7 @@ public class PlayerHealth : MonoBehaviour
         }
 
         currHealth = Mathf.Min(currHealth, maxHealth);
-        UpdateHealthEffects(hurtClip);
+        UpdateHealthEffects(clip);
     }
     
     private void Die() {

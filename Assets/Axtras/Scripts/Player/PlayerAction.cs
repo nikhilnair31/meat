@@ -13,7 +13,7 @@ public class PlayerAction : MonoBehaviour
     [Header("Unarmed Properties")]
     public MeleeItemData meleeItemData;
     [SerializeField] private bool isAttacking = false;
-    [SerializeField] private bool isBlocking = false;
+    public bool isBlocking = false;
     [SerializeField] private int attackCount = 1;
 
     [Header("Consuming Settings")]

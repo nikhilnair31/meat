@@ -17,6 +17,7 @@ public class EnemyMelee : MonoBehaviour
         if (enemyBehaviour.IsAttacking) {
             if (other.collider.CompareTag("Player")) {
                 playerHealth.DiffHealth(
+                    false,
                     meleeItemData.damageAmount, 
                     meleeItemData.damageDuration
                 );

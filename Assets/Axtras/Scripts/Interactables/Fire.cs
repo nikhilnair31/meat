@@ -63,7 +63,11 @@ public class Fire : MonoBehaviour
     }
 
     private void ApplyDamage(int damage) {
-        playerHealth.DiffHealth(damage, 0.01f);
+        playerHealth.DiffHealth(
+            true,
+            damage, 
+            0.01f
+        );
         Helper.CameraShake(
             impactEffectData.hurtShakeMagnitude, 
             impactEffectData.hurtShakeDuration, 
