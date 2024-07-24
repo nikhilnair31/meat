@@ -1,7 +1,7 @@
 using Cinemachine;
 using UnityEngine;
 
-public class Throwable : Pickables
+public class Throwable : Pickable
 {
     private bool isThrown = false;
 
@@ -11,9 +11,6 @@ public class Throwable : Pickables
     [Header("Impact Properties")]
     [SerializeField] private ImpactEffectData impactEffectData;
 
-    public override void Interact() {
-        Pickup();
-    }
     public override void Pickup() {
         if (!isHeld) {
             isHeld = true;
@@ -30,9 +27,8 @@ public class Throwable : Pickables
 
             playerAnimations.ChangeAnimationState(itemData.holdingAnimationName);
 
+            playerInteract.currentHeldItemType = PickableType.Throwable;
             playerInteract.pickupIconImage.sprite = itemData.pickupIcon;
-
-            playerAttack.playerIsUnarmed = false;
         }
         else {
             Debug.Log($"Item {gameObject.name} is already held");
@@ -54,9 +50,8 @@ public class Throwable : Pickables
             playerAnimations.ChangeAnimationState();
 
             playerInteract.currentHeldItem = null;
-            playerInteract.pickupIconImage.sprite = playerAttack.meleeWeaponData.weaponIcon;
-
-            playerAttack.playerIsUnarmed = true;
+            playerInteract.currentHeldItemType = PickableType.None;
+            playerInteract.pickupIconImage.sprite = playerAction.meleeWeaponData.weaponIcon;
         }
         else {
             Debug.Log($"Item {gameObject.name} NOT held");
@@ -83,13 +78,8 @@ public class Throwable : Pickables
         playerAnimations.ChangeAnimationState(itemData.throwingAnimationName);
 
         playerInteract.currentHeldItem = null;
-        playerInteract.pickupIconImage.sprite = playerAttack.meleeWeaponData.weaponIcon;
-
-        playerAttack.playerIsUnarmed = true;
-    }
-    private void ResetThrow() {
-        // isAttacking = false;
-        // playerAnimations.ChangeAnimationState(IDLE);
+        playerInteract.currentHeldItemType = PickableType.None;
+        playerInteract.pickupIconImage.sprite = playerAction.meleeWeaponData.weaponIcon;
     }
 
     private void OnCollisionEnter(Collision other) {

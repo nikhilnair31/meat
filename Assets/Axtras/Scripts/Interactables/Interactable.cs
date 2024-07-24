@@ -1,35 +1,38 @@
 using System.Collections;
 using UnityEngine;
 
-public abstract class Interactable : MonoBehaviour 
+public class Interactable : MonoBehaviour 
 {
     internal PlayerMovementRigidbody playerMovementRigidbody;
     internal PlayerAnimations playerAnimations;
     internal PlayerInteract playerInteract;
     internal PlayerHealth playerHealth;
-    internal PlayerAttack playerAttack;
+    internal PlayerAction playerAction;
 
     [Header("UI Related")]
     [SerializeField] private UITransitionData uiTransitionData;
     [SerializeField] private Transform interactTransform;
     private bool showUI;
 
-    public virtual void Interact() {}
-    public virtual void Pickup() {}
-    public virtual void Drop(bool destroyItem = false) {}
-
-    private void Start() {
+    public virtual void Start() {
         if(interactTransform == null) {
             interactTransform = transform.Find("Interact Canvas");
         }
 
-        playerMovementRigidbody = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovementRigidbody>();
-        playerAnimations = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAnimations>();
-        playerInteract = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInteract>();
-        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
-        playerAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
+        playerMovementRigidbody = GameObject.Find("Player").GetComponent<PlayerMovementRigidbody>();
+        playerAnimations = GameObject.Find("Player").GetComponent<PlayerAnimations>();
+        playerInteract = GameObject.Find("Player").GetComponent<PlayerInteract>();
+        playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
+        playerAction = GameObject.Find("Player").GetComponent<PlayerAction>();
+    }
+    public virtual void Update() {
     }
 
+    public virtual void Interact() {}
+    public virtual void Pickup() {}
+    public virtual void Drop(bool destroyItem = false) {}
+    
+    // FIXME: Causes scale pulsing on constant loking at item canvas
     public bool ShowUI {
         get { 
             return showUI; 
@@ -66,7 +69,6 @@ public abstract class Interactable : MonoBehaviour
             uiTransitionData.transitionDuration
         );
     }
-    // FIXME: Causes scale pulsing on constant loking at item canvas
     public IEnumerator HidePickupItemUIAfterDelay() {
         // Debug.Log("HidePickupItemUIAfterDelay");
 

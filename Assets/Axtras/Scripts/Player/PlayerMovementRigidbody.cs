@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerMovementRigidbody : MonoBehaviour
 {
-    private PlayerConsumable playerConsumable;
+    private PlayerAction playerAction;
     private Transform groundCheck;
     private CapsuleCollider playerCollider;
     private Rigidbody rb;
@@ -30,7 +30,7 @@ public class PlayerMovementRigidbody : MonoBehaviour
     [SerializeField] private LayerMask groundMask;
 
     private void Start() {
-        playerConsumable = GetComponent<PlayerConsumable>();
+        playerAction = GetComponent<PlayerAction>();
 
         playerCollider = GetComponent<CapsuleCollider>();
         rb = GetComponent<Rigidbody>();
@@ -73,8 +73,8 @@ public class PlayerMovementRigidbody : MonoBehaviour
             currentSpeed *= crouchSpeedMultiplier;
         }
 
-        if (playerConsumable.isConsuming) {
-            currentSpeed *= playerConsumable.speedReductionMultiplier;
+        if (playerAction.isConsuming) {
+            currentSpeed *= playerAction.speedReductionMultiplier;
         }
 
         Vector3 moveVelocity = move * currentSpeed;

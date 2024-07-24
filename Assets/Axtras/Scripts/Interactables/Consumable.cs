@@ -1,13 +1,10 @@
 using UnityEngine;
 
-public class Consumable : Pickables
+public class Consumable : Pickable
 {
     [Header("Consumable Properties")]
     public ConsumableItemData itemData;
 
-    public override void Interact() {
-        Pickup();
-    }
     public override void Pickup() {
         if (!isHeld) {
             isHeld = true;
@@ -24,9 +21,8 @@ public class Consumable : Pickables
 
             playerAnimations.ChangeAnimationState(itemData.holdingAnimationName);
 
+            playerInteract.currentHeldItemType = PickableType.Consumable;
             playerInteract.pickupIconImage.sprite = itemData.pickupIcon;
-
-            playerAttack.playerIsUnarmed = false;
         }
         else {
             Debug.Log($"Item {gameObject.name} is already held");
@@ -48,9 +44,8 @@ public class Consumable : Pickables
             playerAnimations.ChangeAnimationState();
 
             playerInteract.currentHeldItem = null;
-            playerInteract.pickupIconImage.sprite = playerAttack.meleeWeaponData.weaponIcon;
-
-            playerAttack.playerIsUnarmed = true;
+            playerInteract.currentHeldItemType = PickableType.None;
+            playerInteract.pickupIconImage.sprite = playerAction.meleeWeaponData.weaponIcon;
 
             if (destroyItem) {
                 Destroy(this.gameObject);

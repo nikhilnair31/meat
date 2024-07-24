@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Swingable : Pickables
+public class Swingable : Pickable
 {
     public bool isAttacking = false;
     public bool isBlocking = false;
@@ -11,9 +11,6 @@ public class Swingable : Pickables
     [Header("Effects")]
     [SerializeField] private ImpactEffectData impactEffectData;
 
-    public override void Interact() {
-        Pickup();
-    }
     public override void Pickup() {
         if (!isHeld) {
             isHeld = true;
@@ -30,9 +27,8 @@ public class Swingable : Pickables
 
             playerAnimations.ChangeAnimationState(weaponData.holdingAnimationName);
 
+            playerInteract.currentHeldItemType = PickableType.Swingable;
             playerInteract.pickupIconImage.sprite = weaponData.pickupIcon;
-
-            playerAttack.playerIsUnarmed = false;
         }                   
         else {
             Debug.Log($"Item {gameObject.name} is already held");
@@ -52,9 +48,8 @@ public class Swingable : Pickables
             itemCollider.isTrigger = false;
 
             playerInteract.currentHeldItem = null;
-            playerInteract.pickupIconImage.sprite = playerAttack.meleeWeaponData.weaponIcon;
-
-            playerAttack.playerIsUnarmed = true;
+            playerInteract.currentHeldItemType = PickableType.None;
+            playerInteract.pickupIconImage.sprite = playerAction.meleeWeaponData.weaponIcon;
         }
         else {
             Debug.Log($"Item {gameObject.name} NOT held");

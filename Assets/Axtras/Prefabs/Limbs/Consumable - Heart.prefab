@@ -323,6 +323,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiTransitionData: {fileID: 11400000, guid: 08cbf8b4c1f25c04591dcf22f67423bc, type: 2}
   interactTransform: {fileID: 804943249555467340}
+  pickableType: 1
   durabilityData: {fileID: 11400000, guid: e21a9c9adf330094081601da34b3665f, type: 2}
   itemData: {fileID: 11400000, guid: b49dcad4c612a3b42b872be13655f7de, type: 2}
 --- !u!1001 &106566676286871294
