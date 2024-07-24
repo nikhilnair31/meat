@@ -14,6 +14,8 @@ public class ThrowableItemData : ScriptableObject
     public Sprite pickupIcon;
 
     [Header("Animation Settings")]
-    public string holdingAnimationName;
-    public string throwingAnimationName;
+    public string holdingAnimnName;
+    public string throwingAnimName;
+    public float throwSpeed;
+    public float throwDelay;
 }

@@ -16,5 +16,7 @@ MonoBehaviour:
   damageAmount: 15
   damageDuration: 0.01
   pickupIcon: {fileID: 21300000, guid: ffb0bb0142e2c304fb35524a3d61f55c, type: 3}
-  holdingAnimationName: Holding Item
-  throwingAnimationName: Throwing
+  holdingAnimnName: Holding Item
+  throwingAnimName: Throwing
+  throwSpeed: 1
+  throwDelay: 0.6

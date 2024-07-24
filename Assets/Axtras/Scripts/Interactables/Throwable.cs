@@ -25,7 +25,7 @@ public class Throwable : Pickable
             itemCollider.enabled = false;
             itemCollider.isTrigger = false;
 
-            playerAnimations.ChangeAnimationState(itemData.holdingAnimationName);
+            playerAnimations.ChangeAnimationState(itemData.holdingAnimnName);
 
             playerInteract.currentHeldItemType = PickableType.Throwable;
             playerInteract.pickupIconImage.sprite = itemData.pickupIcon;
@@ -75,11 +75,9 @@ public class Throwable : Pickable
         Vector3 throwVelocity = (throwPoint - transform.position).normalized * itemData.throwForce;
         itemRigidbody.velocity = throwVelocity;
 
-        playerAnimations.ChangeAnimationState(itemData.throwingAnimationName);
-
         playerInteract.currentHeldItem = null;
         playerInteract.currentHeldItemType = PickableType.None;
-        playerInteract.pickupIconImage.sprite = playerAction.meleeWeaponData.weaponIcon;
+        playerInteract.pickupIconImage.sprite = itemData.pickupIcon;
     }
 
     private void OnCollisionEnter(Collision other) {

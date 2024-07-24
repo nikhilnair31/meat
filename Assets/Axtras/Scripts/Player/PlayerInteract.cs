@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class PlayerInteract : MonoBehaviour 
 {
     private Interactable lastSeenInteractable;
-    
+
     internal Pickable.PickableType currentHeldItemType = Pickable.PickableType.None;
     internal Interactable currentHeldItem;
 
@@ -54,31 +54,23 @@ public class PlayerInteract : MonoBehaviour
         }
     }
     private void ItemInteractRaycast() {
-        // if (lastSeenInteractable != null) {
-        //     Debug.Log($"Has seen {lastSeenInteractable.name}");
-        //     currentHeldItem = lastSeenInteractable;
-        //     lastSeenInteractable.Interact();
-        // }
-        // else {
-        //    Debug.Log($"Has NOT seen interactable");
-            if (Physics.Raycast(playerEyes.position, playerEyes.forward, out RaycastHit hit, interactableRange, interactableLayer)) {
-                if (hit.collider.TryGetComponent<Pickable>(out Pickable pickable)) {
-                    Debug.Log($"{hit.collider.name} has Pickable script");
-                    if (currentHeldItem != null) {
-                        currentHeldItem.Drop();
-                    }
-                    currentHeldItem = pickable;
-                    pickable.Pickup();
+        if (Physics.Raycast(playerEyes.position, playerEyes.forward, out RaycastHit hit, interactableRange, interactableLayer)) {
+            if (hit.collider.TryGetComponent<Pickable>(out Pickable pickable)) {
+                Debug.Log($"{hit.collider.name} has Pickable script");
+                if (currentHeldItem != null) {
+                    currentHeldItem.Drop();
                 }
-                else if (hit.collider.TryGetComponent<Interactable>(out Interactable interactable)) {
-                    Debug.Log($"{hit.collider.name} has Interact script");
-                    interactable.Interact();
-                }
-                else {
-                    Debug.Log($"{hit.collider.name} doesn't have Pickable or Interact script");
-                }
+                currentHeldItem = pickable;
+                pickable.Pickup();
             }
-        // }
+            else if (hit.collider.TryGetComponent<Interactable>(out Interactable interactable)) {
+                Debug.Log($"{hit.collider.name} has Interact script");
+                interactable.Interact();
+            }
+            else {
+                Debug.Log($"{hit.collider.name} doesn't have Pickable or Interact script");
+            }
+        }
     }
     private void ItemHeldDrop() {
         if (currentHeldItem != null) {

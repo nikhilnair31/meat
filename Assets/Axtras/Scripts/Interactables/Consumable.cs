@@ -48,7 +48,7 @@ public class Consumable : Pickable
             playerInteract.pickupIconImage.sprite = playerAction.meleeWeaponData.weaponIcon;
 
             if (destroyItem) {
-                Destroy(this.gameObject);
+                Destroy(gameObject);
             }
         }
         else {

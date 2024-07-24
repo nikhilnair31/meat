@@ -21,6 +21,9 @@ public class PlayerAction : MonoBehaviour
     public float speedReductionMultiplier = 1f;
     private float holdTime;
 
+    [Header("Throw Settings")]
+    [SerializeField] private bool isThrowing = false;
+
     [Header("UI Properties")]
     [SerializeField] private Image weaponIconImage;
 
@@ -36,12 +39,7 @@ public class PlayerAction : MonoBehaviour
         playerInteract = GetComponent<PlayerInteract>();
         playerHealth = GetComponent<PlayerHealth>();
 
-        InitActionUI();
-    }
-    private void InitActionUI() {
-        if (meleeWeaponData.weaponIcon != null) {
-            weaponIconImage.sprite = meleeWeaponData.weaponIcon;
-        }
+        weaponIconImage.sprite = meleeWeaponData.weaponIcon;
     }
 
     private void Update() {
@@ -189,7 +187,7 @@ public class PlayerAction : MonoBehaviour
             );
             ResetConsumptionOnMouseRelease();
 
-            consumable.Drop(false);
+            consumable.Drop(true);
         }
     }
     private void ResetConsumptionOnMouseRelease() {
@@ -200,8 +198,25 @@ public class PlayerAction : MonoBehaviour
     }
 
     private void Throw() {
+        if(isThrowing) return;
+
+        isThrowing = true;
+
+        Throwable throwable = playerInteract.currentHeldItem.GetComponent<Throwable>();
+        ThrowableItemData throwableItemData = throwable.itemData;
+
+        Invoke(nameof(ResetThrow), throwableItemData.throwSpeed);
+        Invoke(nameof(ThrowPhysics), throwableItemData.throwDelay);
+
+        playerAnimations.ChangeAnimationState(throwableItemData.throwingAnimName);
+    }
+    private void ThrowPhysics() {
         Throwable throwable = playerInteract.currentHeldItem.GetComponent<Throwable>();
 
         throwable.Throw();
+    }
+    private void ResetThrow() {
+        isThrowing = false;
+        playerAnimations.ChangeAnimationState(IDLE);
     }
 }
