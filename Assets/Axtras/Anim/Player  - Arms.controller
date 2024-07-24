@@ -140,7 +140,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Holding Consumable
+  m_Name: Holding Item
   m_Speed: 0.3
   m_CycleOffset: 0
   m_Transitions: []
@@ -339,10 +339,10 @@ AnimatorStateMachine:
     m_Position: {x: 10, y: 260, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4024260483852650540}
-    m_Position: {x: 460, y: 160, z: 0}
+    m_Position: {x: 680, y: 60, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6589163504946800538}
-    m_Position: {x: 900, y: 110, z: 0}
+    m_Position: {x: 680, y: 160, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []

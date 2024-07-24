@@ -7,7 +7,7 @@ public class Throwable : PickableLimb
     private bool isThrown = false;
 
     [Header("Throwable Properties")]
-    public ThrowableWeaponData weaponData;
+    public ThrowableItemData itemData;
 
     [Header("Impact Properties")]
     [SerializeField] private ImpactEffectData impactEffectData;
@@ -29,9 +29,9 @@ public class Throwable : PickableLimb
             itemCollider.enabled = false;
             itemCollider.isTrigger = false;
 
-            playerAnimations.ChangeAnimationState(weaponData.holdingAnimationName);
+            playerAnimations.ChangeAnimationState(itemData.holdingAnimationName);
 
-            playerInteract.pickupIconImage.sprite = weaponData.pickupIcon;
+            playerInteract.pickupIconImage.sprite = itemData.pickupIcon;
 
             playerAttack.playerIsUnarmed = false;
         }
@@ -39,7 +39,7 @@ public class Throwable : PickableLimb
             Debug.Log($"Item {gameObject.name} is already held");
         }
     }
-    public override void Drop() {
+    public override void Drop(bool destroyItem) {
         if (isHeld) {
             isHeld = false;
             ShowUI = false;
@@ -51,6 +51,8 @@ public class Throwable : PickableLimb
 
             itemCollider.enabled = true;
             itemCollider.isTrigger = false;
+
+            playerAnimations.ChangeAnimationState();
 
             playerInteract.currentHeldItem = null;
             playerInteract.pickupIconImage.sprite = playerAttack.meleeWeaponData.weaponIcon;
@@ -76,13 +78,19 @@ public class Throwable : PickableLimb
         itemCollider.isTrigger = false;
 
         Vector3 throwPoint = Helper.CameraCenterTargetPoint();
-        Vector3 throwVelocity = (throwPoint - transform.position).normalized * weaponData.throwForce;
+        Vector3 throwVelocity = (throwPoint - transform.position).normalized * itemData.throwForce;
         itemRigidbody.velocity = throwVelocity;
+
+        playerAnimations.ChangeAnimationState(itemData.throwingAnimationName);
 
         playerInteract.currentHeldItem = null;
         playerInteract.pickupIconImage.sprite = playerAttack.meleeWeaponData.weaponIcon;
 
         playerAttack.playerIsUnarmed = true;
+    }
+    private void ResetThrow() {
+        isAttacking = false;
+        playerAnimations.ChangeAnimationState(IDLE);
     }
 
     private void OnCollisionEnter(Collision other) {
@@ -94,13 +102,13 @@ public class Throwable : PickableLimb
                 if (transformCollector != null) {
                     foreach (TransformData data in transformCollector.transformDataList) {
                         if(data.transformName.Contains(other.collider.name)) {
-                            float scaledDamageAmount = weaponData.damageAmount * data.transformDamageMultiplier;
+                            float scaledDamageAmount = itemData.damageAmount * data.transformDamageMultiplier;
 
                             data.transformCurrentHealth -= scaledDamageAmount;
                             
                             EnemyHealth enemyHealth = Helper.GetComponentInParentByTag<EnemyHealth>(other.transform, "Enemy");
                             if (enemyHealth != null) {
-                                enemyHealth.DiffHealth(scaledDamageAmount, weaponData.damageDuration);
+                                enemyHealth.DiffHealth(scaledDamageAmount, itemData.damageDuration);
                             }
                         }
                     }

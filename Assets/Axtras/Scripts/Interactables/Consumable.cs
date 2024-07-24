@@ -3,7 +3,7 @@ using UnityEngine;
 public class Consumable : PickableLimb
 {
     [Header("Consumable Properties")]
-    public ConsumableData consumableData;
+    public ConsumableItemData itemData;
 
     public override void Interact() {
         Pickup();
@@ -22,9 +22,9 @@ public class Consumable : PickableLimb
             itemCollider.enabled = false;
             itemCollider.isTrigger = false;
 
-            playerAnimations.ChangeAnimationState(consumableData.holdingAnimationName);
+            playerAnimations.ChangeAnimationState(itemData.holdingAnimationName);
 
-            playerInteract.pickupIconImage.sprite = consumableData.pickupIcon;
+            playerInteract.pickupIconImage.sprite = itemData.pickupIcon;
 
             playerAttack.playerIsUnarmed = false;
         }
@@ -32,7 +32,7 @@ public class Consumable : PickableLimb
             Debug.Log($"Item {gameObject.name} is already held");
         }
     }
-    public override void Drop() {
+    public override void Drop(bool destroyItem) {
         if (isHeld) {
             isHeld = false;
             ShowUI = false;
@@ -45,10 +45,16 @@ public class Consumable : PickableLimb
             itemCollider.enabled = true;
             itemCollider.isTrigger = false;
 
+            playerAnimations.ChangeAnimationState();
+
             playerInteract.currentHeldItem = null;
             playerInteract.pickupIconImage.sprite = playerAttack.meleeWeaponData.weaponIcon;
 
             playerAttack.playerIsUnarmed = true;
+
+            if (destroyItem) {
+                Destroy(this.gameObject);
+            }
         }
         else {
             Debug.Log($"Item {gameObject.name} NOT held");

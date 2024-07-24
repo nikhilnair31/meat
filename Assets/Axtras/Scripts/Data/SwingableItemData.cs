@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "SwingableWeaponData", menuName = "ScriptableObjects/SwingableWeaponData", order = 1)]
-public class SwingableWeaponData : ScriptableObject
+[CreateAssetMenu(fileName = "SwingableItemData", menuName = "ScriptableObjects/SwingableItemData", order = 1)]
+public class SwingableItemData : ScriptableObject
 {
     [Header("Damage Settings")]
     public int damageAmount;

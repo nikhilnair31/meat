@@ -10,7 +10,6 @@ public class PlayerAttack : MonoBehaviour
     public bool playerIsUnarmed = true;
 
     [Header("Attack Properties")]
-    public bool readyToAttack = true;
     public bool isAttacking = false;
     [SerializeField] private int attackCount = 1;
 
@@ -27,6 +26,7 @@ public class PlayerAttack : MonoBehaviour
     public const string IDLE = "Idle";
     public const string ATTACK1 = "Punch L";
     public const string ATTACK2 = "Punch R";
+    public const string ATTACK3 = "Kick";
     public const string BLOCK = "Block";
 
     private void Start() {
@@ -45,16 +45,19 @@ public class PlayerAttack : MonoBehaviour
             if (Input.GetMouseButtonDown(0)) {
                 Attack();
             }
+
             if (Input.GetMouseButtonDown(1)) {
-                Block();
+                Block(true);
+            }
+            if (Input.GetMouseButtonUp(1)) {
+                Block(false);
             }
         }
     }
 
     private void Attack() {
-        if(!readyToAttack || isAttacking) return;
+        if(isAttacking) return;
 
-        readyToAttack = false;
         isAttacking = true;
         isBlocking = false;
 
@@ -125,20 +128,17 @@ public class PlayerAttack : MonoBehaviour
         }
     }
     private void ResetAttack() {
-        readyToAttack = true;
         isAttacking = false;
         playerAnimations.ChangeAnimationState(IDLE);
     }
 
-    private void Block() {
-        if (!isBlocking) {
+    private void Block(bool doBlock) {
+        if (doBlock) {
             isBlocking = true;
-
             playerAnimations.ChangeAnimationState(BLOCK);
         }
         else {
             isBlocking = false;
-
             playerAnimations.ChangeAnimationState(IDLE);
         }
     }

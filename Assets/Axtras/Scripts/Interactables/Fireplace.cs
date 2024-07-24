@@ -19,7 +19,7 @@ public class Fireplace : Interactable
     }
     public override void Pickup() {
     }
-    public override void Drop() {
+    public override void Drop(bool destroyItem) {
     }
 
     public void StartStopFireplace() {

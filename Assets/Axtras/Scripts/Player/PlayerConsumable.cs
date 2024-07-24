@@ -28,22 +28,20 @@ public class PlayerConsumable : MonoBehaviour
         Consumable consumable = CurrentHeldItemIsConsumable();
         if(consumable != null) {
             holdTime += Time.deltaTime;
-            playerInteract.fillableCursorImage.fillAmount = holdTime / consumable.consumableData.consumeTime;
-            speedReductionMultiplier = consumable.consumableData.speedReductionMultiplier;
+            playerInteract.fillableCursorImage.fillAmount = holdTime / consumable.itemData.consumeTime;
+            speedReductionMultiplier = consumable.itemData.speedReductionMultiplier;
             isConsuming = true;
 
-            if (holdTime >= consumable.consumableData.consumeTime) {
+            if (holdTime >= consumable.itemData.consumeTime) {
                 Debug.Log("Player healed!");
                 
                 playerHealth.AddHealth(
-                    consumable.consumableData.healAmount, 
-                    consumable.consumableData.healTime
+                    consumable.itemData.healAmount, 
+                    consumable.itemData.healTime
                 );
                 ResetConsumptionOnMouseRelease();
 
-                consumable.Drop();
-
-                Destroy(playerInteract.currentHeldItem.transform.gameObject);
+                consumable.Drop(false);
             }
         }
     }

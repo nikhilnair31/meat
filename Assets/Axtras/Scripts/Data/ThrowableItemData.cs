@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ThrowableWeaponData", menuName = "ScriptableObjects/ThrowableWeaponData", order = 1)]
-public class ThrowableWeaponData : ScriptableObject
+[CreateAssetMenu(fileName = "ThrowableItemData", menuName = "ScriptableObjects/ThrowableItemData", order = 1)]
+public class ThrowableItemData : ScriptableObject
 {
     [Header("Physics Settings")]
     public float throwForce;

@@ -8,7 +8,7 @@ public class Swingable : PickableLimb
     public bool isBlocking = false;
 
     [Header("Swingable Properties")]
-    public SwingableWeaponData weaponData;
+    public SwingableItemData weaponData;
 
     [Header("Effects")]
     [SerializeField] private ImpactEffectData impactEffectData;
@@ -40,7 +40,7 @@ public class Swingable : PickableLimb
             Debug.Log($"Item {gameObject.name} is already held");
         }
     }
-    public override void Drop() {
+    public override void Drop(bool destroyItem) {
         if (isHeld) {
             isHeld = false;
             ShowUI = false;

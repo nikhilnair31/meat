@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ConsumableData", menuName = "ScriptableObjects/ConsumableData", order = 1)]
-public class ConsumableData : ScriptableObject
+[CreateAssetMenu(fileName = "ConsumableItemData", menuName = "ScriptableObjects/ConsumableItemData", order = 1)]
+public class ConsumableItemData : ScriptableObject
 {
     [Header("Heal Properties")]
     public int healAmount = 20;

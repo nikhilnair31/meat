@@ -65,6 +65,7 @@ public class PickableLimb : Interactable
     private void Break() {
         Debug.Log($"Item {gameObject.name} broke!");
 
+        // FIXME: Genralize this so child classes can use similar for droppping
         if (isHeld) {
             playerInteract.pickupIconImage.sprite = playerAttack.meleeWeaponData.weaponIcon;
 

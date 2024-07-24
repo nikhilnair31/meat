@@ -2,11 +2,9 @@ using UnityEngine;
 
 public class PlayerThrowable : MonoBehaviour 
 {
-    private PlayerAnimations playerAnimations;
     private PlayerInteract playerInteract;
 
     private void Start() {
-        playerAnimations = GetComponent<PlayerAnimations>();
         playerInteract = GetComponent<PlayerInteract>();
     }
 
@@ -20,7 +18,6 @@ public class PlayerThrowable : MonoBehaviour
         if(playerInteract.currentHeldItem != null) {
             if(playerInteract.currentHeldItem.TryGetComponent(out Throwable throwable)) {
                 throwable.Throw();
-                playerAnimations.ChangeAnimationState(throwable.weaponData.throwingAnimationName);
             }
         }
     }

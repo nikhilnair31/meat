@@ -10,7 +10,7 @@ public abstract class Interactable : MonoBehaviour
 
     public virtual void Interact() {}
     public virtual void Pickup() {}
-    public virtual void Drop() {}
+    public virtual void Drop(bool destroyItem = false) {}
 
     private void Start() {
         if(interactTransform == null) {
