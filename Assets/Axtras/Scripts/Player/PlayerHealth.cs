@@ -90,7 +90,12 @@ public class PlayerHealth : MonoBehaviour
     
     private void UpdateHealthEffects(AudioClip clip) {
         if (clip != null) {
-            GetComponent<AudioSource>().PlayOneShot(clip, healClipVoume);
+            Helper.PlayOneShotWithRandPitch(
+                GetComponent<AudioSource>(), 
+                clip, 
+                healClipVoume, 
+                true
+            );
         }
 
         healthText.text = $"{(int)currHealth}/{maxHealth}";

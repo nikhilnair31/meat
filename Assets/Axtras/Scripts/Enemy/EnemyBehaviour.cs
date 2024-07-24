@@ -3,12 +3,14 @@ using UnityEngine.AI;
 
 public class EnemyBehaviour : MonoBehaviour 
 {
-    private RaycastHit hit;
+    private EnemyAnimations enemyAnimations;
+
+    private NavMeshAgent agent;
+    // private Animator animator;
 
     private Transform player;
 
-    private NavMeshAgent agent;
-    private Animator animator;
+    private RaycastHit hit;
 
     private Vector3 initialEnemyPosition;
     private Vector3 lastPlayerPosition;
@@ -24,6 +26,8 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private float chaseSpeed = 6f;
 
     [Header("Detection Settings")]
+    [SerializeField] private Transform detectionRaycastSourceTransform;
+    [SerializeField] private LayerMask detectionLayermask;
     [SerializeField] private float detectionDistanceRange = 15f;
     [SerializeField] private float detectionAngleRange = 90f;
     
@@ -39,6 +43,14 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private float resetAfterDuration = 10f;
     private float resetTimer;
     
+    [Header("IsAtInitPos Settings")]
+    [SerializeField] private string isAtInitPosAnim;
+    [SerializeField] private string isChasingAnim;
+    [SerializeField] private string isSearchingAnim;
+    [SerializeField] private string isReturningAnim;
+    [SerializeField] private string canAttackAnim;
+    [SerializeField] private string isAttackingAnim;
+    
     private bool inDetectionDistanceRange;
     private bool inDetectionAngleRange;
     private bool inDetectionLOS;
@@ -53,7 +65,8 @@ public class EnemyBehaviour : MonoBehaviour
         set { 
             isAtInitPos = value; 
 
-            animator.SetBool("isAtInitPos", isAtInitPos);
+            // animator.SetBool("isAtInitPos", isAtInitPos);
+            enemyAnimations.ChangeAnimationState(isAtInitPosAnim, 1f);
 
             if (isAtInitPos) {
                 IsSearching = false;
@@ -72,9 +85,11 @@ public class EnemyBehaviour : MonoBehaviour
         set { 
             isChasing = value; 
 
-            animator.SetBool("isChasing", isChasing);
+            // animator.SetBool("isChasing", isChasing);
 
             if (isChasing) {
+                enemyAnimations.ChangeAnimationState(isChasingAnim, 1f);
+                
                 if (agent != null && agent.enabled) {
                     agent.isStopped = false;
                     agent.speed = chaseSpeed;
@@ -87,7 +102,12 @@ public class EnemyBehaviour : MonoBehaviour
         get { return isSearching; }
         set { 
             isSearching = value; 
-            animator.SetBool("isSearching", isSearching);
+
+            // animator.SetBool("isSearching", isSearching);
+            
+            if (isSearching) {
+                enemyAnimations.ChangeAnimationState(isSearchingAnim, 1f);
+            }
         }
     }
     public bool IsReturning {
@@ -95,9 +115,11 @@ public class EnemyBehaviour : MonoBehaviour
         set { 
             isReturning = value; 
 
-            animator.SetBool("isReturning", isReturning);
+            // animator.SetBool("isReturning", isReturning);
 
             if (isReturning) {
+                enemyAnimations.ChangeAnimationState(isReturningAnim, 1f);
+                
                 if (agent != null && agent.enabled) {
                     agent.isStopped = false;
                     agent.speed = walkSpeed;
@@ -114,8 +136,9 @@ public class EnemyBehaviour : MonoBehaviour
             if (isAttacking) {
                 FacePlayer();
 
-                animator.SetBool("isAttacking", true);
-                animator.SetTrigger("Attack");
+                // animator.SetBool("isAttacking", true);
+                // animator.SetTrigger("Attack");
+                enemyAnimations.ChangeAnimationState(isAttackingAnim, 1f);
 
                 if (agent != null && agent.enabled) {
                     agent.isStopped = true;
@@ -123,8 +146,9 @@ public class EnemyBehaviour : MonoBehaviour
                 }
             }
             else {
-                animator.SetBool("isAttacking", false);
-                animator.ResetTrigger("Attack");
+                // animator.SetBool("isAttacking", false);
+                // animator.ResetTrigger("Attack");
+                enemyAnimations.ChangeAnimationState(canAttackAnim, 1f);
 
                 if (agent != null && agent.enabled) {
                     agent.isStopped = false;
@@ -137,8 +161,9 @@ public class EnemyBehaviour : MonoBehaviour
     private void Start() {
         player = GameObject.Find("Player").transform;
 
+        enemyAnimations = GetComponent<EnemyAnimations>();
         agent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Animator>();
+        // animator = GetComponent<Animator>();
 
         initialEnemyPosition = transform.position;
         lastPlayerPosition = Vector3.zero;
@@ -175,7 +200,8 @@ public class EnemyBehaviour : MonoBehaviour
         inDetectionAngleRange = playerAngle < detectionAngleRange;
     }
     private void DetectLOS() {
-        if(Physics.Raycast(transform.position, directionToPlayer, out hit, detectionDistanceRange)) {
+        if(Physics.Raycast(detectionRaycastSourceTransform.position, directionToPlayer, out hit, detectionDistanceRange, detectionLayermask)) {
+            // Debug.Log($"Hit: {hit.transform.name}");
             inDetectionLOS = hit.transform == player;
         } else {
             inDetectionLOS = false;

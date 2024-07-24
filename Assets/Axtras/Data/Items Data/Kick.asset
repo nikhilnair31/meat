@@ -14,14 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageAmount: 10
   damageDuration: 0.01
-  attackDelay: 0.4
-  attackSpeed: 1
-  attackRange: 1
+  attackDelay: 0
+  attackSpeed: 0
+  attackRange: 0
   attackLayer:
     serializedVersion: 2
     m_Bits: 0
   canBlock: 0
-  weaponIcon: {fileID: 0}
+  icon: {fileID: 0}
   impactEffectData: {fileID: 11400000, guid: 879afb89a64ca1e4ab3f3ddcc983949f, type: 2}
+  idleAnimName: 
   attackAnimName1: Kick
   attackAnimName2: 
+  block: 
