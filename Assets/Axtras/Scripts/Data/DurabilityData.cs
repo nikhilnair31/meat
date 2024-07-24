@@ -7,4 +7,7 @@ public class DurabilityData : ScriptableObject
     public float reduceByImpactDurability = 2f;
     public float durabilityDecayInTime = 5f;
     public float maxDurability = 20;
+
+    [Header("Mesh Related")]
+    public Color finalColor;
 }

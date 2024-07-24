@@ -62,7 +62,7 @@ public class Pickable : Interactable
     }
     private void UpdateWeaponColor() {
         float healthRatio = currentDurability / durabilityData.maxDurability;
-        weaponMaterial.color = Color.Lerp(Color.black, originalColor, healthRatio);
+        weaponMaterial.color = Color.Lerp(durabilityData.finalColor, originalColor, healthRatio);
     }
     private void Break() {
         Debug.Log($"Item {gameObject.name} broke!");

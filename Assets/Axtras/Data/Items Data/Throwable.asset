@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Throwable
   m_EditorClassIdentifier: 
   throwForce: 30
-  damageAmount: 15
+  damageAmount: 35
   damageDuration: 0.01
-  pickupIcon: {fileID: 21300000, guid: ffb0bb0142e2c304fb35524a3d61f55c, type: 3}
+  icon: {fileID: 0}
   holdingAnimnName: Holding Item
   throwingAnimName: Throwing
   throwSpeed: 1

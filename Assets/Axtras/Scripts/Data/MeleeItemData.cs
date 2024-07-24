@@ -8,8 +8,8 @@ public class MeleeItemData : ScriptableObject
     public float damageDuration;
 
     [Header("Attack Settings")]
-    public float attackDelay = 0.4f;
-    public float attackSpeed = 1f;
+    public float attackActionInTime = 0.4f;
+    public float attackResetInTime = 1f;
     public float attackRange = 1f;
     public LayerMask attackLayer;
 

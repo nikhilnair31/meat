@@ -328,7 +328,7 @@ MonoBehaviour:
   isAttacking: 0
   isBlocking: 0
   itemData: {fileID: 11400000, guid: ddadb63e9c392be4182113729f924481, type: 2}
-  impactEffectData: {fileID: 11400000, guid: 3105ad3872b60424299079baa87b2d51, type: 2}
+  impactEffectData: {fileID: 11400000, guid: 56c3644dd2f25ee4f8f152a39c93e312, type: 2}
 --- !u!1001 &6411590894313027829
 PrefabInstance:
   m_ObjectHideFlags: 0
