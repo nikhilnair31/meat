@@ -28,7 +28,7 @@ public class Throwable : Pickable
             playerAnimations.ChangeAnimationState(itemData.holdingAnimnName);
 
             playerInteract.currentHeldItemType = PickableType.Throwable;
-            playerInteract.pickupIconImage.sprite = itemData.pickupIcon;
+            playerInteract.pickupIconImage.sprite = itemData.icon;
         }
         else {
             Debug.Log($"Item {gameObject.name} is already held");
@@ -51,7 +51,7 @@ public class Throwable : Pickable
 
             playerInteract.currentHeldItem = null;
             playerInteract.currentHeldItemType = PickableType.None;
-            playerInteract.pickupIconImage.sprite = playerAction.meleeWeaponData.weaponIcon;
+            playerInteract.pickupIconImage.sprite = playerAction.meleeItemData.icon;
         }
         else {
             Debug.Log($"Item {gameObject.name} NOT held");
@@ -77,7 +77,7 @@ public class Throwable : Pickable
 
         playerInteract.currentHeldItem = null;
         playerInteract.currentHeldItemType = PickableType.None;
-        playerInteract.pickupIconImage.sprite = itemData.pickupIcon;
+        playerInteract.pickupIconImage.sprite = itemData.icon;
     }
 
     private void OnCollisionEnter(Collision other) {

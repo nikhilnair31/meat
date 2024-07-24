@@ -11,7 +11,7 @@ public class ThrowableItemData : ScriptableObject
     public float damageDuration;
 
     [Header("UI Settings")]
-    public Sprite pickupIcon;
+    public Sprite icon;
 
     [Header("Animation Settings")]
     public string holdingAnimnName;

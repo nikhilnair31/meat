@@ -22,7 +22,7 @@ public class Consumable : Pickable
             playerAnimations.ChangeAnimationState(itemData.holdingAnimationName);
 
             playerInteract.currentHeldItemType = PickableType.Consumable;
-            playerInteract.pickupIconImage.sprite = itemData.pickupIcon;
+            playerInteract.pickupIconImage.sprite = itemData.icon;
         }
         else {
             Debug.Log($"Item {gameObject.name} is already held");
@@ -45,7 +45,7 @@ public class Consumable : Pickable
 
             playerInteract.currentHeldItem = null;
             playerInteract.currentHeldItemType = PickableType.None;
-            playerInteract.pickupIconImage.sprite = playerAction.meleeWeaponData.weaponIcon;
+            playerInteract.pickupIconImage.sprite = playerAction.meleeItemData.icon;
 
             if (destroyItem) {
                 Destroy(gameObject);

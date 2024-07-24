@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "MeleeWeaponData", menuName = "ScriptableObjects/MeleeWeaponData", order = 1)]
-public class MeleeWeaponData : ScriptableObject
+[CreateAssetMenu(fileName = "MeleeItemData", menuName = "ScriptableObjects/MeleeItemData", order = 1)]
+public class MeleeItemData : ScriptableObject
 {
     [Header("Damage Settings")]
     public int damageAmount;
@@ -17,8 +17,14 @@ public class MeleeWeaponData : ScriptableObject
     public bool canBlock;
 
     [Header("UI Settings")]
-    public Sprite weaponIcon;
+    public Sprite icon;
 
     [Header("Impact Settings")]
     public ImpactEffectData impactEffectData;
+
+    [Header("Animation Settings")]
+    public string idleAnimName;
+    public string attackAnimName1;
+    public string attackAnimName2;
+    public string block;
 }

@@ -10,16 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c2bdda441eeb8104e97f9d27fc62e169, type: 3}
-  m_Name: Punch
+  m_Name: Kick
   m_EditorClassIdentifier: 
   damageAmount: 10
   damageDuration: 0.01
-  attackDelay: 0.3
-  attackSpeed: 0.2
-  attackRange: 2
+  attackDelay: 0.4
+  attackSpeed: 1
+  attackRange: 1
   attackLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 0
   canBlock: 0
-  weaponIcon: {fileID: 21300000, guid: 1ff6b5c6ab17d73418344ceeb65bd43f, type: 3}
-  impactEffectData: {fileID: 11400000, guid: 56c3644dd2f25ee4f8f152a39c93e312, type: 2}
+  weaponIcon: {fileID: 0}
+  impactEffectData: {fileID: 11400000, guid: 879afb89a64ca1e4ab3f3ddcc983949f, type: 2}
+  attackAnimName1: Kick
+  attackAnimName2: 

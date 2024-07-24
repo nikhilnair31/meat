@@ -7,7 +7,9 @@ public class Fireplace : Interactable
     [SerializeField] private bool startOn = false;
     [SerializeField] private ParticleSystem flameParticle;
 
-    private void Start() {
+    public override void Start() {
+        base.Start();
+
         if(startOn) isOn = true; else isOn = false;
 
         StartStopFireplace();

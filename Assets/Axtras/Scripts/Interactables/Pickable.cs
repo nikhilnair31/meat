@@ -71,7 +71,7 @@ public class Pickable : Interactable
         if (isHeld) {
             playerInteract.currentHeldItem = null;
             playerInteract.currentHeldItemType = PickableType.None;
-            playerInteract.pickupIconImage.sprite = playerAction.meleeWeaponData.weaponIcon;
+            playerInteract.pickupIconImage.sprite = playerAction.meleeItemData.icon;
 
             playerAnimations.ChangeAnimationState();
         }

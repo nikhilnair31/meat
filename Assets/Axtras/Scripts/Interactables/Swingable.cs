@@ -6,7 +6,7 @@ public class Swingable : Pickable
     public bool isBlocking = false;
 
     [Header("Swingable Properties")]
-    public SwingableItemData weaponData;
+    public MeleeItemData itemData;
 
     [Header("Effects")]
     [SerializeField] private ImpactEffectData impactEffectData;
@@ -25,10 +25,10 @@ public class Swingable : Pickable
             itemCollider.enabled = true;
             itemCollider.isTrigger = false;
 
-            playerAnimations.ChangeAnimationState(weaponData.holdingAnimationName);
+            playerAnimations.ChangeAnimationState(itemData.idleAnimName);
 
             playerInteract.currentHeldItemType = PickableType.Swingable;
-            playerInteract.pickupIconImage.sprite = weaponData.pickupIcon;
+            playerInteract.pickupIconImage.sprite = itemData.icon;
         }                   
         else {
             Debug.Log($"Item {gameObject.name} is already held");
@@ -49,7 +49,7 @@ public class Swingable : Pickable
 
             playerInteract.currentHeldItem = null;
             playerInteract.currentHeldItemType = PickableType.None;
-            playerInteract.pickupIconImage.sprite = playerAction.meleeWeaponData.weaponIcon;
+            playerInteract.pickupIconImage.sprite = playerAction.meleeItemData.icon;
         }
         else {
             Debug.Log($"Item {gameObject.name} NOT held");

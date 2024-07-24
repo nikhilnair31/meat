@@ -6,7 +6,7 @@ public class EnemyMelee : MonoBehaviour
     private EnemyBehaviour enemyBehaviour;
 
     [Header("Weapon Properties")]
-    [SerializeField] private MeleeWeaponData meleeWeaponData;
+    [SerializeField] private MeleeItemData meleeItemData;
 
     private void Start() {
         playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
@@ -17,13 +17,13 @@ public class EnemyMelee : MonoBehaviour
         if (enemyBehaviour.IsAttacking) {
             if (other.collider.CompareTag("Player")) {
                 playerHealth.DiffHealth(
-                    meleeWeaponData.damageAmount, 
-                    meleeWeaponData.damageDuration
+                    meleeItemData.damageAmount, 
+                    meleeItemData.damageDuration
                 );
                 Helper.CameraShake(
-                    meleeWeaponData.impactEffectData.hurtShakeMagnitude, 
-                    meleeWeaponData.impactEffectData.hurtShakeDuration, 
-                    meleeWeaponData.impactEffectData.hurtShakeMultiplier
+                    meleeItemData.impactEffectData.hurtShakeMagnitude, 
+                    meleeItemData.impactEffectData.hurtShakeDuration, 
+                    meleeItemData.impactEffectData.hurtShakeMultiplier
                 );
             }
         }

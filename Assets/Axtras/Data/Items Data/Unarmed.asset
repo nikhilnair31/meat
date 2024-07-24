@@ -9,16 +9,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf75de1d139b0d24caa4deebf9ef94d4, type: 3}
-  m_Name: Swingable
+  m_Script: {fileID: 11500000, guid: c2bdda441eeb8104e97f9d27fc62e169, type: 3}
+  m_Name: Unarmed
   m_EditorClassIdentifier: 
-  damageAmount: 0
-  damageDuration: 0
+  damageAmount: 10
+  damageDuration: 0.01
   attackDelay: 0.4
   attackSpeed: 0.2
   attackRange: 2
   attackLayer:
     serializedVersion: 2
     m_Bits: 128
-  pickupIcon: {fileID: 21300000, guid: 8554bf78838dc794b86aba8ffa84bff7, type: 3}
-  holdingAnimationName: Holding Item
+  canBlock: 1
+  icon: {fileID: 21300000, guid: e915dafa7d2cfe84d804d7c8bcf2de9b, type: 3}
+  impactEffectData: {fileID: 11400000, guid: 3105ad3872b60424299079baa87b2d51, type: 2}
+  idleAnimName: Idle
+  attackAnimName1: Punch L
+  attackAnimName2: Punch R
+  block: Block

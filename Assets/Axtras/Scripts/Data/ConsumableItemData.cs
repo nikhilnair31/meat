@@ -12,7 +12,7 @@ public class ConsumableItemData : ScriptableObject
     public float speedReductionMultiplier = 0.8f;
 
     [Header("UI Settings")]
-    public Sprite pickupIcon;
+    public Sprite icon;
 
     [Header("Animation Settings")]
     public string holdingAnimationName;

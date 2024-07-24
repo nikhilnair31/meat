@@ -11,7 +11,7 @@ public class PlayerAction : MonoBehaviour
     [SerializeField] private Transform raycastSourceTranform;
 
     [Header("Unarmed Properties")]
-    public MeleeWeaponData meleeWeaponData;
+    public MeleeItemData meleeItemData;
     [SerializeField] private bool isAttacking = false;
     [SerializeField] private bool isBlocking = false;
     [SerializeField] private int attackCount = 1;
@@ -29,9 +29,6 @@ public class PlayerAction : MonoBehaviour
 
     [Header("Animation Properties")]
     public const string IDLE = "Idle";
-    public const string ATTACK1 = "Punch L";
-    public const string ATTACK2 = "Punch R";
-    public const string ATTACK3 = "Kick";
     public const string BLOCK = "Block";
 
     private void Start() {
@@ -39,20 +36,32 @@ public class PlayerAction : MonoBehaviour
         playerInteract = GetComponent<PlayerInteract>();
         playerHealth = GetComponent<PlayerHealth>();
 
-        weaponIconImage.sprite = meleeWeaponData.weaponIcon;
+        weaponIconImage.sprite = meleeItemData.icon;
     }
 
     private void Update() {
         if (playerInteract.currentHeldItemType == Pickable.PickableType.None) {
             if (Input.GetMouseButtonDown(0)) {
-                Attack();
+                UnarmedAttack();
             }
 
             if (Input.GetMouseButtonDown(1)) {
-                Block(true);
+                UnarmedBlock(true);
             }
             if (Input.GetMouseButtonUp(1)) {
-                Block(false);
+                UnarmedBlock(false);
+            }
+        }
+        else if (playerInteract.currentHeldItemType == Pickable.PickableType.Swingable) {
+            if (Input.GetMouseButtonDown(0)) {
+                SwingableAttack();
+            }
+
+            if (Input.GetMouseButtonDown(1)) {
+                SwingableBlock(true);
+            }
+            if (Input.GetMouseButtonUp(1)) {
+                SwingableBlock(false);
             }
         }
         else if (playerInteract.currentHeldItemType == Pickable.PickableType.Consumable) {
@@ -68,58 +77,45 @@ public class PlayerAction : MonoBehaviour
                 Throw();
             }
         }
-        else if (playerInteract.currentHeldItemType == Pickable.PickableType.Swingable) {
-            if (Input.GetMouseButtonDown(0)) {
-                Attack();
-            }
-
-            if (Input.GetMouseButtonDown(1)) {
-                Block(true);
-            }
-            if (Input.GetMouseButtonUp(1)) {
-                Block(false);
-            }
-        }
     }
 
-    private void Attack() {
+    #region Unarmed
+    private void UnarmedAttack() {
         if(isAttacking) return;
 
         isAttacking = true;
         isBlocking = false;
 
-        Invoke(nameof(ResetAttack), meleeWeaponData.attackSpeed);
-        Invoke(nameof(AttackRaycast), meleeWeaponData.attackDelay);
+        Invoke(nameof(UnarmedAttackReset), meleeItemData.attackSpeed);
+        Invoke(nameof(UnarmedAttackRaycast), meleeItemData.attackDelay);
 
         if(attackCount == 1) {
-            playerAnimations.ChangeAnimationState(ATTACK1);
+            playerAnimations.ChangeAnimationState(meleeItemData.attackAnimName1);
             attackCount++;
         }
         else if(attackCount == 2) {
-            playerAnimations.ChangeAnimationState(ATTACK2);
+            playerAnimations.ChangeAnimationState(meleeItemData.attackAnimName2);
             attackCount = 1;
         }
     }
-    private void AttackRaycast() {
-        // Debug.Log("AttackRaycast");
-
-        Debug.DrawRay(raycastSourceTranform.position, raycastSourceTranform.forward * meleeWeaponData.attackRange, Color.red, 1f);
+    private void UnarmedAttackRaycast() {
+        Debug.DrawRay(raycastSourceTranform.position, raycastSourceTranform.forward * meleeItemData.attackRange, Color.red, 1f);
 
         RaycastHit hit;
-        if(Physics.Raycast(raycastSourceTranform.position, raycastSourceTranform.forward, out hit, meleeWeaponData.attackRange, meleeWeaponData.attackLayer)) {
+        if(Physics.Raycast(raycastSourceTranform.position, raycastSourceTranform.forward, out hit, meleeItemData.attackRange, meleeItemData.attackLayer)) {
             // Debug.Log($"hit name {hit.collider.name} of tag {hit.collider.tag}");
             if (hit.collider.CompareTag("Limb")) {
                 TransformCollector transformCollector = Helper.GetComponentInParentByTag<TransformCollector>(hit.transform, "Enemy");
                 if (transformCollector != null) {
                     foreach (TransformData data in transformCollector.transformDataList) {
                         if (data.transformName.Contains(hit.collider.name)) {
-                            float scaledDamageAmount = meleeWeaponData.damageAmount * data.transformDamageMultiplier;
+                            float scaledDamageAmount = meleeItemData.damageAmount * data.transformDamageMultiplier;
 
                             data.transformCurrentHealth -= scaledDamageAmount;
 
                             EnemyHealth enemyHealth = Helper.GetComponentInParentByTag<EnemyHealth>(hit.transform, "Enemy");
                             if (enemyHealth != null) {
-                                enemyHealth.DiffHealth(scaledDamageAmount, meleeWeaponData.damageDuration);
+                                enemyHealth.DiffHealth(scaledDamageAmount, meleeItemData.damageDuration);
                             }
                         }
                     }
@@ -132,7 +128,7 @@ public class PlayerAction : MonoBehaviour
                 // Debug.Log($"Player hit something else! {hit.collider.name}");
             }
 
-            GameObject impactParticlePrefab = meleeWeaponData.impactEffectData.impactParticlePrefab;
+            GameObject impactParticlePrefab = meleeItemData.impactEffectData.impactParticlePrefab;
             if (impactParticlePrefab != null && hit.collider != null) {
                 GameObject impactParticle = Instantiate(impactParticlePrefab, hit.point, Quaternion.LookRotation(hit.normal));
                 Destroy(impactParticle, 2f);
@@ -140,36 +136,130 @@ public class PlayerAction : MonoBehaviour
 
             Helper.PlayOneShotWithRandPitch(
                 GetComponent<AudioSource>(),
-                meleeWeaponData.impactEffectData.impactClip,
-                meleeWeaponData.impactEffectData.impactVolume,
-                meleeWeaponData.impactEffectData.randPitch
+                meleeItemData.impactEffectData.impactClip,
+                meleeItemData.impactEffectData.impactVolume,
+                meleeItemData.impactEffectData.randPitch
             );
             Helper.CameraShake(
-                meleeWeaponData.impactEffectData.hurtShakeMagnitude, 
-                meleeWeaponData.impactEffectData.hurtShakeDuration, 
-                meleeWeaponData.impactEffectData.hurtShakeMultiplier
+                meleeItemData.impactEffectData.hurtShakeMagnitude, 
+                meleeItemData.impactEffectData.hurtShakeDuration, 
+                meleeItemData.impactEffectData.hurtShakeMultiplier
             );
         } 
         else {
             // Debug.Log("Did not hit anything");
         }
     }
-    private void ResetAttack() {
+    private void UnarmedAttackReset() {
         isAttacking = false;
-        playerAnimations.ChangeAnimationState(IDLE);
+        playerAnimations.ChangeAnimationState(meleeItemData.idleAnimName);
     }
 
-    private void Block(bool doBlock) {
+    private void UnarmedBlock(bool doBlock) {
         if (doBlock) {
             isBlocking = true;
-            playerAnimations.ChangeAnimationState(BLOCK);
+            playerAnimations.ChangeAnimationState(meleeItemData.block);
         }
         else {
             isBlocking = false;
             playerAnimations.ChangeAnimationState(IDLE);
         }
     }
+    #endregion
 
+    #region Swingable
+    private void SwingableAttack() {
+        if(isAttacking) return;
+
+        isAttacking = true;
+        isBlocking = false;
+        
+        Swingable swingable = playerInteract.currentHeldItem.GetComponent<Swingable>();
+
+        Invoke(nameof(SwingableAttackReset), swingable.itemData.attackSpeed);
+        Invoke(nameof(SwingableAttackRaycast), swingable.itemData.attackDelay);
+
+        if(attackCount == 1) {
+            playerAnimations.ChangeAnimationState(swingable.itemData.attackAnimName1);
+            attackCount++;
+        }
+        else if(attackCount == 2) {
+            playerAnimations.ChangeAnimationState(swingable.itemData.attackAnimName2);
+            attackCount = 1;
+        }
+    }
+    private void SwingableAttackRaycast() {
+        Debug.DrawRay(raycastSourceTranform.position, raycastSourceTranform.forward * meleeItemData.attackRange, Color.red, 1f);
+
+        RaycastHit hit;
+        if(Physics.Raycast(raycastSourceTranform.position, raycastSourceTranform.forward, out hit, meleeItemData.attackRange, meleeItemData.attackLayer)) {
+            // Debug.Log($"hit name {hit.collider.name} of tag {hit.collider.tag}");
+            if (hit.collider.CompareTag("Limb")) {
+                TransformCollector transformCollector = Helper.GetComponentInParentByTag<TransformCollector>(hit.transform, "Enemy");
+                if (transformCollector != null) {
+                    foreach (TransformData data in transformCollector.transformDataList) {
+                        if (data.transformName.Contains(hit.collider.name)) {
+                            float scaledDamageAmount = meleeItemData.damageAmount * data.transformDamageMultiplier;
+
+                            data.transformCurrentHealth -= scaledDamageAmount;
+
+                            EnemyHealth enemyHealth = Helper.GetComponentInParentByTag<EnemyHealth>(hit.transform, "Enemy");
+                            if (enemyHealth != null) {
+                                enemyHealth.DiffHealth(scaledDamageAmount, meleeItemData.damageDuration);
+                            }
+                        }
+                    }
+                } 
+                else {
+                    // Debug.LogError($"TransformCollector not found on {hit.collider.name}");
+                }
+            } 
+            else {
+                // Debug.Log($"Player hit something else! {hit.collider.name}");
+            }
+
+            GameObject impactParticlePrefab = meleeItemData.impactEffectData.impactParticlePrefab;
+            if (impactParticlePrefab != null && hit.collider != null) {
+                GameObject impactParticle = Instantiate(impactParticlePrefab, hit.point, Quaternion.LookRotation(hit.normal));
+                Destroy(impactParticle, 2f);
+            }
+
+            Helper.PlayOneShotWithRandPitch(
+                GetComponent<AudioSource>(),
+                meleeItemData.impactEffectData.impactClip,
+                meleeItemData.impactEffectData.impactVolume,
+                meleeItemData.impactEffectData.randPitch
+            );
+            Helper.CameraShake(
+                meleeItemData.impactEffectData.hurtShakeMagnitude, 
+                meleeItemData.impactEffectData.hurtShakeDuration, 
+                meleeItemData.impactEffectData.hurtShakeMultiplier
+            );
+        } 
+        else {
+            // Debug.Log("Did not hit anything");
+        }
+    }
+    private void SwingableAttackReset() {
+        Swingable swingable = playerInteract.currentHeldItem.GetComponent<Swingable>();
+
+        isAttacking = false;
+        playerAnimations.ChangeAnimationState(swingable.itemData.idleAnimName);
+    }
+
+    private void SwingableBlock(bool doBlock) {
+        if (doBlock) {
+            isBlocking = true;
+            playerAnimations.ChangeAnimationState(meleeItemData.block);
+        }
+        else {
+            isBlocking = false;
+            playerAnimations.ChangeAnimationState(IDLE);
+        }
+    }
+    #endregion
+
+    #region Consumable
     private void HandleConsumption() {
         Consumable consumable = playerInteract.currentHeldItem.GetComponent<Consumable>();
 
@@ -196,7 +286,9 @@ public class PlayerAction : MonoBehaviour
         speedReductionMultiplier = 1f;
         isConsuming = false;
     }
+    #endregion
 
+    #region Throwable
     private void Throw() {
         if(isThrowing) return;
 
@@ -219,4 +311,5 @@ public class PlayerAction : MonoBehaviour
         isThrowing = false;
         playerAnimations.ChangeAnimationState(IDLE);
     }
+    #endregion
 }
