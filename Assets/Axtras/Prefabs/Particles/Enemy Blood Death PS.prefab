@@ -4914,7 +4914,7 @@ MonoBehaviour:
   rotationOffsetRange: 360
   decalPivotOffset: 0.05
   raycastLength: 10
-  numberOfRays: 10
+  numberOfRays: 6
   maxDecals: 10
   healAmount: 1
   healTime: 0.1

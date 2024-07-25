@@ -6,7 +6,7 @@ public class EnemyAnimations : MonoBehaviour
 
     [SerializeField] private Animator enemyAnimator;
 
-    private void Start() {
+    private void Awake() {
         enemyAnimator = GetComponent<Animator>();
 
         ChangeAnimationState();

@@ -4913,6 +4913,6 @@ MonoBehaviour:
   randomScaleRange: {x: 0.5, y: 1.5}
   rotationOffsetRange: 360
   decalPivotOffset: 0.05
-  raycastLength: 5
-  numberOfRays: 20
-  maxDecals: 20
+  raycastLength: 10
+  numberOfRays: 3
+  maxDecals: 10

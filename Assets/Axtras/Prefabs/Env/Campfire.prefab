@@ -146,12 +146,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a89c21fe0734744db452356ad71c308, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiTransitionData: {fileID: 0}
   interactTransform: {fileID: 886367749130222252}
-  transitionDuration: 0.2
-  transitionAmount: 0.2
-  canvasOffsetY: 1
-  displayDuration: 2
   isOn: 1
+  startOn: 1
   flameParticle: {fileID: 1722286860441280146}
 --- !u!114 &3389155439162598212
 MonoBehaviour:
@@ -169,7 +167,7 @@ MonoBehaviour:
   continuousDamage: 2
   damageDuration: 5
   fireParticleSystem: {fileID: 1722286860441280146}
-  cameraShakeData: {fileID: 11400000, guid: 6ac2873053756324991624966b2458ec, type: 2}
+  impactEffectData: {fileID: 0}
 --- !u!1 &8494426163692666598
 GameObject:
   m_ObjectHideFlags: 0
@@ -4102,7 +4100,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    maxLights: 25
+    maxLights: 5
   TrailModule:
     enabled: 0
     mode: 0

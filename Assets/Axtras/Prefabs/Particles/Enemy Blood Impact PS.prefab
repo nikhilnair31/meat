@@ -4902,18 +4902,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35ec76b7ce443114880de75812f16406, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healAmount: 1
-  healTime: 0.1
+  damageDecalObject: {fileID: 3265899603261373430, guid: 78677a26a6dcf6d45b71371b94c35f59,
+    type: 3}
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  damageDecalObject: {fileID: 3265899603261373430, guid: 78677a26a6dcf6d45b71371b94c35f59,
-    type: 3}
   decalLayerMask:
     serializedVersion: 2
     m_Bits: 8
+  randomScaleRange: {x: 0.5, y: 1.5}
   rotationOffsetRange: 360
   decalPivotOffset: 0
   raycastLength: 5
   numberOfRays: 3
   maxDecals: 3
+  healAmount: 1
+  healTime: 0.1
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 64
