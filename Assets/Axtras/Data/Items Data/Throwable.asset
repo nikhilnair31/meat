@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9691f1a6071e284cacd1ff9778e7402, type: 3}
   m_Name: Throwable
   m_EditorClassIdentifier: 
-  throwForce: 20
+  throwForce: 30
   damageAmount: 35
   damageDuration: 0.01
   icon: {fileID: 0}

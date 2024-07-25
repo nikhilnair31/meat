@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7030409337498401563}
   - component: {fileID: 2673332879330158909}
   - component: {fileID: 3405793445380140196}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Hazard - SpinSpikes
   m_TagString: Untagged
   m_Icon: {fileID: 0}

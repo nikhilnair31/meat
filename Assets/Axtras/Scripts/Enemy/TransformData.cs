@@ -21,7 +21,7 @@ public class TransformData
 
     [Header("Flags")]
     public bool destroyable;
-    [SerializeField] private bool destroyed;
+    public bool destroyed;
 
     public void Init(GameObject defaultSpawnedLimbObject, GameObject defaultDamageImpactObject) 
     {

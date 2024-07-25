@@ -4909,7 +4909,7 @@ MonoBehaviour:
     m_Bits: 64
   decalLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 8
   randomScaleRange: {x: 0.5, y: 1.5}
   rotationOffsetRange: 360
   decalPivotOffset: 0.05
