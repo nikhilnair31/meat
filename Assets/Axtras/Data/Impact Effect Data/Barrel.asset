@@ -12,8 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6badd85f69955ac41b40ff53d5f5ad22, type: 3}
   m_Name: Barrel
   m_EditorClassIdentifier: 
-  hurtShakeMagnitude: 6
-  hurtShakeDuration: 0.15
+  hurtShakeMagnitude: 1
+  hurtShakeDuration: 0.05
   hurtShakeMultiplier: 1
   impactClip: {fileID: 8300000, guid: e4ca19b9b1b7138409e842f9aa8480f0, type: 3}
-  impactVolume: 2
+  impactVolume: 0.2
+  randPitch: 1
+  impactParticlePrefab: {fileID: 8594544557021892423, guid: f630417b1cc9cdc4ab29c92565456c6e,
+    type: 3}
+  destroyAfterInstantiation: 1
+  destroyDelay: 3

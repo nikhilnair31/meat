@@ -5,7 +5,7 @@ using Cinemachine;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-public static class Helper 
+public static class Helper
 {
     public static void CameraShake(float amplitude, float duration, float amplitudemultiplier = 1f) {
         // Get the Cinemachine Basic Multi Channel Perlin component from the virtual camera

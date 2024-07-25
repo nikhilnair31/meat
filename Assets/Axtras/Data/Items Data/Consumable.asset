@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healAmount: 20
   healTime: 10
-  consumeTime: 3
+  consumeTime: 4
   speedReductionMultiplier: 0.4
-  pickupIcon: {fileID: 21300000, guid: 32ab398b822481d4bb6da6c99f463d70, type: 3}
+  icon: {fileID: 21300000, guid: 32ab398b822481d4bb6da6c99f463d70, type: 3}
   holdingAnimationName: Holding Item

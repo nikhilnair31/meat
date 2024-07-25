@@ -15,6 +15,15 @@ public class Hazard : MonoBehaviour
                     damageAmount, 
                     0.01f
                 );
+
+                GameObject impactInstantiation = Instantiate(
+                    impactEffectData.impactParticlePrefab, 
+                    Camera.main.transform.position, 
+                    Quaternion.identity
+                );
+                if(impactEffectData.destroyAfterInstantiation) {
+                    Destroy(impactInstantiation, impactEffectData.destroyDelay);
+                }
             }
         }
         PlayEffects();

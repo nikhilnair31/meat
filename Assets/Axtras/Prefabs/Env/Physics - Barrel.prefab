@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3656758353430863083}
   - component: {fileID: 3758506717182691495}
   - component: {fileID: 1329248287335946953}
-  - component: {fileID: 8460270294895828944}
+  - component: {fileID: 4747832625431989505}
   m_Layer: 0
   m_Name: Physics - Barrel
   m_TagString: Physics
@@ -66,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a4b62a69d54e80347bd546999c6d4b9e, type: 2}
+  - {fileID: 2100000, guid: 43e5b98139d8b974ba48af018daac5fe, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -157,10 +157,10 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 2
-  MaxDistance: 5
+  MinDistance: 0.51
+  MaxDistance: 30
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -170,12 +170,12 @@ AudioSource:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: -2.0963573
+      outSlope: -2.0963573
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.33333334
+      outWeight: 0.19644237
     - serializedVersion: 3
       time: 1
       value: 0
@@ -255,9 +255,9 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_ImpulseDuration: 0.3
-    m_ImpulseType: 1
+    m_ImpulseType: 3
     m_DissipationRate: 0.145
-    m_RawSignal: {fileID: 0}
+    m_RawSignal: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
     m_AmplitudeGain: 1
     m_FrequencyGain: 1
     m_RepeatMode: 0
@@ -280,13 +280,13 @@ MonoBehaviour:
       m_DecayTime: 0.7
       m_ScaleWithImpact: 1
       m_HoldForever: 0
-    m_ImpactRadius: 100
+    m_ImpactRadius: 20
     m_DirectionMode: 0
     m_DissipationMode: 2
     m_DissipationDistance: 1
     m_PropagationSpeed: 343
-  m_DefaultVelocity: {x: 0, y: -0.01, z: 0}
---- !u!114 &8460270294895828944
+  m_DefaultVelocity: {x: 0, y: -0.1, z: 0}
+--- !u!114 &4747832625431989505
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -295,9 +295,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5888182415821729201}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52169dd38f9384c45ae98ca0f4545f1a, type: 3}
+  m_Script: {fileID: 11500000, guid: e0558e5fcb96eeb4bbe439628e384963, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hurtOnTouch: 0
-  damageAmount: 0
+  allowedTags:
+  - Ground
+  - Untagged
   impactEffectData: {fileID: 11400000, guid: a8848253cde6b9a4496b525db56f51b4, type: 2}

@@ -221,7 +221,7 @@ public class EnemyBehaviour : MonoBehaviour
                 IsAttacking = true;
             } 
             else {
-                IsAttacking = false;
+                Invoke(nameof(StopAttacking), 1f);
             }
 
             if (!inDetectionDistanceRange) {
@@ -268,6 +268,10 @@ public class EnemyBehaviour : MonoBehaviour
                 IsAtInitPos = true;
             }
         }
+    }
+
+    private void StopAttacking() {
+        IsAttacking = false;
     }
 
     private void Reseter() {

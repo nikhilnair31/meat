@@ -47,6 +47,8 @@ public class Swingable : Pickable
             itemCollider.enabled = true;
             itemCollider.isTrigger = false;
 
+            playerAnimations.ChangeAnimationState();
+
             playerInteract.currentHeldItem = null;
             playerInteract.currentHeldItemType = PickableType.None;
             playerInteract.pickupIconImage.sprite = playerAction.meleeItemData.icon;

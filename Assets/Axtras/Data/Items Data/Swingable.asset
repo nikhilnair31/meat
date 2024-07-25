@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2bdda441eeb8104e97f9d27fc62e169, type: 3}
   m_Name: Swingable
   m_EditorClassIdentifier: 
-  damageAmount: 25
+  damageAmount: 15
   damageDuration: 0.01
   attackActionInTime: 0.2
   attackResetInTime: 0.6

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ba3ef66468d4d345ad773bb44bca04e, type: 3}
   m_Name: Swingable
   m_EditorClassIdentifier: 
-  reduceByImpactDurability: 2
-  durabilityDecayInTime: 30
-  maxDurability: 20
-  finalColor: {r: 0.5, g: 0, b: 0, a: 1}
+  reduceByImpactDurability: 12
+  durabilityDecayInTime: 40
+  maxDurability: 50
+  finalColor: {r: 0.69803923, g: 0, b: 0, a: 1}

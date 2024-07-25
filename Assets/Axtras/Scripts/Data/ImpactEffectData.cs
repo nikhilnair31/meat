@@ -15,4 +15,6 @@ public class ImpactEffectData : ScriptableObject
 
     [Header("Visual Effects")]
     public GameObject impactParticlePrefab;
+    public bool destroyAfterInstantiation = false;
+    public float destroyDelay = 1.0f;
 }

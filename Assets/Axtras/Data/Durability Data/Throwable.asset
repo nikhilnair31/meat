@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reduceByImpactDurability: 2
   durabilityDecayInTime: 30
-  maxDurability: 20
-  finalColor: {r: 0.5, g: 0, b: 0, a: 1}
+  maxDurability: 30
+  finalColor: {r: 0.69803923, g: 0, b: 0, a: 1}

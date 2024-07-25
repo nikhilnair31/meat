@@ -17,6 +17,8 @@ MonoBehaviour:
   hurtShakeMultiplier: 1
   impactClip: {fileID: 8300000, guid: e4ca19b9b1b7138409e842f9aa8480f0, type: 3}
   impactVolume: 2
-  randPitch: 0
-  impactParticlePrefab: {fileID: 8594544557021892423, guid: f630417b1cc9cdc4ab29c92565456c6e,
+  randPitch: 1
+  impactParticlePrefab: {fileID: 5821601681023750136, guid: e61ad19fe5799f840bfad09944be594f,
     type: 3}
+  destroyAfterInstantiation: 1
+  destroyDelay: 3

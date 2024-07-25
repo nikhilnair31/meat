@@ -12,8 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6badd85f69955ac41b40ff53d5f5ad22, type: 3}
   m_Name: Saw Blade
   m_EditorClassIdentifier: 
-  hurtShakeMagnitude: 12
-  hurtShakeDuration: 0.4
-  hurtShakeMultiplier: 2
+  hurtShakeMagnitude: 500
+  hurtShakeDuration: 0.5
+  hurtShakeMultiplier: 5
   impactClip: {fileID: 8300000, guid: e4ca19b9b1b7138409e842f9aa8480f0, type: 3}
-  impactVolume: 2
+  impactVolume: 3
+  randPitch: 1
+  impactParticlePrefab: {fileID: 5821601681023750136, guid: c19918009cbbbb94a981e0a57b8bdfb7,
+    type: 3}
+  destroyAfterInstantiation: 1
+  destroyDelay: 3
