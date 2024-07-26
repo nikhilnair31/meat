@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a89c21fe0734744db452356ad71c308, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiTransitionData: {fileID: 0}
+  uiTransitionData: {fileID: 11400000, guid: 08cbf8b4c1f25c04591dcf22f67423bc, type: 2}
   interactTransform: {fileID: 886367749130222252}
   isOn: 1
   startOn: 1

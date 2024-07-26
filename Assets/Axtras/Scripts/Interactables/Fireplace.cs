@@ -15,7 +15,6 @@ public class Fireplace : Interactable
         StartStopFireplace();
     }
 
-    // FIXME: Turning firplace on/off seems broken
     public override void Interact() {
         isOn = !isOn;
         StartStopFireplace();

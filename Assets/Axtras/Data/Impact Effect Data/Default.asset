@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6badd85f69955ac41b40ff53d5f5ad22, type: 3}
+  m_Name: Default
+  m_EditorClassIdentifier: 
+  layer:
+    serializedVersion: 2
+    m_Bits: 1
+  hurtShakeMagnitude: 4
+  hurtShakeDuration: 0.2
+  hurtShakeMultiplier: 1
+  impactClip: {fileID: 8300000, guid: 927731281fdfc9c4c810eafff4ef7594, type: 3}
+  impactVolume: 1
+  randPitch: 1
+  impactParticlePrefab: {fileID: 8594544557021892423, guid: f630417b1cc9cdc4ab29c92565456c6e,
+    type: 3}
+  destroyAfterInstantiation: 1
+  destroyDelay: 2

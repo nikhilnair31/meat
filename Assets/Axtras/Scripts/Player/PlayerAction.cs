@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -104,7 +105,7 @@ public class PlayerAction : MonoBehaviour
             , meleeItemData.damageAmount
             , meleeItemData.damageDuration
             , meleeItemData.knockbackForce
-            , meleeItemData.impactEffectData
+            , meleeItemData.impactEffectDatas
         );
     }
     private void UnarmedAttackReset() {
@@ -153,7 +154,7 @@ public class PlayerAction : MonoBehaviour
             , swingable.itemData.damageAmount
             , swingable.itemData.damageDuration
             , swingable.itemData.knockbackForce
-            , swingable.itemData.impactEffectData
+            , swingable.itemData.impactEffectDatas
         );
     }
     private void SwingableAttackReset() {
@@ -236,7 +237,7 @@ public class PlayerAction : MonoBehaviour
     #endregion
 
     #region General
-    private void AttackRaycast(LayerMask layer, float range, float damageAmount, float damageDuration, float knockbackForce, ImpactEffectData impactEffectData) {
+    private void AttackRaycast(LayerMask layer, float range, float damageAmount, float damageDuration, float knockbackForce, List<ImpactEffectData> impactEffectDatas) {
         Debug.DrawRay(raycastSourceTranform.position, raycastSourceTranform.forward * range, Color.red, 1f);
 
         if (Physics.Raycast(raycastSourceTranform.position, raycastSourceTranform.forward, out RaycastHit hit, range, layer))
@@ -249,23 +250,9 @@ public class PlayerAction : MonoBehaviour
                 OtherImpact(hit.transform, hit.point, knockbackForce);
             }
 
-            GameObject impactParticlePrefab = impactEffectData.impactParticlePrefab;
-            if (impactParticlePrefab != null && hit.collider != null) {
-                GameObject impactParticle = Instantiate(impactParticlePrefab, hit.point, Quaternion.LookRotation(hit.normal));
-                Destroy(impactParticle, 2f);
+            foreach (ImpactEffectData impactEffectData in impactEffectDatas) {
+                ShowEffects(hit, impactEffectData);
             }
-
-            Helper.PlayOneShotWithRandPitch(
-                GetComponent<AudioSource>(),
-                impactEffectData.impactClip,
-                impactEffectData.impactVolume,
-                impactEffectData.randPitch
-            );
-            Helper.CameraShake(
-                impactEffectData.hurtShakeMagnitude,
-                impactEffectData.hurtShakeDuration,
-                impactEffectData.hurtShakeMultiplier
-            );
         }
         else {
             // Debug.Log("Did not hit anything");
@@ -302,6 +289,33 @@ public class PlayerAction : MonoBehaviour
                 hitPoint, 
                 ForceMode.Impulse
             );
+        }
+    }
+    private void ShowEffects(RaycastHit hit, ImpactEffectData impactEffectData) {
+        Debug.Log($"ShowEffects: {hit.collider.name}\nhit layer {hit.collider.gameObject.layer}\nimpact layer {impactEffectData.layer.value}");
+        // if(hit.transform.gameObject.layer == impactEffectData.layer.value) {
+        if (((1 << hit.transform.gameObject.layer) & impactEffectData.layer.value) != 0) {
+            Helper.CameraShake(
+                impactEffectData.hurtShakeMagnitude,
+                impactEffectData.hurtShakeDuration,
+                impactEffectData.hurtShakeMultiplier
+            );
+
+            Helper.PlayOneShotWithRandPitch(
+                GetComponent<AudioSource>(),
+                impactEffectData.impactClip,
+                impactEffectData.impactVolume,
+                impactEffectData.randPitch
+            );
+
+            GameObject impactParticle = Instantiate(
+                impactEffectData.impactParticlePrefab, 
+                hit.point,
+                Quaternion.identity
+            );
+            if (impactEffectData.destroyAfterInstantiation) {
+                Destroy(impactParticle, impactEffectData.destroyDelay);
+            }
         }
     }
     #endregion

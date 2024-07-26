@@ -3,6 +3,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ImpactEffectData", menuName = "ScriptableObjects/ImpactEffectData", order = 1)]
 public class ImpactEffectData : ScriptableObject
 {
+    [Header("Main")]
+    public LayerMask layer;
+
     [Header("Shake Effects")]
     public float hurtShakeMagnitude = 4.0f;
     public float hurtShakeDuration = 0.4f;
@@ -10,11 +13,11 @@ public class ImpactEffectData : ScriptableObject
 
     [Header("Sound Effects")]
     public AudioClip impactClip;
-    public float impactVolume = 1.0f;
-    public bool randPitch = false;
+    public float impactVolume;
+    public bool randPitch;
 
-    [Header("Visual Effects")]
+    [Header("Particle Effects")]
     public GameObject impactParticlePrefab;
-    public bool destroyAfterInstantiation = false;
-    public float destroyDelay = 1.0f;
+    public bool destroyAfterInstantiation;
+    public float destroyDelay;
 }

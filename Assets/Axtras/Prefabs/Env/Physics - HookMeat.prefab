@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5286077485399367726}
   - component: {fileID: 5870910394046956432}
   - component: {fileID: 8594852290767251528}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Physics - HookMeat
   m_TagString: Physics
   m_Icon: {fileID: 0}
@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 2365288231091534070}
   - component: {fileID: 6800704687115204567}
   - component: {fileID: 2357465256740119041}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HookMeat
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -10,8 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6badd85f69955ac41b40ff53d5f5ad22, type: 3}
-  m_Name: Unarmed
+  m_Name: Enemy
   m_EditorClassIdentifier: 
+  layer:
+    serializedVersion: 2
+    m_Bits: 128
   hurtShakeMagnitude: 4
   hurtShakeDuration: 0.2
   hurtShakeMultiplier: 1

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2730881933621931161}
   - component: {fileID: 7527558039814407074}
   - component: {fileID: 1756574926590249447}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Carcass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 2496518365323676289}
   - component: {fileID: 5997964684712378024}
   - component: {fileID: 3378593351033058527}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Physics - Carcass
   m_TagString: Physics
   m_Icon: {fileID: 0}

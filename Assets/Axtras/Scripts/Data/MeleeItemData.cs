@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "MeleeItemData", menuName = "ScriptableObjects/MeleeItemData", order = 1)]
@@ -22,9 +24,8 @@ public class MeleeItemData : ScriptableObject
     [Header("UI Settings")]
     public Sprite icon;
 
-    // FIXME: Improve the particle system to support multiple effects
     [Header("Impact Settings")]
-    public ImpactEffectData impactEffectData;
+    public List<ImpactEffectData> impactEffectDatas;
 
     [Header("Animation Settings")]
     public string idleAnimName;

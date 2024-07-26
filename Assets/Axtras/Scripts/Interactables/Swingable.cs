@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Swingable : Pickable
@@ -7,9 +8,6 @@ public class Swingable : Pickable
 
     [Header("Swingable Properties")]
     public MeleeItemData itemData;
-
-    [Header("Effects")]
-    [SerializeField] private ImpactEffectData impactEffectData;
 
     public override void Pickup() {
         if (!isHeld) {
