@@ -4910,14 +4910,11 @@ MonoBehaviour:
   decalLayerMask:
     serializedVersion: 2
     m_Bits: 8
-  randomScaleRange: {x: 0.5, y: 1.5}
+  randomScaleRange: {x: 1, y: 3}
   rotationOffsetRange: 360
   decalPivotOffset: 0.05
   raycastLength: 10
-  numberOfRays: 6
-  maxDecals: 10
+  numberOfRays: 15
+  maxDecals: 20
   healAmount: 1
   healTime: 0.1
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 64

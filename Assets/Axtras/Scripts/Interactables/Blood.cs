@@ -45,26 +45,27 @@ public class Blood : MonoBehaviour
             Vector3 randomDirection = Random.onUnitSphere;
             Ray ray = new (transform.position, randomDirection);
             
-            Debug.DrawRay(transform.position, randomDirection * raycastLength, Color.red, 1f);
+            Debug.DrawRay(transform.position, randomDirection * raycastLength, Color.red, 0.1f);
 
             if (Physics.Raycast(ray, out RaycastHit hit, raycastLength, decalLayerMask)) {
                 if (currDecals < maxDecals) {
-                    Vector3 decalPosition = hit.point + hit.normal * decalPivotOffset;
+                    // Debug.DrawRay(hit.point, hit.normal * 1f, Color.green, 5f);
 
-                    // FIXME: Randomize rotation of decal about the hit normal
-                    Quaternion rotation = Quaternion.LookRotation(hit.normal);
-                    // Quaternion randomRotation = Quaternion.AngleAxis(Random.Range(0f, 360f), hit.normal);
-                    // Quaternion finalRotation = randomRotation * rotation;
-
-                    GameObject decalInstance = Instantiate(
+                    GameObject decal = Instantiate(
                         damageDecalObject, 
-                        decalPosition, 
-                        rotation
+                        Vector3.zero, 
+                        Quaternion.identity
                     );
 
-                    // Randomize the scale of the decal, keeping it square
+                    Vector3 decalPosition = hit.point + hit.normal * decalPivotOffset;
+                    decal.transform.position = decalPosition;
+                    
+                    decal.transform.forward = hit.normal;
+                    float randomRotation = Random.Range(0f, 360f);
+                    decal.transform.Rotate(Vector3.forward, randomRotation, Space.Self);
+
                     float randomScale = Random.Range(randomScaleRange.x, randomScaleRange.y);
-                    decalInstance.transform.localScale = new Vector3(randomScale, randomScale, decalInstance.transform.localScale.z);
+                    decal.transform.localScale = new Vector3(randomScale, randomScale, decal.transform.localScale.z);
 
                     currDecals++;
                 }

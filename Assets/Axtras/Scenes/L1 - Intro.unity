@@ -982,7 +982,7 @@ GameObject:
   - component: {fileID: 103628089}
   m_Layer: 0
   m_Name: <---------- TEST ---------->
-  m_TagString: Untagged
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2562,7 +2562,7 @@ GameObject:
   - component: {fileID: 157883115}
   m_Layer: 0
   m_Name: <---------- EFFECTS ---------->
-  m_TagString: Untagged
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3404,7 +3404,7 @@ GameObject:
   - component: {fileID: 225680613}
   m_Layer: 0
   m_Name: <---------- PLAYER ---------->
-  m_TagString: Untagged
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12796,11 +12796,11 @@ GameObject:
   - component: {fileID: 461393609}
   m_Layer: 0
   m_Name: <---------- ENEMY ---------->
-  m_TagString: Untagged
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &461393609
 Transform:
   m_ObjectHideFlags: 0
@@ -14936,7 +14936,7 @@ GameObject:
   - component: {fileID: 664598800}
   m_Layer: 0
   m_Name: <---------- MANAGER ---------->
-  m_TagString: Untagged
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21654,7 +21654,7 @@ GameObject:
   - component: {fileID: 1177026025}
   m_Layer: 0
   m_Name: <---------- INTERACTABLES ---------->
-  m_TagString: Untagged
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23094,7 +23094,7 @@ GameObject:
   - component: {fileID: 1332263698}
   m_Layer: 0
   m_Name: <---------- ENV ---------->
-  m_TagString: Untagged
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23171,7 +23171,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Die
+  m_text: Dead
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
@@ -26975,7 +26975,7 @@ GameObject:
   - component: {fileID: 1653597340}
   m_Layer: 0
   m_Name: <---------- UI ---------->
-  m_TagString: Untagged
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

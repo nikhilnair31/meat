@@ -4918,6 +4918,3 @@ MonoBehaviour:
   maxDecals: 3
   healAmount: 1
   healTime: 0.1
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 64
