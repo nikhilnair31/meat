@@ -187,6 +187,7 @@ public class PlayerAction : MonoBehaviour
         Consumable consumable = playerInteract.currentHeldItem.GetComponent<Consumable>();
 
         holdTime += Time.deltaTime;
+        playerAnimations.ChangeAnimationState(consumable.itemData.consumingAnimName);
         playerInteract.fillableCursorImage.fillAmount = holdTime / consumable.itemData.consumeTime;
         speedReductionMultiplier = consumable.itemData.speedReductionMultiplier;
         isConsuming = true;
@@ -200,7 +201,8 @@ public class PlayerAction : MonoBehaviour
             );
             ResetConsumptionOnMouseRelease();
 
-            consumable.Drop(true);
+            consumable.Drop();
+            Destroy(consumable.gameObject);
         }
     }
     private void ResetConsumptionOnMouseRelease() {

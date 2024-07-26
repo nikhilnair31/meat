@@ -15,5 +15,6 @@ public class ConsumableItemData : ScriptableObject
     public Sprite icon;
 
     [Header("Animation Settings")]
-    public string holdingAnimationName;
+    public string holdingAnimName;
+    public string consumingAnimName;
 }

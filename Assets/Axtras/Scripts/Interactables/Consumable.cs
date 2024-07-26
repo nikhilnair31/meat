@@ -20,7 +20,7 @@ public class Consumable : Pickable
             itemCollider.enabled = false;
             itemCollider.isTrigger = false;
 
-            playerAnimations.ChangeAnimationState(itemData.holdingAnimationName);
+            playerAnimations.ChangeAnimationState(itemData.holdingAnimName);
 
             playerInteract.currentHeldItemType = PickableType.Consumable;
             playerInteract.pickupIconImage.sprite = itemData.icon;
@@ -29,7 +29,7 @@ public class Consumable : Pickable
             Debug.Log($"Item {gameObject.name} is already held");
         }
     }
-    public override void Drop(bool destroyItem) {
+    public override void Drop() {
         ShowUI = false;
 
         if (isHeld) {
@@ -48,10 +48,6 @@ public class Consumable : Pickable
             playerInteract.currentHeldItem = null;
             playerInteract.currentHeldItemType = PickableType.None;
             playerInteract.pickupIconImage.sprite = playerAction.meleeItemData.icon;
-
-            if (destroyItem) {
-                Destroy(gameObject);
-            }
         }
         else {
             Debug.Log($"Item {gameObject.name} NOT held");

@@ -19,10 +19,6 @@ public class Fireplace : Interactable
         isOn = !isOn;
         StartStopFireplace();
     }
-    public override void Pickup() {
-    }
-    public override void Drop(bool destroyItem) {
-    }
 
     public void StartStopFireplace() {
         if(isOn) flameParticle.Play(); else flameParticle.Stop();

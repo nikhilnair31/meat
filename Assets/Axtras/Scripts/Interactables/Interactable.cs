@@ -30,7 +30,7 @@ public class Interactable : MonoBehaviour
 
     public virtual void Interact() {}
     public virtual void Pickup() {}
-    public virtual void Drop(bool destroyItem = false) {}
+    public virtual void Drop() {}
     
     // FIXME: Causes scale pulsing on constant loking at item canvas
     public bool ShowUI {

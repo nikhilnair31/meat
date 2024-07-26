@@ -35,7 +35,7 @@ public class Throwable : Pickable
             Debug.Log($"Item {gameObject.name} is already held");
         }
     }
-    public override void Drop(bool destroyItem) {
+    public override void Drop() {
         ShowUI = false;
 
         if (isHeld) {

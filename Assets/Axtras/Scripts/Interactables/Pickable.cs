@@ -57,25 +57,19 @@ public class Pickable : Interactable
         UpdateWeaponColor();
 
         if (currentDurability <= 0) {
-            Break();
+            Debug.Log($"Item {gameObject.name} broke!");
+            if (isHeld) {
+                playerInteract.currentHeldItem = null;
+                playerInteract.currentHeldItemType = PickableType.None;
+                playerInteract.pickupIconImage.sprite = playerAction.meleeItemData.icon;
+
+                playerAnimations.ChangeAnimationState();
+            }
+            Destroy(gameObject);
         }
     }
     private void UpdateWeaponColor() {
         float healthRatio = currentDurability / durabilityData.maxDurability;
         weaponMaterial.color = Color.Lerp(durabilityData.finalColor, originalColor, healthRatio);
-    }
-    private void Break() {
-        Debug.Log($"Item {gameObject.name} broke!");
-
-        // FIXME: Genralize this so child classes can use similar for droppping
-        if (isHeld) {
-            playerInteract.currentHeldItem = null;
-            playerInteract.currentHeldItemType = PickableType.None;
-            playerInteract.pickupIconImage.sprite = playerAction.meleeItemData.icon;
-
-            playerAnimations.ChangeAnimationState();
-        }
-
-        Destroy(gameObject);
     }
 }
