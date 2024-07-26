@@ -19,12 +19,19 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private RectTransform healthBarRect;
     private float healthBarWidth;
 
-    [Header("Effects")]
+    [Header("Particle Effects")]
     public ParticleSystem fireEffect;
+
+    [Header("Audio Effects")]
     [SerializeField] private AudioClip hurtClip;
     [SerializeField] private AudioClip blockClip;
     [SerializeField] private AudioClip healClip;
-    [SerializeField] private float healClipVoume =2f;
+    [SerializeField] private float healClipVoume = 2f;
+
+    [Header("UI Effects")]
+    [SerializeField] private Color vignetteColor = Color.red;
+    [SerializeField] private float vignetteIntensity = 2f;
+    [SerializeField] private float vignetteFlashTime = 0.1f;
 
     private void Start() {
         menuManager = FindObjectOfType<MenuManager>();
@@ -117,6 +124,12 @@ public class PlayerHealth : MonoBehaviour
     }
     
     private void UpdateHealthEffects(AudioClip clip) {
+        Helper.FlashVignette(
+            vignetteColor,
+            vignetteIntensity,
+            vignetteFlashTime
+        );
+        
         if (clip != null) {
             Helper.PlayOneShotWithRandPitch(
                 GetComponent<AudioSource>(), 

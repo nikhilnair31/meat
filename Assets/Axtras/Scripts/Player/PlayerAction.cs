@@ -292,8 +292,6 @@ public class PlayerAction : MonoBehaviour
         }
     }
     private void ShowEffects(RaycastHit hit, ImpactEffectData impactEffectData) {
-        Debug.Log($"ShowEffects: {hit.collider.name}\nhit layer {hit.collider.gameObject.layer}\nimpact layer {impactEffectData.layer.value}");
-        // if(hit.transform.gameObject.layer == impactEffectData.layer.value) {
         if (((1 << hit.transform.gameObject.layer) & impactEffectData.layer.value) != 0) {
             Helper.CameraShake(
                 impactEffectData.hurtShakeMagnitude,

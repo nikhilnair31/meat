@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using DG.Tweening;
 using Cinemachine;
 using System.Collections.Generic;
@@ -50,6 +52,40 @@ public static class Helper
         }
         else {
             return mainCamera.transform.position + throwDirection * maxThrowDistance;
+        }
+    }
+
+    // FIXME: Fix the vignette flash on player damage
+    public static void FlashVignette(Color targetColor, float targetIntensity, float duration) {
+        Volume volume = Object.FindObjectOfType<Volume>();
+        if (volume != null && volume.profile.TryGet(out Vignette vignette)) {
+            float originalIntensity = vignette.intensity.value;
+            Color originalColor = vignette.color.value;
+
+            DOTween.To(
+                () => vignette.intensity.value, x => vignette.intensity.value = x, 
+                targetIntensity, duration / 2
+            )
+            .OnComplete(() => {
+                DOTween.To(
+                    () => vignette.intensity.value, x => vignette.intensity.value = x, 
+                    originalIntensity, duration / 2
+                );
+            });
+
+            DOTween.To(
+                () => vignette.color.value, x => vignette.color.value = x, 
+                targetColor, duration / 2
+            )
+            .OnComplete(() => {
+                DOTween.To(
+                    () => vignette.color.value, x => vignette.color.value = x, 
+                    originalColor, duration / 2
+                );
+            });
+        }
+        else {
+            Debug.LogError("Vignette not found on the Volume component.");
         }
     }
 

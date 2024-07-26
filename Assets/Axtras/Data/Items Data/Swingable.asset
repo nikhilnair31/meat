@@ -19,9 +19,9 @@ MonoBehaviour:
   attackRange: 4
   attackLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 137
   canBlock: 1
-  knockbackForce: 0
+  knockbackForce: 150
   icon: {fileID: 21300000, guid: 8554bf78838dc794b86aba8ffa84bff7, type: 3}
   impactEffectDatas:
   - {fileID: 11400000, guid: 56c3644dd2f25ee4f8f152a39c93e312, type: 2}
