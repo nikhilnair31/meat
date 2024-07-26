@@ -19,8 +19,9 @@ MonoBehaviour:
   attackRange: 2
   attackLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 137
   canBlock: 1
+  knockbackForce: 50
   icon: {fileID: 21300000, guid: e915dafa7d2cfe84d804d7c8bcf2de9b, type: 3}
   impactEffectData: {fileID: 11400000, guid: 56c3644dd2f25ee4f8f152a39c93e312, type: 2}
   idleAnimName: Idle

@@ -29,7 +29,6 @@ public class PlayerAction : MonoBehaviour
 
     [Header("Animation Properties")]
     public const string IDLE = "Idle";
-    public const string BLOCK = "Block";
 
     private void Start() {
         playerAnimations = GetComponent<PlayerAnimations>();
@@ -99,65 +98,14 @@ public class PlayerAction : MonoBehaviour
         }
     }
     private void UnarmedAttackRaycast() {
-        Debug.DrawRay(raycastSourceTranform.position, raycastSourceTranform.forward * meleeItemData.attackRange, Color.red, 1f);
-
-        if (Physics.Raycast(raycastSourceTranform.position, raycastSourceTranform.forward, out RaycastHit hit, meleeItemData.attackRange, meleeItemData.attackLayer))
-        {
-            Debug.Log($"UnarmedAttackRaycast hit name {hit.collider.name} of tag {hit.collider.tag}");
-            if (hit.collider.CompareTag("Limb"))
-            {
-                TransformCollector transformCollector = Helper.GetComponentInParentByTag<TransformCollector>(hit.transform, "Enemy");
-                if (transformCollector != null)
-                {
-                    foreach (TransformData data in transformCollector.transformDataList)
-                    {
-                        if (data.transformName.Contains(hit.collider.name))
-                        {
-                            float scaledDamageAmount = meleeItemData.damageAmount * data.transformDamageMultiplier;
-
-                            data.transformCurrentHealth -= scaledDamageAmount;
-
-                            EnemyHealth enemyHealth = Helper.GetComponentInParentByTag<EnemyHealth>(hit.transform, "Enemy");
-                            if (enemyHealth != null)
-                            {
-                                enemyHealth.DiffHealth(scaledDamageAmount, meleeItemData.damageDuration);
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    // Debug.LogError($"TransformCollector not found on {hit.collider.name}");
-                }
-            }
-            else
-            {
-                // Debug.Log($"Player hit something else! {hit.collider.name}");
-            }
-
-            GameObject impactParticlePrefab = meleeItemData.impactEffectData.impactParticlePrefab;
-            if (impactParticlePrefab != null && hit.collider != null)
-            {
-                GameObject impactParticle = Instantiate(impactParticlePrefab, hit.point, Quaternion.LookRotation(hit.normal));
-                Destroy(impactParticle, 2f);
-            }
-
-            Helper.PlayOneShotWithRandPitch(
-                GetComponent<AudioSource>(),
-                meleeItemData.impactEffectData.impactClip,
-                meleeItemData.impactEffectData.impactVolume,
-                meleeItemData.impactEffectData.randPitch
-            );
-            Helper.CameraShake(
-                meleeItemData.impactEffectData.hurtShakeMagnitude,
-                meleeItemData.impactEffectData.hurtShakeDuration,
-                meleeItemData.impactEffectData.hurtShakeMultiplier
-            );
-        }
-        else
-        {
-            // Debug.Log("Did not hit anything");
-        }
+        AttackRaycast(
+            meleeItemData.attackLayer
+            , meleeItemData.attackRange
+            , meleeItemData.damageAmount
+            , meleeItemData.damageDuration
+            , meleeItemData.knockbackForce
+            , meleeItemData.impactEffectData
+        );
     }
     private void UnarmedAttackReset() {
         isAttacking = false;
@@ -199,66 +147,14 @@ public class PlayerAction : MonoBehaviour
     }
     private void SwingableAttackRaycast() {
         Swingable swingable = playerInteract.currentHeldItem.GetComponent<Swingable>();
-
-        Debug.DrawRay(raycastSourceTranform.position, raycastSourceTranform.forward * swingable.itemData.attackRange, Color.red, 1f);
-
-        if (Physics.Raycast(raycastSourceTranform.position, raycastSourceTranform.forward, out RaycastHit hit, swingable.itemData.attackRange, swingable.itemData.attackLayer))
-        {
-            Debug.Log($"SwingableAttackRaycast hit name {hit.collider.name} of tag {hit.collider.tag}");
-            if (hit.collider.CompareTag("Limb"))
-            {
-                TransformCollector transformCollector = Helper.GetComponentInParentByTag<TransformCollector>(hit.transform, "Enemy");
-                if (transformCollector != null)
-                {
-                    foreach (TransformData data in transformCollector.transformDataList)
-                    {
-                        if (data.transformName.Contains(hit.collider.name))
-                        {
-                            float scaledDamageAmount = swingable.itemData.damageAmount * data.transformDamageMultiplier;
-
-                            data.transformCurrentHealth -= scaledDamageAmount;
-
-                            EnemyHealth enemyHealth = Helper.GetComponentInParentByTag<EnemyHealth>(hit.transform, "Enemy");
-                            if (enemyHealth != null)
-                            {
-                                enemyHealth.DiffHealth(scaledDamageAmount, swingable.itemData.damageDuration);
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    // Debug.LogError($"TransformCollector not found on {hit.collider.name}");
-                }
-            }
-            else
-            {
-                // Debug.Log($"Player hit something else! {hit.collider.name}");
-            }
-
-            GameObject impactParticlePrefab = swingable.itemData.impactEffectData.impactParticlePrefab;
-            if (impactParticlePrefab != null && hit.collider != null)
-            {
-                GameObject impactParticle = Instantiate(impactParticlePrefab, hit.point, Quaternion.LookRotation(hit.normal));
-                Destroy(impactParticle, 2f);
-            }
-
-            Helper.PlayOneShotWithRandPitch(
-                GetComponent<AudioSource>(),
-                swingable.itemData.impactEffectData.impactClip,
-                swingable.itemData.impactEffectData.impactVolume,
-                swingable.itemData.impactEffectData.randPitch
-            );
-            Helper.CameraShake(
-                swingable.itemData.impactEffectData.hurtShakeMagnitude,
-                swingable.itemData.impactEffectData.hurtShakeDuration,
-                swingable.itemData.impactEffectData.hurtShakeMultiplier
-            );
-        }
-        else
-        {
-            // Debug.Log("Did not hit anything");
-        }
+        AttackRaycast(
+            swingable.itemData.attackLayer
+            , swingable.itemData.attackRange
+            , swingable.itemData.damageAmount
+            , swingable.itemData.damageDuration
+            , swingable.itemData.knockbackForce
+            , swingable.itemData.impactEffectData
+        );
     }
     private void SwingableAttackReset() {
         isAttacking = false;
@@ -338,4 +234,76 @@ public class PlayerAction : MonoBehaviour
         playerAnimations.ChangeAnimationState(IDLE);
     }
     #endregion
+
+    #region General
+    private void AttackRaycast(LayerMask layer, float range, float damageAmount, float damageDuration, float knockbackForce, ImpactEffectData impactEffectData) {
+        Debug.DrawRay(raycastSourceTranform.position, raycastSourceTranform.forward * range, Color.red, 1f);
+
+        if (Physics.Raycast(raycastSourceTranform.position, raycastSourceTranform.forward, out RaycastHit hit, range, layer))
+        {
+            Debug.Log($"SwingableAttackRaycast hit name {hit.collider.name} of tag {hit.collider.tag}");
+            if (hit.collider.CompareTag("Limb")) {
+                LimbImpact(hit.transform, damageAmount, damageDuration);
+            }
+            else {
+                OtherImpact(hit.transform, hit.point, knockbackForce);
+            }
+
+            GameObject impactParticlePrefab = impactEffectData.impactParticlePrefab;
+            if (impactParticlePrefab != null && hit.collider != null) {
+                GameObject impactParticle = Instantiate(impactParticlePrefab, hit.point, Quaternion.LookRotation(hit.normal));
+                Destroy(impactParticle, 2f);
+            }
+
+            Helper.PlayOneShotWithRandPitch(
+                GetComponent<AudioSource>(),
+                impactEffectData.impactClip,
+                impactEffectData.impactVolume,
+                impactEffectData.randPitch
+            );
+            Helper.CameraShake(
+                impactEffectData.hurtShakeMagnitude,
+                impactEffectData.hurtShakeDuration,
+                impactEffectData.hurtShakeMultiplier
+            );
+        }
+        else {
+            // Debug.Log("Did not hit anything");
+        }
+    }
+    private void LimbImpact(Transform hit, float damageAmount, float damageDuration) {
+        Debug.Log($"LimbImpact: {hit.name}");
+        
+        TransformCollector transformCollector = Helper.GetComponentInParentByTag<TransformCollector>(hit, "Enemy");
+        if (transformCollector != null) {
+            foreach (TransformData data in transformCollector.transformDataList) {
+                if (data.transformName.Contains(hit.name)) {
+                    float scaledDamageAmount = damageAmount * data.transformDamageMultiplier;
+
+                    data.transformCurrentHealth -= scaledDamageAmount;
+
+                    EnemyHealth enemyHealth = Helper.GetComponentInParentByTag<EnemyHealth>(hit, "Enemy");
+                    if (enemyHealth != null) {
+                        enemyHealth.DiffHealth(scaledDamageAmount, damageDuration);
+                    }
+                }
+            }
+        }
+        else {
+            Debug.LogError($"TransformCollector not found on {hit.name}");
+        }
+    }
+    private void OtherImpact(Transform hit, Vector3 hitPoint, float knockbackForce) {
+        Debug.Log($"OtherImpact: {hit.name}");
+
+        if (hit.TryGetComponent<Rigidbody>(out Rigidbody rb)) {
+            rb.AddForceAtPosition(
+                raycastSourceTranform.forward * knockbackForce, 
+                hitPoint, 
+                ForceMode.Impulse
+            );
+        }
+    }
+    #endregion
+
 }

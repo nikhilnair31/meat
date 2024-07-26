@@ -16,9 +16,13 @@ public class MeleeItemData : ScriptableObject
     [Header("Defend Settings")]
     public bool canBlock;
 
+    [Header("Physics Settings")]
+    public float knockbackForce;
+
     [Header("UI Settings")]
     public Sprite icon;
 
+    // FIXME: Improve the particle system to support multiple effects
     [Header("Impact Settings")]
     public ImpactEffectData impactEffectData;
 

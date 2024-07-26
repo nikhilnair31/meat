@@ -5,7 +5,6 @@ public class BloodHealth : Blood
     [Header("Heal Properties")]
     [SerializeField] private float healAmount = 20;
     [SerializeField] private float healTime = 0f;
-    [SerializeField] private LayerMask playerLayer;
     
     protected override void OnParticleCollision(GameObject other) {
         base.OnParticleCollision(other);

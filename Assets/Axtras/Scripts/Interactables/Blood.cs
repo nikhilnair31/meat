@@ -39,6 +39,7 @@ public class Blood : MonoBehaviour
         }
     }
 
+    // TODO: Check if this raycast approach can be improved
     private void SpawnBloodDecalsWithSphereRaycasts() {
         for (int i = 0; i < numberOfRays; i++) {
             Vector3 randomDirection = Random.onUnitSphere;
