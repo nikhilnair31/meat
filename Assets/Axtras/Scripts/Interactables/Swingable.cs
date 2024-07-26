@@ -9,9 +9,10 @@ public class Swingable : Pickable
     public MeleeItemData itemData;
 
     public override void Pickup() {
+        ShowUI = false;
+
         if (!isHeld) {
             isHeld = true;
-            ShowUI = false;
             
             transform.SetParent(playerInteract.playerInteractHolder);
             transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
@@ -32,9 +33,10 @@ public class Swingable : Pickable
         }
     }
     public override void Drop(bool destroyItem) {
+        ShowUI = false;
+
         if (isHeld) {
             isHeld = false;
-            ShowUI = false;
 
             transform.SetParent(null);
             

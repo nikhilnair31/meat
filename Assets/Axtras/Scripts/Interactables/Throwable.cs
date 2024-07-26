@@ -12,9 +12,10 @@ public class Throwable : Pickable
     [SerializeField] private ImpactEffectData impactEffectData;
 
     public override void Pickup() {
+        ShowUI = false;
+
         if (!isHeld) {
             isHeld = true;
-            ShowUI = false;
 
             transform.SetParent(playerInteract.playerInteractHolder);
             transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
@@ -35,9 +36,10 @@ public class Throwable : Pickable
         }
     }
     public override void Drop(bool destroyItem) {
+        ShowUI = false;
+
         if (isHeld) {
             isHeld = false;
-            ShowUI = false;
 
             transform.SetParent(null);
             

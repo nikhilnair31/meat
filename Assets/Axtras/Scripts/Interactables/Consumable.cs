@@ -6,9 +6,10 @@ public class Consumable : Pickable
     public ConsumableItemData itemData;
 
     public override void Pickup() {
+        ShowUI = false;
+
         if (!isHeld) {
             isHeld = true;
-            ShowUI = false;
 
             transform.SetParent(playerInteract.playerInteractHolder);
             transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
@@ -29,9 +30,10 @@ public class Consumable : Pickable
         }
     }
     public override void Drop(bool destroyItem) {
+        ShowUI = false;
+
         if (isHeld) {
             isHeld = false;
-            ShowUI = false;
 
             transform.SetParent(null);
             
