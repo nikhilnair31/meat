@@ -298,6 +298,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0558e5fcb96eeb4bbe439628e384963, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  randPos: 1
+  randPosAmount: 5
+  randRot: 1
+  randRotAmount: 360
   allowedTags:
   - Ground
   - Untagged

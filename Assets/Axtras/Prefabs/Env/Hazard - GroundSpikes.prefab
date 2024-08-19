@@ -123,7 +123,7 @@ MonoBehaviour:
   - Enemy
   - Physics
   spikeTransform: {fileID: 1368575581821540010}
-  spikeMoveY: 0.001
+  spikeMoveY: 1
   spikeMoveInTime: 0.1
   spikeInTime: 1
   damageAmount: 1000

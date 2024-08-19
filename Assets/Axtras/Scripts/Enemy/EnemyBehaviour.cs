@@ -289,7 +289,7 @@ public class EnemyBehaviour : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * attackLookAtPlayerSpeed);
     }
 
-    private void OnDrawGizmos() {
+    private void OnDrawGizmosSelected() {
         Gizmos.DrawWireSphere(transform.position, detectionDistanceRange);
         Gizmos.color = Color.white;
         

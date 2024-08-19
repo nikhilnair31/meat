@@ -24,94 +24,99 @@ public class MenuManager : MonoBehaviour
         get { return isPaused; }
         set { 
             isPaused = value;
-            HandleMenuTransition(
-                isPaused, 
-                gameMenuTransitionImage, 
-                gameMenu, 
-                pauseMenuTransitionImage, 
-                pauseMenu
-            );
-            Time.timeScale = isPaused ? 0f : 1f;
-        //     if(isPaused) {
-        //         gameMenuTransitionImage
-        //         .DOFade(1f, transitionDuration)
-        //         .OnStart(() => gameMenuTransitionImage.DOFade(0f, 0f))
-        //         .OnComplete(() => gameMenu.SetActive(false))
-        //         .SetUpdate(true);
 
-        //         pauseMenuTransitionImage
-        //         .DOFade(1f, transitionDuration)
-        //         .OnStart(() => {
-        //             pauseMenuTransitionImage.DOFade(1f, 0f);
-        //             pauseMenu.SetActive(true);
-        //         })
-        //         .SetUpdate(true);
+            // HandleMenuTransition(
+            //     isPaused, 
+            //     gameMenuTransitionImage, 
+            //     gameMenu, 
+            //     pauseMenuTransitionImage, 
+            //     pauseMenu
+            // );
 
-        //         Time.timeScale = 0f;
-        //     }
-        //     else {
-        //         pauseMenuTransitionImage
-        //         .DOFade(0f, transitionDuration)
-        //         .OnComplete(() => pauseMenu.SetActive(false))
-        //         .SetUpdate(true);
+            // Time.timeScale = isPaused ? 0f : 1f;
 
-        //         gameMenuTransitionImage
-        //         .DOFade(0f, transitionDuration)
-        //         .OnStart(() => {
-        //             gameMenuTransitionImage.DOFade(0f, 0f);
-        //             gameMenu.SetActive(true);
-        //         })
-        //         .SetUpdate(true);
+            if(isPaused) {
+                gameMenuTransitionImage
+                .DOFade(1f, transitionDuration)
+                .OnStart(() => gameMenuTransitionImage.DOFade(0f, 0f))
+                .OnComplete(() => gameMenu.SetActive(false))
+                .SetUpdate(true);
 
-        //         Time.timeScale = 1f;
-        //     }
+                pauseMenuTransitionImage
+                .DOFade(1f, transitionDuration)
+                .OnStart(() => {
+                    pauseMenuTransitionImage.DOFade(1f, 0f);
+                    pauseMenu.SetActive(true);
+                })
+                .SetUpdate(true);
+
+                Time.timeScale = 0f;
+            }
+            else {
+                pauseMenuTransitionImage
+                .DOFade(0f, transitionDuration)
+                .OnComplete(() => pauseMenu.SetActive(false))
+                .SetUpdate(true);
+
+                gameMenuTransitionImage
+                .DOFade(0f, transitionDuration)
+                .OnStart(() => {
+                    gameMenuTransitionImage.DOFade(0f, 0f);
+                    gameMenu.SetActive(true);
+                })
+                .SetUpdate(true);
+
+                Time.timeScale = 1f;
+            }
         }
     }
     public bool IsDead {
         get { return isDead; }
         set { 
             isDead = value;
-            HandleMenuTransition(
-                isDead, 
-                gameMenuTransitionImage, 
-                gameMenu, 
-                deadMenuTransitionImage, 
-                deadMenu
-            );
-            Time.timeScale = isDead ? 0f : 1f;
-        //     if(isDead) {
-        //         gameMenuTransitionImage
-        //         .DOFade(1f, transitionDuration)
-        //         .OnStart(() => gameMenuTransitionImage.DOFade(0f, 0f))
-        //         .OnComplete(() => gameMenu.SetActive(false))
-        //         .SetUpdate(true);
 
-        //         deadMenuTransitionImage
-        //         .DOFade(1f, transitionDuration)
-        //         .OnStart(() => {
-        //             deadMenuTransitionImage.DOFade(1f, 0f);
-        //             deadMenu.SetActive(true);
-        //         })
-        //         .SetUpdate(true);
+            // HandleMenuTransition(
+            //     isDead, 
+            //     gameMenuTransitionImage, 
+            //     gameMenu, 
+            //     deadMenuTransitionImage, 
+            //     deadMenu
+            // );
+            // Time.timeScale = isDead ? 0f : 1f;
 
-        //         Time.timeScale = 0f;
-        //     }
-        //     else {
-        //         deadMenuTransitionImage
-        //         .DOFade(0f, transitionDuration)
-        //         .OnComplete(() => deadMenu.SetActive(false))
-        //         .SetUpdate(true);
+            if(isDead) {
+                gameMenuTransitionImage
+                .DOFade(1f, transitionDuration)
+                .OnStart(() => gameMenuTransitionImage.DOFade(0f, 0f))
+                .OnComplete(() => gameMenu.SetActive(false))
+                .SetUpdate(true);
 
-        //         gameMenuTransitionImage
-        //         .DOFade(0f, transitionDuration)
-        //         .OnStart(() => {
-        //             gameMenuTransitionImage.DOFade(0f, 0f);
-        //             gameMenu.SetActive(true);
-        //         })
-        //         .SetUpdate(true);
+                deadMenuTransitionImage
+                .DOFade(1f, transitionDuration)
+                .OnStart(() => {
+                    deadMenuTransitionImage.DOFade(1f, 0f);
+                    deadMenu.SetActive(true);
+                })
+                .SetUpdate(true);
 
-        //         Time.timeScale = 1f;
-        //     }
+                Time.timeScale = 0f;
+            }
+            else {
+                deadMenuTransitionImage
+                .DOFade(0f, transitionDuration)
+                .OnComplete(() => deadMenu.SetActive(false))
+                .SetUpdate(true);
+
+                gameMenuTransitionImage
+                .DOFade(0f, transitionDuration)
+                .OnStart(() => {
+                    gameMenuTransitionImage.DOFade(0f, 0f);
+                    gameMenu.SetActive(true);
+                })
+                .SetUpdate(true);
+
+                Time.timeScale = 1f;
+            }
         }
     }
 
@@ -142,27 +147,27 @@ public class MenuManager : MonoBehaviour
         IsDead = true;
     }
 
-    private void HandleMenuTransition(bool isTransitionActive, Image gameMenuTransitionImage, GameObject gameMenu, Image targetMenuTransitionImage, GameObject targetMenu) {
-        if (isTransitionActive) {
-            TransitionToMenu(gameMenuTransitionImage, gameMenu, targetMenuTransitionImage, targetMenu, true);
-        } else {
-            TransitionToMenu(targetMenuTransitionImage, targetMenu, gameMenuTransitionImage, gameMenu, false);
-        }
-    }
+    // private void HandleMenuTransition(bool isTransitionActive, Image gameMenuTransitionImage, GameObject gameMenu, Image targetMenuTransitionImage, GameObject targetMenu) {
+    //     if (isTransitionActive) {
+    //         TransitionToMenu(gameMenuTransitionImage, gameMenu, targetMenuTransitionImage, targetMenu, true);
+    //     } else {
+    //         TransitionToMenu(targetMenuTransitionImage, targetMenu, gameMenuTransitionImage, gameMenu, false);
+    //     }
+    // }
 
-    private void TransitionToMenu(Image fadeOutImage, GameObject fadeOutMenu, Image fadeInImage, GameObject fadeInMenu, bool setActive) {
-        fadeOutImage
-            .DOFade(1f, transitionDuration)
-            .OnStart(() => fadeOutImage.DOFade(0f, 0f))
-            .OnComplete(() => fadeOutMenu.SetActive(false))
-            .SetUpdate(true);
+    // private void TransitionToMenu(Image fadeOutImage, GameObject fadeOutMenu, Image fadeInImage, GameObject fadeInMenu, bool setActive) {
+    //     fadeOutImage
+    //         .DOFade(1f, transitionDuration)
+    //         .OnStart(() => fadeOutImage.DOFade(0f, 0f))
+    //         .OnComplete(() => fadeOutMenu.SetActive(false))
+    //         .SetUpdate(true);
 
-        fadeInImage
-            .DOFade(1f, transitionDuration)
-            .OnStart(() => {
-                fadeInImage.DOFade(1f, 0f);
-                fadeInMenu.SetActive(setActive);
-            })
-            .SetUpdate(true);
-    }
+    //     fadeInImage
+    //         .DOFade(1f, transitionDuration)
+    //         .OnStart(() => {
+    //             fadeInImage.DOFade(1f, 0f);
+    //             fadeInMenu.SetActive(setActive);
+    //         })
+    //         .SetUpdate(true);
+    // }
 }
