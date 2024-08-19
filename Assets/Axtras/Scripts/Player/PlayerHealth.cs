@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour 
 {
@@ -27,6 +28,11 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private AudioClip blockClip;
     [SerializeField] private AudioClip healClip;
     [SerializeField] private float healClipVoume = 2f;
+
+    [Header("Damage Effects")]
+    [SerializeField] private Color flashColor = Color.red;
+    [SerializeField] private Image flashImage;
+    [SerializeField] private float flashInTime = 0.2f;
 
     [Header("UI Effects")]
     [SerializeField] private Color vignetteColor = Color.red;
@@ -124,10 +130,11 @@ public class PlayerHealth : MonoBehaviour
     }
     
     private void UpdateHealthEffects(AudioClip clip) {
-        Helper.FlashVignette(
-            vignetteColor,
-            vignetteIntensity,
-            vignetteFlashTime
+        Helper.FlashDamage(
+            flashImage,
+            this,
+            flashInTime,
+            flashColor
         );
         
         if (clip != null) {

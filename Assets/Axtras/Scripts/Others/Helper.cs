@@ -6,9 +6,12 @@ using DG.Tweening;
 using Cinemachine;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using System.Collections;
 
 public static class Helper
 {
+    private static Coroutine flashCoroutine;
+
     public static void CameraShake(float amplitude, float duration, float amplitudemultiplier = 1f) {
         // Get the Cinemachine Basic Multi Channel Perlin component from the virtual camera
         CinemachineVirtualCamera virtualCamera = GameObject.Find("Game Virtual Camera").GetComponent<CinemachineVirtualCamera>();
@@ -87,6 +90,27 @@ public static class Helper
         else {
             Debug.LogError("Vignette not found on the Volume component.");
         }
+    }
+    public static void FlashDamage(Image image, MonoBehaviour caller, float flashDuration, Color flashColor) {
+        if (image != null) {
+            // If there is an ongoing flash, stop it
+            if (flashCoroutine != null) {
+                caller.StopCoroutine(flashCoroutine);
+            }
+
+            // Start a new flash
+            flashCoroutine = caller.StartCoroutine(FlashCoroutine(image, flashDuration, flashColor));
+        }
+    }
+    private static IEnumerator FlashCoroutine(Image image, float flashDuration, Color flashColor) {
+        Color originalColor = image.color;
+
+        image.color = flashColor;
+        yield return new WaitForSeconds(flashDuration / 2);
+        image.color = originalColor;
+
+        yield return null;
+        flashCoroutine = null;
     }
 
     public static void PlayOneShotWithRandPitch(AudioSource audioSource, AudioClip clip, float volume, bool randPitch) {

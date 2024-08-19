@@ -1240,12 +1240,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 3
   chaseSpeed: 8
+  detectionRaycastSourceTransform: {fileID: 5277444228164352837}
+  detectionLayermask:
+    serializedVersion: 2
+    m_Bits: 137
   detectionDistanceRange: 15
   detectionAngleRange: 90
   searchingDuration: 10
   attackDistanceRange: 3.3
   attackLookAtPlayerSpeed: 5
   resetAfterDuration: 30
+  isAtInitPosAnim: Idle
+  isChasingAnim: Idle
+  isSearchingAnim: Idle
+  isReturningAnim: Idle
+  canAttackAnim: Idle
+  isAttackingAnim: Idle
 --- !u!114 &6802966947559017601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2097,7 +2107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 430db9cfbecd6c5499c3e6fc36a9816a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meleeWeaponData: {fileID: 11400000, guid: 7525be46a58e77e48a2bcc3a62d9392b, type: 2}
+  meleeItemData: {fileID: 0}
 --- !u!1 &7883102816300313208
 GameObject:
   m_ObjectHideFlags: 0
